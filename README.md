@@ -11,3 +11,7 @@ https://marred-aura-ac1.notion.site/Ground-Rules-15671bb4d0004eb483f9bc6604ad3a2
 - 삼성전기 팀의 기능 명세서
 
 https://marred-aura-ac1.notion.site/54e91de2a37a4f488067a57a367f5e0d
+
+- 현재 저희가 찾은 AI 모델(Unet 기반) 기본 코드
+
+https://lab.ssafy.com/s05-final/S05P31F004/-/tree/feature/AI_model
