@@ -1,4 +1,4 @@
-<h1>삼성전기 Segmentation tool 개발 프로젝트
+<h1>삼성전기 Segmentation tool 개발 프로젝트</h1>
 
 - 삼성전기 팀의 커밋 메세지 가이드
 
