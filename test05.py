@@ -339,6 +339,8 @@ class MyApp(QWidget):
         getModel = QPushButton('모델 추출')
         testComButton = QPushButton('Test 비교하기')
 
+        # 결과값 화면 보여주는 공간 배치
+        # for문 써서 조금 더 효율적으로 만들려고함!! -> 이래야 테스트버튼 눌렀을 때 나오는 결과도 작업하기 편리할 듯해서..
         resultBox0 = QHBoxLayout()
         resultBox0.addWidget(label3)
         resultBox0.addStretch(1)
