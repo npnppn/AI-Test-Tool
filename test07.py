@@ -51,7 +51,6 @@ class MyApp(QWidget):
         # QDialog 설정
         self.dialog = QDialog()
         self.learning = QDialog()
-        self.gray = QDialog()
 
         self.setWindowTitle('main')
         # 창 크기 고정
@@ -206,6 +205,7 @@ class MyApp(QWidget):
 
     # 테스트 페이지
     def testOpen(self):
+
         # self.dialog = QDialog()
 
         # 이미지 불러오기
@@ -246,7 +246,6 @@ class MyApp(QWidget):
 
         # 리스트 클릭 이벤트
         self.listwidget.itemClicked.connect(self.chkItemClicked)
-
 
 
         # 폰트 및 글자
@@ -375,7 +374,6 @@ class MyApp(QWidget):
         hbox.addLayout(resultBox)
         hbox.setStretchFactor(resultBox, 2)
 
-
         # hbox.addWidget(self.lbl_img4)
         # hbox.addStretch(1)              # 결과값 넣을 곳
 
@@ -391,18 +389,6 @@ class MyApp(QWidget):
         self.lbl_img4.setPixmap(self.pixmap4)
         self.lbl_img4.setGeometry(252, 19, 450, 500)
 
-
-        self.pixmap5 = QPixmap('./img/dark.png')
-        self.lbl_img5 = QLabel(self.dialog)
-        self.lbl_img5.setPixmap(self.pixmap5)
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
-        opacity_effect.setOpacity(0.5)
-        self.lbl_img5.setGraphicsEffect(opacity_effect)
-        self.pixmap5 = self.pixmap5.scaled(1200, 800)
-        self.lbl_img5.setPixmap(self.pixmap5)
-        self.lbl_img5.setGeometry(0, 0, 0, 0)
-
-
         # self.roding2 = QDialog()
 
         # QDialog 세팅
@@ -410,6 +396,7 @@ class MyApp(QWidget):
         self.dialog.setWindowModality(Qt.NonModal)
         # self.dialog.setGeometry(350,100,1200,800)
         self.dialog.setFixedSize(1200, 800)
+        # self.dialog.setStyleSheet("background-color: black; color: white;")
         self.hide()
         self.learning.hide()
         self.dialog.show()
@@ -446,7 +433,8 @@ class MyApp(QWidget):
         self.lbl_imgLearning.setPixmap(self.pixmapLearning)
 
     def roding(self):
-
+        # 투명 다이로그
+        self.learning.setWindowOpacity(0.8);
         label0 = QLabel('학습 중 ...', self)
         label0.setAlignment(Qt.AlignCenter)
         font0 = label0.font()
@@ -484,10 +472,13 @@ class MyApp(QWidget):
         self.roding.show()
 
     def roding2(self):
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
-        opacity_effect.setOpacity(0.5)
-        self.lbl_img5.setGraphicsEffect(opacity_effect)
-        self.lbl_img5.setGeometry(0, 0, 1200, 800)
+        # self.dialog.hide()
+        # self.dialog.setStyleSheet("background:transparent")
+        # # self.dialog.setWindowFlag(Qt.FramelessWindowHint)
+        # self.dialog.setAttribute(Qt.WA_TranslucentBackground)
+        self.dialog.setWindowOpacity(0.8);
+        # self.dialog.setWindowFlags(Qt.FramelessWindowHint | Qt.Tool)
+        # self.dialog.setAttribute(Qt.WA_TranslucentBackground)
 
         epoch = 1
         # 결과 값 변경
@@ -534,13 +525,11 @@ class MyApp(QWidget):
 
     def cancel(self):
         self.roding.hide()
+        self.learning.setWindowOpacity(1);
     def cancel2(self):
         self.roding2.hide()
+        self.dialog.setWindowOpacity(1);
 
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
-        opacity_effect.setOpacity(0.5)
-        self.lbl_img5.setGraphicsEffect(opacity_effect)
-        self.lbl_img5.setGeometry(0, 0, 0, 0)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
