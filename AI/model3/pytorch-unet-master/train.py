@@ -17,6 +17,10 @@ import matplotlib.pyplot as plt
 
 from torchvision import transforms, datasets
 
+import gc
+gc.collect()
+torch.cuda.empty_cache()
+
 ## Parser 생성하기
 parser = argparse.ArgumentParser(description="Train the UNet",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -69,10 +73,10 @@ if mode == 'train':
     transform = transforms.Compose([Normalization(mean=0.5, std=0.5), RandomFlip(), ToTensor()])
 
     dataset_train = Dataset(data_dir=os.path.join(data_dir, 'train'), transform=transform)
-    loader_train = DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=8)
+    loader_train = DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=0)
 
     dataset_val = Dataset(data_dir=os.path.join(data_dir, 'val'), transform=transform)
-    loader_val = DataLoader(dataset_val, batch_size=batch_size, shuffle=False, num_workers=8)
+    loader_val = DataLoader(dataset_val, batch_size=batch_size, shuffle=False, num_workers=0)
 
     # 그밖에 부수적인 variables 설정하기
     num_data_train = len(dataset_train)
@@ -84,7 +88,7 @@ else:
     transform = transforms.Compose([Normalization(mean=0.5, std=0.5), ToTensor()])
 
     dataset_test = Dataset(data_dir=os.path.join(data_dir, 'test'), transform=transform)
-    loader_test = DataLoader(dataset_test, batch_size=batch_size, shuffle=False, num_workers=8)
+    loader_test = DataLoader(dataset_test, batch_size=batch_size, shuffle=False, num_workers=0)
 
     # 그밖에 부수적인 variables 설정하기
     num_data_test = len(dataset_test)
