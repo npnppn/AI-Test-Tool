@@ -51,6 +51,7 @@ class MyApp(QWidget):
         # QDialog 설정
         self.dialog = QDialog()
         self.learning = QDialog()
+        self.gray = QDialog()
 
         self.setWindowTitle('main')
         # 창 크기 고정
@@ -58,8 +59,9 @@ class MyApp(QWidget):
         # 창 반응형
         # self.setGeometry(550, 100, 800, 600)
         self.center()
-        self.testOpen()
-        # self.show()
+        # self.testOpen()
+        self.setStyleSheet("background-color: #0c4da2; color: white;")
+        self.show()
 
     # 메인페이지 중앙 위치
     def center(self):
@@ -196,6 +198,16 @@ class MyApp(QWidget):
 
         self.learning.setLayout(hbox)
 
+        self.pixmap5 = QPixmap('./img/dark.png')
+        self.lbl_img5 = QLabel(self.learning)
+        self.lbl_img5.setPixmap(self.pixmap5)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img5.setGraphicsEffect(opacity_effect)
+        self.pixmap5 = self.pixmap5.scaled(1200, 800)
+        self.lbl_img5.setPixmap(self.pixmap5)
+        self.lbl_img5.setGeometry(0, 0, 0, 0)
+
         self.roding = QDialog()
 
         # QDialog 세팅
@@ -205,7 +217,8 @@ class MyApp(QWidget):
         # self.dialog.setGeometry(350, 100, 1200, 800)
         # 크기 고정
         self.learning.setFixedSize(1200, 800)
-        # self.learning.setStyleSheet("background-color: black; color: white;")
+        # 배경색 변경
+        self.learning.setStyleSheet("background-color: #0c4da2; color: white;")
         self.learning.show()
         # 메인페이지 종료
         self.hide()
@@ -373,10 +386,10 @@ class MyApp(QWidget):
         resultBox.addRow(getModel)
         resultBox.addRow(testComButton)
 
-        #색깔 변경은 어떻게 할까?
-        self.setStyleSheet('color: blue; background:rgb(255,0,0)')
+
 
         self.setLayout(resultBox)
+        self.setStyleSheet("background-color: #0c4da2; color: white;")
         self.show()
 
         startTest.clicked.connect(self.roding2)
@@ -406,10 +419,17 @@ class MyApp(QWidget):
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
         self.lbl_img4.setGeometry(252, 19, 450, 500)
-        # self.lbl_img4.move(252,-116)
-        # self.lbl_img4.resize(450,700)
 
-        # self.dialog.setLayout(self.lbl_img4)
+
+        self.pixmap5 = QPixmap('./img/dark.png')
+        self.lbl_img5 = QLabel(self.dialog)
+        self.lbl_img5.setPixmap(self.pixmap5)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img5.setGraphicsEffect(opacity_effect)
+        self.pixmap5 = self.pixmap5.scaled(1200, 800)
+        self.lbl_img5.setPixmap(self.pixmap5)
+        self.lbl_img5.setGeometry(0, 0, 0, 0)
 
 
         # self.roding2 = QDialog()
@@ -421,6 +441,7 @@ class MyApp(QWidget):
         self.dialog.setFixedSize(1200, 800)
         self.hide()
         self.learning.hide()
+        self.dialog.setStyleSheet("background-color: #0c4da2; color: white;")
         self.dialog.show()
 
     # 리스트 클릭시 이미지 변경 ( test )
@@ -442,22 +463,23 @@ class MyApp(QWidget):
 
         self.pixmap4 = QPixmap('./mask/' + s[0] + ".png")
         self.lbl_img4.setPixmap(self.pixmap4)
-        # opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
-        # opacity_effect.setOpacity(0.2)
-        # self.lbl_img4.setGraphicsEffect(opacity_effect)
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
         self.lbl_img4.setGeometry(252, 19, 450, 500)
 
     # 리스트 클릭시 이미지 변경
     def chkItemClicked2(self):
-            print(self.listwidgetLearning.currentItem().text())
-            self.pixmapLearning = QPixmap('./test/'+self.listwidgetLearning.currentItem().text())
+        print(self.listwidgetLearning.currentItem().text())
+        self.pixmapLearning = QPixmap('./test/'+self.listwidgetLearning.currentItem().text())
 
-            self.pixmapLearning = self.pixmapLearning.scaled(700,700)
-            self.lbl_imgLearning.setPixmap(self.pixmapLearning)
+        self.pixmapLearning = self.pixmapLearning.scaled(700,700)
+        self.lbl_imgLearning.setPixmap(self.pixmapLearning)
 
     def roding(self):
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img5.setGraphicsEffect(opacity_effect)
+        self.lbl_img5.setGeometry(0, 0, 1200, 800)
 
         label0 = QLabel('학습 중 ...', self)
         label0.setAlignment(Qt.AlignCenter)
@@ -496,6 +518,11 @@ class MyApp(QWidget):
         self.roding.show()
 
     def roding2(self):
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img5.setGraphicsEffect(opacity_effect)
+        self.lbl_img5.setGeometry(0, 0, 1200, 800)
+
         epoch = 1
         # 결과 값 변경
         self.epoch_widget.setText(str(epoch))
@@ -532,16 +559,27 @@ class MyApp(QWidget):
 
         self.roding2.setLayout(vbox)
 
+
         self.roding2.setWindowTitle('roding')
         self.roding2.setWindowModality(Qt.ApplicationModal)
         self.roding2.setFixedSize(600, 400)
+        # self.dialog.setStyleSheet("background-color: black;")
         self.roding2.show()
 
     def cancel(self):
         self.roding.hide()
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img5.setGraphicsEffect(opacity_effect)
+        self.lbl_img5.setGeometry(0, 0, 0, 0)
+
     def cancel2(self):
         self.roding2.hide()
 
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img5.setGraphicsEffect(opacity_effect)
+        self.lbl_img5.setGeometry(0, 0, 0, 0)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
