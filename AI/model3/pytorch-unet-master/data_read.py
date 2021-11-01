@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 
-path = './data_image/'
+path = './data_image_test/'
 
 dir_save_train = os.path.join(path, 'train')
 dir_save_val = os.path.join(path, 'val')
@@ -18,8 +18,8 @@ if not os.path.exists(dir_save_val):
 if not os.path.exists(dir_save_test):
     os.makedirs(dir_save_test)
 
-img_data = './data_image/Imgs/'
-labels_data = './data_image/labels/'
+img_data = './data_image_test/Imgs/'
+labels_data = './data_image_test/labels/'
 
 nframe = len(os.listdir(img_data))
 

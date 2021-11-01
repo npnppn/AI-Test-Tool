@@ -24,7 +24,7 @@ class Dataset(torch.utils.data.Dataset):
     def __len__(self):
         return len(self.lst_label)
 
-    def __getitem__(self, index):
+    def __getitem__(self, index):  # train 할 때 
         label = np.load(os.path.join(self.data_dir, self.lst_label[index]))
         input = np.load(os.path.join(self.data_dir, self.lst_input[index]))
 
@@ -42,6 +42,21 @@ class Dataset(torch.utils.data.Dataset):
             data = self.transform(data)
 
         return data
+
+    # def __getitem__(self, index): # test 할 때
+    #     input = np.load(os.path.join(self.data_dir, self.lst_input[index]))
+
+    #     input = input/255.0
+
+    #     if input.ndim == 2:
+    #         input = input[:, :, np.newaxis]
+
+    #     data = {'input': input}
+
+    #     if self.transform:
+    #         data = self.transform(data)
+
+    #     return data    
 
 
 ## 트렌스폼 구현하기
