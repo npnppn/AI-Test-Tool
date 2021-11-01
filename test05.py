@@ -9,12 +9,12 @@ class MyApp(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
-        self.set_style()
+    #   self.set_style()
 
     # 스타일 가져오기
-    def set_style(self):
-        with open("updateStyle", 'r') as f:
-            self.setStyleSheet(f.read())
+    # def set_style(self):
+    #    with open("updateStyle", 'r') as f:
+    #        self.setStyleSheet(f.read())
 
     # 메인페이지
     def initUI(self):
@@ -137,14 +137,35 @@ class MyApp(QWidget):
         listBox.addWidget(self.listwidgetLearning)
 
         # 결과
+        resultBox = QFormLayout()  # QFormLayout 생성
+        self.epoch_widget = QLineEdit()
+        self.learn_widget = QLineEdit()
+        self.batch_widget = QLineEdit()
+        self.model_widget = QLineEdit()
+
+        space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
+
         label5 = QLabel('Epoch', self)
         label11 = QLabel('learning_rate', self)
         label12 = QLabel('batch_size', self)
 
-        epoch = QLineEdit(self)
-        learning_rate = QLineEdit(self)
-        batch_size = QLineEdit(self)
-        qle = QLineEdit(self)
+        #epoch = QLineEdit(self)
+        #learning_rate = QLineEdit(self)
+        #batch_size = QLineEdit(self)
+        #qle = QLineEdit(self)
+
+        resultBox.addRow(label3)
+        resultBox.addRow(space_widget)
+        resultBox.addRow("Epoch ", self.epoch_widget)
+        resultBox.addRow(space_widget)
+        resultBox.addRow("Iteration ", self.learn_widget)
+        resultBox.addRow(space_widget)
+        resultBox.addRow("Loss ", self.batch_widget)
+        resultBox.addRow(space_widget)
+        resultBox.addRow(label10)
+        resultBox.addRow(self.model_widget)
+        resultBox.addRow(space_widget)
+        resultBox.addRow(space_widget)
 
         # 우측 하단 버튼
         startLearning = QPushButton('학습 하기')
@@ -152,25 +173,11 @@ class MyApp(QWidget):
         testButton = QPushButton('Test 하기')
 
         # 결과값 박스 레이아웃
-        resultBox = QVBoxLayout()
-        resultBox.addWidget(label3)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label5)
-        resultBox.addWidget(epoch)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label11)
-        resultBox.addWidget(learning_rate)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label12)
-        resultBox.addWidget(batch_size)
-        resultBox.addStretch(2)
-        resultBox.addWidget(label10)
-        resultBox.addWidget(qle)
-        resultBox.addStretch(3)
-        resultBox.addWidget(startLearning)
-        resultBox.addWidget(getModel)
-        resultBox.addWidget(testButton)
-        resultBox.addStretch(1)
+
+        resultBox.addRow(startLearning)
+        resultBox.addRow(getModel)
+        resultBox.addRow(testButton)
+
 
         # 버튼 클릭 이벤트
         testButton.clicked.connect(self.testOpen)
@@ -283,12 +290,12 @@ class MyApp(QWidget):
         label4 = QLabel('적용된 parameter', self)
         label4.setAlignment(Qt.AlignCenter)
         font4 = label4.font()
-        font4.setPointSize(10)
+        font4.setPointSize(12)
         font4.setBold(True)
         label10 = QLabel('모델 선택', self)
         label10.setAlignment(Qt.AlignCenter)
         font10 = label10.font()
-        font10.setPointSize(10)
+        font10.setPointSize(12)
         font10.setBold(True)
         # 폰트 적용
         label0.setFont(font0)
@@ -321,16 +328,7 @@ class MyApp(QWidget):
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidget)
 
-        # 결과
-        self.epoch = QLabel("0", self)
 
-        label5 = QLabel('Epoch', self)
-        label6 = QLabel('Iteration', self)
-        label7 = QLabel('Loss', self)
-        label8 = QLabel('Accuracy', self)
-        label9 = QLabel('Error Rate', self)
-        label11 = QLabel('learning_rate', self)
-        label12 = QLabel('batch_size', self)
 
         path = './test01'
         fileList = os.listdir(path)
@@ -345,33 +343,52 @@ class MyApp(QWidget):
         getModel = QPushButton('모델 추출')
         testComButton = QPushButton('Test 비교하기')
 
-        resultBox = QVBoxLayout()
-        resultBox.addWidget(label3)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label5)
-        resultBox.addWidget(self.epoch)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label6)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label7)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label8)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label9)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label4)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label11)
-        resultBox.addStretch(1)
-        resultBox.addWidget(label12)
-        resultBox.addStretch(2)
-        resultBox.addWidget(label10)
-        resultBox.addWidget(cb)
-        resultBox.addStretch(3)
-        resultBox.addWidget(startTest)
-        resultBox.addWidget(getModel)
-        resultBox.addWidget(testComButton)
-        resultBox.addStretch(1)
+        # 결과값 화면 보여주는 공간 배치
+
+        # 변수받는 공간
+        resultBox = QFormLayout()  # QFormLayout 생성
+        self.epoch_widget = QLabel("3")
+        self.iter_widget = QLabel("20")
+        self.loss_widget = QLabel("0.02")
+        self.accuracy_widget = QLabel("99.7%")
+        self.error_widget = QLabel("0.3%")
+        self.learning_widget = QLabel("2")
+        self.batch_widget = QLabel("1")
+        space_widget = QLabel("\n") #빈 공간 만드는 위젯
+
+        # 행 추가하는 공간
+        resultBox.addRow(label3) #결과값
+        resultBox.addRow("Epoch ", self.epoch_widget)
+        resultBox.addRow(space_widget)
+        resultBox.addRow("Iteration ", self.iter_widget)
+        resultBox.addRow(space_widget)
+        resultBox.addRow("Loss ", self.loss_widget)
+        resultBox.addRow(space_widget)
+        resultBox.addRow("Accuracy ", self.accuracy_widget)
+        resultBox.addRow(space_widget)
+        resultBox.addRow("Error Rate ", self.error_widget)
+        resultBox.addRow(space_widget)
+
+        resultBox.addRow(label4) #적용된 패러미터
+        resultBox.addRow("Learning_Rate ", self.learning_widget)
+        resultBox.addRow(space_widget)
+        resultBox.addRow("Batch_Size ", self.batch_widget)
+        resultBox.addRow(space_widget)
+
+        resultBox.addRow(label10) #모델 선택
+        resultBox.addRow(cb)
+        resultBox.addRow(space_widget)
+        resultBox.addRow(space_widget)
+
+        resultBox.addRow(startTest)
+        resultBox.addRow(getModel)
+        resultBox.addRow(testComButton)
+
+        #색깔 변경은 어떻게 할까?
+        self.setStyleSheet('color: blue; background:rgb(255,0,0)')
+
+        self.setLayout(resultBox)
+        self.show()
 
         startTest.clicked.connect(self.roding2)
 
@@ -505,7 +522,7 @@ class MyApp(QWidget):
 
         epoch = 1
         # 결과 값 변경
-        self.epoch.setText(str(epoch))
+        self.epoch_widget.setText(str(epoch))
 
         self.roding2 = QDialog()
         label0 = QLabel('Test 중 ...', self)
