@@ -9,12 +9,12 @@ class MyApp(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
-        self.set_style()
+    #   self.set_style()
 
     # 스타일 가져오기
-    def set_style(self):
-        with open("updateStyle", 'r') as f:
-            self.setStyleSheet(f.read())
+    # def set_style(self):
+    #    with open("updateStyle", 'r') as f:
+    #        self.setStyleSheet(f.read())
 
     # 메인페이지
     def initUI(self):
@@ -59,7 +59,7 @@ class MyApp(QWidget):
         # self.setGeometry(550, 100, 800, 600)
         self.center()
         self.testOpen()
-        self.show()
+        # self.show()
 
     # 메인페이지 중앙 위치
     def center(self):
