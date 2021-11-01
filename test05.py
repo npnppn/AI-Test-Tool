@@ -59,8 +59,8 @@ class MyApp(QWidget):
         # 창 반응형
         # self.setGeometry(550, 100, 800, 600)
         self.center()
-        self.testOpen()
-        # self.show()
+        # self.testOpen()
+        self.show()
 
     # 메인페이지 중앙 위치
     def center(self):
@@ -189,6 +189,16 @@ class MyApp(QWidget):
         # hbox.addStretch(1)              # 결과값 넣을 곳
 
         self.learning.setLayout(hbox)
+
+        self.pixmap5 = QPixmap('./img/dark.png')
+        self.lbl_img5 = QLabel(self.learning)
+        self.lbl_img5.setPixmap(self.pixmap5)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img5.setGraphicsEffect(opacity_effect)
+        self.pixmap5 = self.pixmap5.scaled(1200, 800)
+        self.lbl_img5.setPixmap(self.pixmap5)
+        self.lbl_img5.setGeometry(0, 0, 0, 0)
 
         self.roding = QDialog()
 
@@ -446,6 +456,10 @@ class MyApp(QWidget):
         self.lbl_imgLearning.setPixmap(self.pixmapLearning)
 
     def roding(self):
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img5.setGraphicsEffect(opacity_effect)
+        self.lbl_img5.setGeometry(0, 0, 1200, 800)
 
         label0 = QLabel('학습 중 ...', self)
         label0.setAlignment(Qt.AlignCenter)
@@ -534,6 +548,11 @@ class MyApp(QWidget):
 
     def cancel(self):
         self.roding.hide()
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img5.setGraphicsEffect(opacity_effect)
+        self.lbl_img5.setGeometry(0, 0, 0, 0)
+
     def cancel2(self):
         self.roding2.hide()
 
