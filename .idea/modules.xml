@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< .idea/modules.xml
-      <module fileurl="file://$PROJECT_DIR$/.idea/S05P31F004.iml" filepath="$PROJECT_DIR$/.idea/S05P31F004.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/.idea/S05P31F004.iml" filepath="$PROJECT_DIR$/.idea/S05P31F004.iml" />
->>>>>>> .idea/modules.xml
+      <module fileurl="file://$PROJECT_DIR$/.idea/PrjLast.iml" filepath="$PROJECT_DIR$/.idea/PrjLast.iml" />
     </modules>
   </component>
 </project>

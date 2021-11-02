@@ -9,19 +9,7 @@ class MyApp(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
-        self.makedirs()
     #   self.set_style()
-
-    # 폴더 생성
-    def makedirs(self):
-        if not os.path.exists("test"):
-            os.makedirs("test")
-        if not os.path.exists("learning"):
-            os.makedirs("learning")
-        if not os.path.exists("model"):
-            os.makedirs("model")
-        if not os.path.exists("mask"):
-            os.makedirs("mask")
 
     # 스타일 가져오기
     # def set_style(self):
@@ -72,6 +60,7 @@ class MyApp(QWidget):
         # self.setGeometry(550, 100, 800, 600)
         self.center()
         # self.testOpen()
+        self.setStyleSheet("background-color: #0c4da2; color: white;")
         self.show()
 
     # 메인페이지 중앙 위치
@@ -83,6 +72,8 @@ class MyApp(QWidget):
 
     # 학습 페이지
     def learningOpen(self):
+        # print(self.learning.width())
+        # print(self.learning.height())
 
         # self.learning = QDialog()
         # 이미지 불러오기
@@ -141,10 +132,19 @@ class MyApp(QWidget):
         vbox.addLayout(imgBox)
         vbox.addStretch(2)              # 그래프 넣을 곳
 
+        # 파일 브라우징
+        self.pushButton = QPushButton("File Open")
+        self.pushButton.clicked.connect(self.pushButtonClicked)
+        self.label = QLabel()
+
+
         # 좌측 (리스트)
         listBox = QVBoxLayout()
         listBox.addWidget(label0)
+        listBox.addWidget(self.pushButton)
+        listBox.addWidget(self.label)
         listBox.addWidget(self.listwidgetLearning)
+
 
         # 결과
         resultBox = QFormLayout()  # QFormLayout 생성
@@ -188,6 +188,7 @@ class MyApp(QWidget):
         resultBox.addRow(getModel)
         resultBox.addRow(testButton)
 
+
         # 버튼 클릭 이벤트
         testButton.clicked.connect(self.testOpen)
 
@@ -216,6 +217,7 @@ class MyApp(QWidget):
         self.lbl_img5.setPixmap(self.pixmap5)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
+
         self.roding = QDialog()
 
         # QDialog 세팅
@@ -225,10 +227,26 @@ class MyApp(QWidget):
         # self.dialog.setGeometry(350, 100, 1200, 800)
         # 크기 고정
         self.learning.setFixedSize(1200, 800)
-        # self.learning.setStyleSheet("background-color: black; color: white;")
+        # 배경색 변경
+        self.learning.setStyleSheet("background-color: #0c4da2; color: white;")
         self.learning.show()
         # 메인페이지 종료
         self.hide()
+
+    #파일 열기 기능. 나중에 이 목록을 가져와서 리스트로 쭈욱 나열하면 될 듯
+    def pushButtonClicked(self):
+        fname = QFileDialog.getOpenFileName(self, 'Open file')
+        imagePath = fname[0]
+        self.pixmap = QPixmap(imagePath)
+        self.pixmap = self.pixmap.scaled(700, 700)
+        self.lbl_imgLearning.setPixmap(self.pixmap)
+
+        #리스트에 파일이름만 저장하려고
+        image_name = fname[0]
+        self.label.setText(image_name)
+        self.listwidgetLearning.addItem(image_name.split("/")[-1])
+
+
 
     # 테스트 페이지
     def testOpen(self):
@@ -332,9 +350,16 @@ class MyApp(QWidget):
         vbox.addLayout(imgBox)
         vbox.addStretch(2)              # 그래프 넣을 곳
 
+        # 파일 브라우징
+        self.pushButton = QPushButton("File Open")
+        self.pushButton.clicked.connect(self.pushButtonClicked)
+        self.label = QLabel()
+
         # 좌측 (리스트)
         listBox = QVBoxLayout()
         listBox.addWidget(label0)
+        listBox.addWidget(self.pushButton)
+        listBox.addWidget(self.label)
         listBox.addWidget(self.listwidget)
 
 
@@ -393,10 +418,10 @@ class MyApp(QWidget):
         resultBox.addRow(getModel)
         resultBox.addRow(testComButton)
 
-        #색깔 변경은 어떻게 할까?
-        self.setStyleSheet('color: blue; background:rgb(255,0,0)')
+
 
         self.setLayout(resultBox)
+        self.setStyleSheet("background-color: #0c4da2; color: white;")
         self.show()
 
         startTest.clicked.connect(self.roding2)
@@ -448,6 +473,7 @@ class MyApp(QWidget):
         self.dialog.setFixedSize(1200, 800)
         self.hide()
         self.learning.hide()
+        self.dialog.setStyleSheet("background-color: #0c4da2; color: white;")
         self.dialog.show()
 
     # 리스트 클릭시 이미지 변경 ( test )
