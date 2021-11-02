@@ -9,7 +9,19 @@ class MyApp(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
+        self.makedirs()
     #   self.set_style()
+
+    # 폴더 생성
+    def makedirs(self):
+        if not os.path.exists("test"):
+            os.makedirs("test")
+        if not os.path.exists("learning"):
+            os.makedirs("learning")
+        if not os.path.exists("model"):
+            os.makedirs("model")
+        if not os.path.exists("mask"):
+            os.makedirs("mask")
 
     # 스타일 가져오기
     # def set_style(self):
@@ -71,8 +83,6 @@ class MyApp(QWidget):
 
     # 학습 페이지
     def learningOpen(self):
-        # print(self.learning.width())
-        # print(self.learning.height())
 
         # self.learning = QDialog()
         # 이미지 불러오기
@@ -177,7 +187,6 @@ class MyApp(QWidget):
         resultBox.addRow(startLearning)
         resultBox.addRow(getModel)
         resultBox.addRow(testButton)
-
 
         # 버튼 클릭 이벤트
         testButton.clicked.connect(self.testOpen)
