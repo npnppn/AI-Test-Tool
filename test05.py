@@ -132,10 +132,19 @@ class MyApp(QWidget):
         vbox.addLayout(imgBox)
         vbox.addStretch(2)              # 그래프 넣을 곳
 
+        # 파일 브라우징
+        self.pushButton = QPushButton("File Open")
+        self.pushButton.clicked.connect(self.pushButtonClicked)
+        self.label = QLabel()
+
+
         # 좌측 (리스트)
         listBox = QVBoxLayout()
         listBox.addWidget(label0)
+        listBox.addWidget(self.pushButton)
+        listBox.addWidget(self.label)
         listBox.addWidget(self.listwidgetLearning)
+
 
         # 결과
         resultBox = QFormLayout()  # QFormLayout 생성
@@ -208,6 +217,7 @@ class MyApp(QWidget):
         self.lbl_img5.setPixmap(self.pixmap5)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
+
         self.roding = QDialog()
 
         # QDialog 세팅
@@ -222,6 +232,21 @@ class MyApp(QWidget):
         self.learning.show()
         # 메인페이지 종료
         self.hide()
+
+    #파일 열기 기능. 나중에 이 목록을 가져와서 리스트로 쭈욱 나열하면 될 듯
+    def pushButtonClicked(self):
+        fname = QFileDialog.getOpenFileName(self, 'Open file')
+        imagePath = fname[0]
+        self.pixmap = QPixmap(imagePath)
+        self.pixmap = self.pixmap.scaled(700, 700)
+        self.lbl_imgLearning.setPixmap(self.pixmap)
+
+        #리스트에 파일이름만 저장하려고
+        image_name = fname[0]
+        self.label.setText(image_name)
+        self.listwidgetLearning.addItem(image_name.split("/")[-1])
+
+
 
     # 테스트 페이지
     def testOpen(self):
@@ -325,9 +350,16 @@ class MyApp(QWidget):
         vbox.addLayout(imgBox)
         vbox.addStretch(2)              # 그래프 넣을 곳
 
+        # 파일 브라우징
+        self.pushButton = QPushButton("File Open")
+        self.pushButton.clicked.connect(self.pushButtonClicked)
+        self.label = QLabel()
+
         # 좌측 (리스트)
         listBox = QVBoxLayout()
         listBox.addWidget(label0)
+        listBox.addWidget(self.pushButton)
+        listBox.addWidget(self.label)
         listBox.addWidget(self.listwidget)
 
 
