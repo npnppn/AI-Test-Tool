@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="[ADD] : 파일 브라우징 기능 추가">
-      <change afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/tensor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PrjLast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PrjLast.iml" afterDir="false" />
+    <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test05.py" beforeDir="false" afterPath="$PROJECT_DIR$/test05.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,12 +42,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="py" value="595" />
-          <entry key="txt" value="39" />
+          <entry key="txt" value="58" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="39" />
+          <entry key="PLAIN_TEXT" value="58" />
           <entry key="Python" value="595" />
         </counts>
       </usages-collector>
@@ -129,8 +124,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test05.spec">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+            <state relative-caret-position="70">
+              <caret line="36" column="19" lean-forward="true" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -168,8 +163,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
+            <state relative-caret-position="95">
+              <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -435,21 +430,21 @@
       <option name="project" value="LOCAL" />
       <updated>1635831937824</updated>
     </task>
-    <task id="LOCAL-00004" summary="feat: [Revise] 스타일 주석처리">
-      <created>1635729773993</created>
+    <task id="LOCAL-00004" summary="[ADD] : 웹뷰 대신 웹브라우져로 변경">
+      <created>1636007984198</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1635729773993</updated>
+      <updated>1636007984198</updated>
     </task>
-    <task id="LOCAL-00005" summary="feat: [Revise] 파이썬 버전 변경">
-      <created>1635733106115</created>
+    <task id="LOCAL-00005" summary="[ADD] : 웹뷰 대신 웹브라우져로 변경">
+      <created>1636008144068</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1635733106115</updated>
+      <updated>1636008144068</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -463,7 +458,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -490,7 +484,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="[MODIFY] : 배경색 추가" />
     <MESSAGE value="[ADD] : 파일 브라우징 기능 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADD] : 파일 브라우징 기능 추가" />
+    <MESSAGE value="[ADD] : 웹뷰 대신 웹브라우져로 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] : 웹뷰 대신 웹브라우져로 변경" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test01/th.py" />
@@ -522,6 +517,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -529,6 +527,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -575,8 +576,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
+        <state relative-caret-position="95">
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -622,8 +623,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test05.spec">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+        <state relative-caret-position="70">
+          <caret line="36" column="19" lean-forward="true" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
         </state>
       </provider>
     </entry>
