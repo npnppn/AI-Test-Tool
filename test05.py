@@ -3,6 +3,7 @@ import sys, os
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+import webview
 
 class MyApp(QWidget):
 
@@ -520,6 +521,7 @@ class MyApp(QWidget):
         self.lbl_imgLearning.setPixmap(self.pixmapLearning)
 
     def roding(self):
+                
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
         self.lbl_img5.setGraphicsEffect(opacity_effect)
@@ -560,6 +562,14 @@ class MyApp(QWidget):
         self.roding.setWindowModality(Qt.ApplicationModal)
         self.roding.setFixedSize(600, 400)
         self.roding.show()
+        self.reset()
+
+        path = os.getcwd()
+        os.chdir("./AI/model3/pytorch-unet-master")
+        self.reset()
+        os.system("python train.py")
+        self.cancel()
+        os.chdir(path)
 
     def roding2(self):
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
@@ -624,6 +634,11 @@ class MyApp(QWidget):
         opacity_effect.setOpacity(0.5)
         self.lbl_img5.setGraphicsEffect(opacity_effect)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
+    
+    def reset(self):
+        loop = QEventLoop()
+        QTimer.singleShot(100, loop.quit)  # msec
+        loop.exec_()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
