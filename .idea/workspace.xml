@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="[ADD] : 파일 브라우징 기능 추가">
-      <change beforePath="$PROJECT_DIR$/.idea/PrjLast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PrjLast.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test05.py" beforeDir="false" afterPath="$PROJECT_DIR$/test05.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,38 +66,60 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="37" />
+          <entry key="py" value="146" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="37" />
+          <entry key="Python" value="146" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="3" />
+          <entry key="py" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="3" />
+          <entry key="Python" value="6" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.79368746">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/test05.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="285">
-                  <caret line="562" column="62" lean-forward="true" selection-start-line="562" selection-start-column="62" selection-end-line="562" selection-end-column="62" />
+                <state relative-caret-position="61">
+                  <caret line="67" column="13" selection-end-line="641" />
+                  <folding>
+                    <element signature="e#11#25#0" expanded="true" />
+                    <marker date="1635990292001" expanded="true" signature="15824:15831" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/test09.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="66">
+                  <caret line="439" column="50" lean-forward="true" selection-start-line="439" selection-start-column="50" selection-end-line="439" selection-end-column="50" />
                   <folding>
                     <element signature="e#11#25#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test08.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="465">
+                  <caret line="479" column="43" lean-forward="true" selection-start-line="450" selection-start-column="4" selection-end-line="479" selection-end-column="43" />
                 </state>
               </provider>
             </entry>
@@ -123,8 +145,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="189">
-                  <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
+                <state relative-caret-position="239">
+                  <caret line="67" column="31" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
                   <folding>
                     <element signature="e#14#29#0" expanded="true" />
                   </folding>
@@ -201,6 +223,7 @@
         <option value="$PROJECT_DIR$/testForAI.py" />
         <option value="$PROJECT_DIR$/test05.py" />
         <option value="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" />
+        <option value="$PROJECT_DIR$/test09.py" />
       </list>
     </option>
   </component>
@@ -232,24 +255,6 @@
             <path>
               <item name="S05P31F004" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="S05P31F004" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="AI" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="S05P31F004" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="AI" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="model3" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="S05P31F004" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="AI" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="model3" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="pytorch-unet-master" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -458,13 +463,31 @@
     <entry file="file://$PROJECT_DIR$/test01/img01.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/test05.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="67" column="13" selection-end-line="641" />
+          <folding>
+            <element signature="e#11#25#0" expanded="true" />
+            <marker date="1635990292001" expanded="true" signature="15824:15831" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/test05.py">
+    <entry file="file://$PROJECT_DIR$/test08.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="562" column="62" lean-forward="true" selection-start-line="562" selection-start-column="62" selection-end-line="562" selection-end-column="62" />
+        <state relative-caret-position="465">
+          <caret line="479" column="43" lean-forward="true" selection-start-line="450" selection-start-column="4" selection-end-line="479" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test09.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="439" column="50" lean-forward="true" selection-start-line="439" selection-start-column="50" selection-end-line="439" selection-end-column="50" />
           <folding>
             <element signature="e#11#25#0" expanded="true" />
           </folding>

@@ -3,7 +3,8 @@ import sys, os
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-import webview
+# import webview
+import webbrowser
 
 class MyApp(QWidget):
 
@@ -508,8 +509,14 @@ class MyApp(QWidget):
         self.pixmapLearning = self.pixmapLearning.scaled(700,700)
         self.lbl_imgLearning.setPixmap(self.pixmapLearning)
 
+
+
     def roding(self):
-                
+        # webview.create_window('Hi', 'http://localhost:6006/')
+        # webview.start()
+        url = 'http://localhost:6006/'
+        webbrowser.open(url)
+
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
         self.lbl_img5.setGraphicsEffect(opacity_effect)
