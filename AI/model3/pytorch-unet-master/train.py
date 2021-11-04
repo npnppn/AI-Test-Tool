@@ -1,8 +1,6 @@
 ## 라이브러리 추가하기
 import argparse
 
-import webview
-
 import os
 import numpy as np
 
@@ -29,7 +27,7 @@ parser = argparse.ArgumentParser(description="Train the UNet",
 
 parser.add_argument("--lr", default=1e-3, type=float, dest="lr")
 parser.add_argument("--batch_size", default=2, type=int, dest="batch_size")
-parser.add_argument("--num_epoch", default=1, type=int, dest="num_epoch")
+parser.add_argument("--num_epoch", default=2, type=int, dest="num_epoch")
 
 parser.add_argument("--data_dir", default="./datasets", type=str, dest="data_dir")
 parser.add_argument("--ckpt_dir", default="./checkpoint", type=str, dest="ckpt_dir")
@@ -65,10 +63,10 @@ print("log dir: %s" % log_dir)
 print("result dir: %s" % result_dir)
 print("mode: %s" % mode)
 
-os.system("start cmd /k tensorboard --logdir=log")
+os.system("start cmd /c tensorboard --logdir=log")
 # os.system("tensorboard --logdir=log")
 # os.system("python tensor.py")
-# webview.create_window('Hi', 'http://localhost:6006/')
+
 
 ## 디렉토리 생성하기
 if not os.path.exists(result_dir):
@@ -199,7 +197,6 @@ if mode == 'train':
 
     writer_train.close()
     writer_val.close()
-
 
 # TEST MODE
 else:
