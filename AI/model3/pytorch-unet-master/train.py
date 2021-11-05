@@ -1,5 +1,6 @@
 ## 라이브러리 추가하기
 import argparse
+import test09
 
 import os
 import numpy as np
@@ -8,49 +9,70 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
-
 from model import UNet
 from dataset import *
 from util import *
-
 import matplotlib.pyplot as plt
-
 from torchvision import transforms, datasets
-
 import gc
+
+
+print(os.getcwd())
+readFile = open('learn_input_file.txt', 'r')
+tex = readFile.read()
+print(tex)
+readFile.close()
+
 gc.collect()
 torch.cuda.empty_cache()
 
+
 ## Parser 생성하기
-parser = argparse.ArgumentParser(description="Train the UNet",
-                                 formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+# parser = argparse.ArgumentParser(description="Train the UNet",
+#                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+#
+# parser.add_argument("--lr", default=1e-3, type=float, dest="lr")
+# parser.add_argument("--batch_size", default=2, type=int, dest="batch_size")
+# parser.add_argument("--num_epoch", default=2, type=int, dest="num_epoch")
+#
+# parser.add_argument("--data_dir", default="./datasets", type=str, dest="data_dir")
+# parser.add_argument("--ckpt_dir", default="./checkpoint", type=str, dest="ckpt_dir")
+# parser.add_argument("--log_dir", default="./log", type=str, dest="log_dir")
+# parser.add_argument("--result_dir", default="./result", type=str, dest="result_dir")
+#
+# parser.add_argument("--mode", default="train", type=str, dest="mode")
+# parser.add_argument("--train_continue", default="off", type=str, dest="train_continue")
+#
+# args = parser.parse_args()
+#
+# ## 트레이닝 파라메터 설정하기
+# lr = args.lr  # 학습횟수
+# batch_size = args.batch_size
+# num_epoch = args.num_epoch
 
-parser.add_argument("--lr", default=1e-3, type=float, dest="lr")
-parser.add_argument("--batch_size", default=2, type=int, dest="batch_size")
-parser.add_argument("--num_epoch", default=2, type=int, dest="num_epoch")
+lr = input()  # 학습횟수
+if lr == '':
+    lr = None
+else:
+    lr = float(lr)
+batch_size = input()
+if batch_size == '':
+    batch_size = None
+else:
+    batch_size = int(batch_size)
+num_epoch = input()
+if num_epoch == '':
+    num_epoch = None
+else:
+    num_epoch = int(num_epoch)
 
-parser.add_argument("--data_dir", default="./datasets", type=str, dest="data_dir")
-parser.add_argument("--ckpt_dir", default="./checkpoint", type=str, dest="ckpt_dir")
-parser.add_argument("--log_dir", default="./log", type=str, dest="log_dir")
-parser.add_argument("--result_dir", default="./result", type=str, dest="result_dir")
+data_dir = "./datasets" # 데이터셋 저장 디렉토리
+ckpt_dir = "./checkpoint"
+log_dir = "./log" # tensorboard log 저장 디렉토리
+result_dir = "./result"
 
-parser.add_argument("--mode", default="train", type=str, dest="mode")
-parser.add_argument("--train_continue", default="off", type=str, dest="train_continue")
-
-args = parser.parse_args()
-
-## 트레이닝 파라메터 설정하기
-lr = args.lr  # 학습횟수 
-batch_size = args.batch_size
-num_epoch = args.num_epoch
-
-data_dir = args.data_dir # 데이터셋 저장 디렉토리
-ckpt_dir = args.ckpt_dir
-log_dir = args.log_dir # tensorboard log 저장 디렉토리
-result_dir = args.result_dir
-
-mode = args.mode
-train_continue = args.train_continue
+mode = "train"
+train_continue = "off"
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # gpu 혹은 cpu에서 동작할 지 결정해줌
 

@@ -6,7 +6,6 @@ from PyQt5.QtGui import *
 # import webview
 import webbrowser
 
-
 class MyApp(QWidget):
 
     def __init__(self):
@@ -275,6 +274,8 @@ class MyApp(QWidget):
 
     # 테스트 페이지
     def testOpen(self):
+
+
         # self.dialog = QDialog()
         # 이미지 불러오기
         self.pixmap = QPixmap('./test/img01.jpg')
@@ -477,8 +478,11 @@ class MyApp(QWidget):
         self.lbl_img.setPixmap(self.pixmap)
 
     def roding(self):
-        # webview.create_window('Hi', 'http://localhost:6006/')
-        # webview.start()
+        #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
+        epoch_value = self.epoch_widget.text()
+        learn_value = self.learn_widget.text()
+        batch_value = self.batch_widget.text()
+
         url = 'http://localhost:6006/'
         webbrowser.open(url)
 
@@ -524,8 +528,13 @@ class MyApp(QWidget):
         self.roding.show()
         self.reset()
 
+        # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
         path = os.getcwd()
         os.chdir("./AI/model3/pytorch-unet-master")
+        inputFile = open('learn_input_file.txt', 'w')
+        inputFile.write(epoch_value + '\n' + learn_value + '\n' + batch_value)
+        inputFile.close()
+
         self.reset()
         os.system("python train.py")
         self.cancel()
@@ -599,8 +608,8 @@ class MyApp(QWidget):
         QTimer.singleShot(100, loop.quit)  # msec
         loop.exec_()
 
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyApp()
+
     sys.exit(app.exec_())
