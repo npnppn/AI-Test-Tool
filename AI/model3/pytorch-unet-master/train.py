@@ -16,12 +16,10 @@ import matplotlib.pyplot as plt
 from torchvision import transforms, datasets
 import gc
 
+import sys
 
-print(os.getcwd())
-readFile = open('learn_input_file.txt', 'r')
-tex = readFile.read()
-print(tex)
-readFile.close()
+sys.stdin = open('learn_input_file.txt', 'r')
+
 
 gc.collect()
 torch.cuda.empty_cache()
@@ -73,6 +71,8 @@ result_dir = "./result"
 
 mode = "train"
 train_continue = "off"
+name = input()
+
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # gpu 혹은 cpu에서 동작할 지 결정해줌
 
@@ -214,8 +214,8 @@ if mode == 'train':
 
         writer_val.add_scalar('loss', np.mean(loss_arr), epoch)
 
-        if epoch % 50 == 0:
-            save(ckpt_dir=ckpt_dir, net=net, optim=optim, epoch=epoch)
+        if epoch == num_epoch:
+            save(ckpt_dir=ckpt_dir, net=net, optim=optim, epoch=epoch, name=name)
 
     writer_train.close()
     writer_val.close()

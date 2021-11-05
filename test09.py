@@ -482,6 +482,7 @@ class MyApp(QWidget):
         epoch_value = self.epoch_widget.text()
         learn_value = self.learn_widget.text()
         batch_value = self.batch_widget.text()
+        model_value = self.model_widget.text()
 
         url = 'http://localhost:6006/'
         webbrowser.open(url)
@@ -532,7 +533,7 @@ class MyApp(QWidget):
         path = os.getcwd()
         os.chdir("./AI/model3/pytorch-unet-master")
         inputFile = open('learn_input_file.txt', 'w')
-        inputFile.write(epoch_value + '\n' + learn_value + '\n' + batch_value)
+        inputFile.write(epoch_value + '\n' + learn_value + '\n' + batch_value + '\n' + model_value)
         inputFile.close()
 
         self.reset()
