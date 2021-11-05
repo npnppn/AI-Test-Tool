@@ -16,12 +16,9 @@ import matplotlib.pyplot as plt
 from torchvision import transforms, datasets
 import gc
 
+import sys
 
-print(os.getcwd())
-readFile = open('learn_input_file.txt', 'r')
-tex = readFile.read()
-print(tex)
-readFile.close()
+sys.stdin = open('learn_input_file.txt', 'r')
 
 gc.collect()
 torch.cuda.empty_cache()
