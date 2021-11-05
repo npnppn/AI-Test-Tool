@@ -344,14 +344,21 @@ class MyApp(QWidget):
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidget)
 
-        path = './test01'
+        # 테스트 모델 경로
+        path = './AI/model3/pytorch-unet-master/checkpoint'
         fileList = os.listdir(path)
 
         # 모델 선택
         cb = QComboBox(self)
         for f in fileList:
             cb.addItem(f)
+            os.chdir("./AI/model3/pytorch-unet-master")
+            File = open('test_file_path.txt', 'w')
+            File.write(path + f)
+            File.close()
         cb.move(50, 50)
+
+
 
         startTest = QPushButton('Test 하기')
         getModel = QPushButton('모델 추출')
@@ -482,6 +489,7 @@ class MyApp(QWidget):
         epoch_value = self.epoch_widget.text()
         learn_value = self.learn_widget.text()
         batch_value = self.batch_widget.text()
+        train_value = 'train'
         model_value = self.model_widget.text()
 
         url = 'http://localhost:6006/'
@@ -533,7 +541,7 @@ class MyApp(QWidget):
         path = os.getcwd()
         os.chdir("./AI/model3/pytorch-unet-master")
         inputFile = open('learn_input_file.txt', 'w')
-        inputFile.write(epoch_value + '\n' + learn_value + '\n' + batch_value + '\n' + model_value)
+        inputFile.write(epoch_value + '\n' + learn_value + '\n' + batch_value + '\n' + train_value + '\n' + model_value)
         inputFile.close()
 
         self.reset()
@@ -542,52 +550,84 @@ class MyApp(QWidget):
         os.chdir(path)
 
     def roding2(self):
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
-        opacity_effect.setOpacity(0.5)
-        self.lbl_img5.setGraphicsEffect(opacity_effect)
-        self.lbl_img5.setGeometry(0, 0, 1200, 800)
+        # TEST
+        # train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
 
-        epoch = 1
-        # 결과 값 변경
-        self.epoch_widget.setText(str(epoch))
+        # epoch_value = self.epoch_widget.text()
+        # learn_value = self.learn_widget.text()
+        # batch_value = self.batch_widget.text()
 
-        self.roding2 = QDialog()
-        label0 = QLabel('Test 중 ...', self)
-        label0.setAlignment(Qt.AlignCenter)
-        font0 = label0.font()
-        font0.setPointSize(30)
-        font0.setBold(True)
 
-        label0.setFont(font0)
 
-        cancelButton = QPushButton('Cancel')
 
-        hbox = QHBoxLayout()
-        hbox.addStretch(1)
-        hbox.addWidget(cancelButton)
-        hbox.addStretch(1)
+        # opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        # opacity_effect.setOpacity(0.5)
+        # self.lbl_img5.setGraphicsEffect(opacity_effect)
+        # self.lbl_img5.setGeometry(0, 0, 1200, 800)
 
-        h2box = QHBoxLayout()
-        h2box.addStretch(1)
-        h2box.addWidget(label0)
-        h2box.addStretch(1)
 
-        cancelButton.clicked.connect(self.cancel2)
+        # epoch = 1
+        # # 결과 값 변경
+        # self.epoch_widget.setText(str(epoch))
 
-        vbox = QVBoxLayout()
-        vbox.addStretch(1)
-        vbox.addLayout(h2box)
-        vbox.addStretch(1)
-        vbox.addLayout(hbox)
-        vbox.addStretch(1)
+        # self.roding2 = QDialog()
+        # label0 = QLabel('Test 중 ...', self)
+        # label0.setAlignment(Qt.AlignCenter)
+        # font0 = label0.font()
+        # font0.setPointSize(30)
+        # font0.setBold(True)
+        #
+        # label0.setFont(font0)
+        #
+        # cancelButton = QPushButton('Cancel')
 
-        self.roding2.setLayout(vbox)
+        # hbox = QHBoxLayout()
+        # hbox.addStretch(1)
+        # hbox.addWidget(cancelButton)
+        # hbox.addStretch(1)
+        #
+        # h2box = QHBoxLayout()
+        # h2box.addStretch(1)
+        # h2box.addWidget(label0)
+        # h2box.addStretch(1)
+        #
+        # cancelButton.clicked.connect(self.cancel2)
+        #
+        # vbox = QVBoxLayout()
+        # vbox.addStretch(1)
+        # vbox.addLayout(h2box)
+        # vbox.addStretch(1)
+        # vbox.addLayout(hbox)
+        # vbox.addStretch(1)
+        #
+        # self.roding2.setLayout(vbox)
 
-        self.roding2.setWindowTitle('roding')
-        self.roding2.setWindowModality(Qt.ApplicationModal)
-        self.roding2.setFixedSize(600, 400)
-        # self.dialog.setStyleSheet("background-color: black;")
-        self.roding2.show()
+        # self.roding2.setWindowTitle('roding')
+        # self.roding2.setWindowModality(Qt.ApplicationModal)
+        # self.roding2.setFixedSize(600, 400)
+        # # self.dialog.setStyleSheet("background-color: black;")
+        # self.roding2.show()
+        # self.reset()
+
+        # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
+        path = os.getcwd()
+        # os.chdir("./AI/model3/pytorch-unet-master")
+        inputFile = open('learn_input_file.txt', 'w')
+        epoch_value = 3e-1
+        learn_value = 2
+        batch_value = 2
+        train_value = 'test'
+        model_value = 'model'
+        inputFile.write(3e-1)
+        print(path)
+        inputFile.close()
+        print('asdf')
+
+
+        self.reset()
+        os.system("python train.py")
+        self.cancel()
+        os.chdir(path)
 
     def cancel(self):
         self.roding.hide()

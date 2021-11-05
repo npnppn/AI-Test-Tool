@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="[MERGE] 재민님 코드 가져오기">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PrjLast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PrjLast.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test09.py" beforeDir="false" afterPath="$PROJECT_DIR$/test09.py" afterDir="false" />

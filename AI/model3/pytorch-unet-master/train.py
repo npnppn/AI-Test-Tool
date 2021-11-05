@@ -1,6 +1,5 @@
 ## 라이브러리 추가하기
 import argparse
-import test09
 
 import os
 import numpy as np
@@ -69,7 +68,7 @@ ckpt_dir = "./checkpoint"
 log_dir = "./log" # tensorboard log 저장 디렉토리
 result_dir = "./result"
 
-mode = "train"
+mode = input()
 train_continue = "off"
 name = input()
 
@@ -222,7 +221,9 @@ if mode == 'train':
 
 # TEST MODE
 else:
-    net, optim, st_epoch = load(ckpt_dir=ckpt_dir, net=net, optim=optim)
+    sys.stdin = open('test_file_path.txt', 'r')
+    name = input()
+    net, optim, st_epoch, name = load(ckpt_dir=ckpt_dir, net=net, optim=optim, name=name)
 
     with torch.no_grad():
         net.eval()
