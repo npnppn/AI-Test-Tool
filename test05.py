@@ -3,6 +3,8 @@ import sys, os
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+# import webview
+import webbrowser
 
 class MyApp(QWidget):
 
@@ -60,6 +62,7 @@ class MyApp(QWidget):
         # self.setGeometry(550, 100, 800, 600)
         self.center()
         # self.testOpen()
+        self.setStyleSheet("background-color: #0c4da2; color: white;")
         self.show()
 
     # 메인페이지 중앙 위치
@@ -131,10 +134,19 @@ class MyApp(QWidget):
         vbox.addLayout(imgBox)
         vbox.addStretch(2)              # 그래프 넣을 곳
 
+        # 파일 브라우징
+        self.pushButton = QPushButton("File Open")
+        self.pushButton.clicked.connect(self.pushButtonClicked)
+        self.label = QLabel()
+
+
         # 좌측 (리스트)
         listBox = QVBoxLayout()
         listBox.addWidget(label0)
+        listBox.addWidget(self.pushButton)
+        listBox.addWidget(self.label)
         listBox.addWidget(self.listwidgetLearning)
+
 
         # 결과
         resultBox = QFormLayout()  # QFormLayout 생성
@@ -207,6 +219,7 @@ class MyApp(QWidget):
         self.lbl_img5.setPixmap(self.pixmap5)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
+
         self.roding = QDialog()
 
         # QDialog 세팅
@@ -216,10 +229,26 @@ class MyApp(QWidget):
         # self.dialog.setGeometry(350, 100, 1200, 800)
         # 크기 고정
         self.learning.setFixedSize(1200, 800)
-        # self.learning.setStyleSheet("background-color: black; color: white;")
+        # 배경색 변경
+        self.learning.setStyleSheet("background-color: #0c4da2; color: white;")
         self.learning.show()
         # 메인페이지 종료
         self.hide()
+
+    #파일 열기 기능. 나중에 이 목록을 가져와서 리스트로 쭈욱 나열하면 될 듯
+    def pushButtonClicked(self):
+        fname = QFileDialog.getOpenFileName(self, 'Open file')
+        imagePath = fname[0]
+        self.pixmap = QPixmap(imagePath)
+        self.pixmap = self.pixmap.scaled(700, 700)
+        self.lbl_imgLearning.setPixmap(self.pixmap)
+
+        #리스트에 파일이름만 저장하려고
+        image_name = fname[0]
+        self.label.setText(image_name)
+        self.listwidgetLearning.addItem(image_name.split("/")[-1])
+
+
 
     # 테스트 페이지
     def testOpen(self):
@@ -323,9 +352,16 @@ class MyApp(QWidget):
         vbox.addLayout(imgBox)
         vbox.addStretch(2)              # 그래프 넣을 곳
 
+        # 파일 브라우징
+        self.pushButton = QPushButton("File Open")
+        self.pushButton.clicked.connect(self.pushButtonClicked)
+        self.label = QLabel()
+
         # 좌측 (리스트)
         listBox = QVBoxLayout()
         listBox.addWidget(label0)
+        listBox.addWidget(self.pushButton)
+        listBox.addWidget(self.label)
         listBox.addWidget(self.listwidget)
 
 
@@ -384,10 +420,10 @@ class MyApp(QWidget):
         resultBox.addRow(getModel)
         resultBox.addRow(testComButton)
 
-        #색깔 변경은 어떻게 할까?
-        self.setStyleSheet('color: blue; background:rgb(255,0,0)')
+
 
         self.setLayout(resultBox)
+        self.setStyleSheet("background-color: #0c4da2; color: white;")
         self.show()
 
         startTest.clicked.connect(self.roding2)
@@ -439,6 +475,7 @@ class MyApp(QWidget):
         self.dialog.setFixedSize(1200, 800)
         self.hide()
         self.learning.hide()
+        self.dialog.setStyleSheet("background-color: #0c4da2; color: white;")
         self.dialog.show()
 
     # 리스트 클릭시 이미지 변경 ( test )
@@ -472,7 +509,14 @@ class MyApp(QWidget):
         self.pixmapLearning = self.pixmapLearning.scaled(700,700)
         self.lbl_imgLearning.setPixmap(self.pixmapLearning)
 
+
+
     def roding(self):
+        # webview.create_window('Hi', 'http://localhost:6006/')
+        # webview.start()
+        url = 'http://localhost:6006/'
+        webbrowser.open(url)
+
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
         self.lbl_img5.setGraphicsEffect(opacity_effect)
@@ -513,6 +557,14 @@ class MyApp(QWidget):
         self.roding.setWindowModality(Qt.ApplicationModal)
         self.roding.setFixedSize(600, 400)
         self.roding.show()
+        self.reset()
+
+        path = os.getcwd()
+        os.chdir("./AI/model3/pytorch-unet-master")
+        self.reset()
+        os.system("python train.py")
+        self.cancel()
+        os.chdir(path)
 
     def roding2(self):
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
@@ -577,6 +629,11 @@ class MyApp(QWidget):
         opacity_effect.setOpacity(0.5)
         self.lbl_img5.setGraphicsEffect(opacity_effect)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
+    
+    def reset(self):
+        loop = QEventLoop()
+        QTimer.singleShot(100, loop.quit)  # msec
+        loop.exec_()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
