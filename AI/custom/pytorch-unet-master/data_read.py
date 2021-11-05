@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 
-path = './image_bottle/'
+path = './image_leather/'
 
 dir_save_train = os.path.join(path, 'train')
 dir_save_val = os.path.join(path, 'val')
@@ -18,12 +18,12 @@ if not os.path.exists(dir_save_val):
 if not os.path.exists(dir_save_test):
     os.makedirs(dir_save_test)
 
-img_data = './image_bottle/Imgs/'
-labels_data = './image_bottle/labels/'
+img_data = './image_leather/Imgs/'
+labels_data = './image_leather/labels/'
 
 nframe = len(os.listdir(img_data))
 
-nframe_train = 51
+nframe_train = 61
 nframe_val = 6
 nframe_test = 6
 
@@ -50,14 +50,6 @@ for i in range(nframe_train):
     np.save(os.path.join(dir_save_train, 'label_%03d.npy' % i), label_)
     np.save(os.path.join(dir_save_train, 'input_%03d.npy' % i), input_)
 
-    plt.subplot(121)
-    plt.imshow(label_, cmap='gray')
-    plt.title('label')
-
-    plt.subplot(122)
-    plt.imshow(input_, cmap='gray')
-    plt.title('input')
-    plt.show()
 
 ##
 offset_nframe = nframe_train
