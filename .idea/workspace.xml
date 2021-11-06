@@ -5,7 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test09.py" beforeDir="false" afterPath="$PROJECT_DIR$/test09.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -214,8 +213,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.test05" />
-      <item itemvalue="Python.testForAI" />
       <item itemvalue="Python.test09" />
+      <item itemvalue="Python.testForAI" />
       <item itemvalue="Python.train" />
     </list>
     <recent_temporary>

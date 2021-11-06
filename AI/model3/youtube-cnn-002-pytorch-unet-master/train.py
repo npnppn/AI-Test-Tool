@@ -8,72 +8,47 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
+
 from model import UNet
 from dataset import *
 from util import *
+
 import matplotlib.pyplot as plt
+
 from torchvision import transforms, datasets
-import gc
-
-import sys
-
-sys.stdin = open('learn_input_file.txt', 'r')
-
-
-gc.collect()
-torch.cuda.empty_cache()
-
 
 ## Parser 생성하기
-# parser = argparse.ArgumentParser(description="Train the UNet",
-#                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-#
-# parser.add_argument("--lr", default=1e-3, type=float, dest="lr")
-# parser.add_argument("--batch_size", default=2, type=int, dest="batch_size")
-# parser.add_argument("--num_epoch", default=2, type=int, dest="num_epoch")
-#
-# parser.add_argument("--data_dir", default="./datasets", type=str, dest="data_dir")
-# parser.add_argument("--ckpt_dir", default="./checkpoint", type=str, dest="ckpt_dir")
-# parser.add_argument("--log_dir", default="./log", type=str, dest="log_dir")
-# parser.add_argument("--result_dir", default="./result", type=str, dest="result_dir")
-#
-# parser.add_argument("--mode", default="train", type=str, dest="mode")
-# parser.add_argument("--train_continue", default="off", type=str, dest="train_continue")
-#
-# args = parser.parse_args()
-#
-# ## 트레이닝 파라메터 설정하기
-# lr = args.lr  # 학습횟수
-# batch_size = args.batch_size
-# num_epoch = args.num_epoch
+parser = argparse.ArgumentParser(description="Train the UNet",
+                                 formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-lr = input()  # 학습횟수
-if lr == '':
-    lr = None
-else:
-    lr = float(lr)
-batch_size = input()
-if batch_size == '':
-    batch_size = None
-else:
-    batch_size = int(batch_size)
-num_epoch = input()
-if num_epoch == '':
-    num_epoch = None
-else:
-    num_epoch = int(num_epoch)
+parser.add_argument("--lr", default=1e-3, type=float, dest="lr")
+parser.add_argument("--batch_size", default=4, type=int, dest="batch_size")
+parser.add_argument("--num_epoch", default=100, type=int, dest="num_epoch")
 
-data_dir = "./datasets" # 데이터셋 저장 디렉토리
-ckpt_dir = "./checkpoint"
-log_dir = "./log" # tensorboard log 저장 디렉토리
-result_dir = "./result"
+parser.add_argument("--data_dir", default="./datasets", type=str, dest="data_dir")
+parser.add_argument("--ckpt_dir", default="./checkpoint", type=str, dest="ckpt_dir")
+parser.add_argument("--log_dir", default="./log", type=str, dest="log_dir")
+parser.add_argument("--result_dir", default="./result", type=str, dest="result_dir")
 
-mode = input()
-train_continue = "off"
-name = input()
+parser.add_argument("--mode", default="train", type=str, dest="mode")
+parser.add_argument("--train_continue", default="off", type=str, dest="train_continue")
 
+args = parser.parse_args()
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # gpu 혹은 cpu에서 동작할 지 결정해줌
+## 트레이닝 파라메터 설정하기
+lr = args.lr
+batch_size = args.batch_size
+num_epoch = args.num_epoch
+
+data_dir = args.data_dir
+ckpt_dir = args.ckpt_dir
+log_dir = args.log_dir
+result_dir = args.result_dir
+
+mode = args.mode
+train_continue = args.train_continue
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 print("learning rate: %.4e" % lr)
 print("batch size: %d" % batch_size)
@@ -83,11 +58,6 @@ print("ckpt dir: %s" % ckpt_dir)
 print("log dir: %s" % log_dir)
 print("result dir: %s" % result_dir)
 print("mode: %s" % mode)
-
-os.system("start cmd /c tensorboard --logdir=log")
-# os.system("tensorboard --logdir=log")
-# os.system("python tensor.py")
-
 
 ## 디렉토리 생성하기
 if not os.path.exists(result_dir):
@@ -99,10 +69,10 @@ if mode == 'train':
     transform = transforms.Compose([Normalization(mean=0.5, std=0.5), RandomFlip(), ToTensor()])
 
     dataset_train = Dataset(data_dir=os.path.join(data_dir, 'train'), transform=transform)
-    loader_train = DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=0)
+    loader_train = DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=8)
 
     dataset_val = Dataset(data_dir=os.path.join(data_dir, 'val'), transform=transform)
-    loader_val = DataLoader(dataset_val, batch_size=batch_size, shuffle=False, num_workers=0)
+    loader_val = DataLoader(dataset_val, batch_size=batch_size, shuffle=False, num_workers=8)
 
     # 그밖에 부수적인 variables 설정하기
     num_data_train = len(dataset_train)
@@ -114,7 +84,7 @@ else:
     transform = transforms.Compose([Normalization(mean=0.5, std=0.5), ToTensor()])
 
     dataset_test = Dataset(data_dir=os.path.join(data_dir, 'test'), transform=transform)
-    loader_test = DataLoader(dataset_test, batch_size=batch_size, shuffle=False, num_workers=0)
+    loader_test = DataLoader(dataset_test, batch_size=batch_size, shuffle=False, num_workers=8)
 
     # 그밖에 부수적인 variables 설정하기
     num_data_test = len(dataset_test)
@@ -213,17 +183,15 @@ if mode == 'train':
 
         writer_val.add_scalar('loss', np.mean(loss_arr), epoch)
 
-        if epoch == num_epoch:
-            save(ckpt_dir=ckpt_dir, net=net, optim=optim, epoch=epoch, name=name)
+        if epoch % 50 == 0:
+            save(ckpt_dir=ckpt_dir, net=net, optim=optim, epoch=epoch)
 
     writer_train.close()
     writer_val.close()
 
 # TEST MODE
 else:
-    sys.stdin = open('test_file_path.txt', 'r')
-    name = input()
-    net, optim, st_epoch, name = load(ckpt_dir='/' + ckpt_dir, net=net, optim=optim, name=name)
+    net, optim, st_epoch = load(ckpt_dir=ckpt_dir, net=net, optim=optim)
 
     with torch.no_grad():
         net.eval()
