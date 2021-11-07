@@ -1,6 +1,5 @@
 ## 라이브러리 추가하기
 import argparse
-import test09
 
 import os
 import numpy as np
@@ -19,6 +18,7 @@ import gc
 import sys
 
 sys.stdin = open('learn_input_file.txt', 'r')
+
 
 gc.collect()
 torch.cuda.empty_cache()
@@ -68,8 +68,10 @@ ckpt_dir = "./checkpoint"
 log_dir = "./log" # tensorboard log 저장 디렉토리
 result_dir = "./result"
 
-mode = "train"
+mode = input()
 train_continue = "off"
+name = input()
+
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # gpu 혹은 cpu에서 동작할 지 결정해줌
 
@@ -211,15 +213,17 @@ if mode == 'train':
 
         writer_val.add_scalar('loss', np.mean(loss_arr), epoch)
 
-        if epoch % 50 == 0:
-            save(ckpt_dir=ckpt_dir, net=net, optim=optim, epoch=epoch)
+        if epoch == num_epoch:
+            save(ckpt_dir=ckpt_dir, net=net, optim=optim, epoch=epoch, name=name)
 
     writer_train.close()
     writer_val.close()
 
 # TEST MODE
 else:
-    net, optim, st_epoch = load(ckpt_dir=ckpt_dir, net=net, optim=optim)
+    sys.stdin = open('test_file_path.txt', 'r')
+    name = input()
+    net, optim, st_epoch, name = load(ckpt_dir='/' + ckpt_dir, net=net, optim=optim, name=name)
 
     with torch.no_grad():
         net.eval()

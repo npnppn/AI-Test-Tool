@@ -1,0 +1,1 @@
+./AI/model3/pytorch-unet-master/checkpointmodel_epoch_1.pth
