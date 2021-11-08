@@ -358,13 +358,22 @@ class MyApp(QWidget):
 
         # 모델 선택
         cb = QComboBox(self)
+        cbList = []
         for f in fileList:
             cb.addItem(f)
-            os.chdir("./AI/model3/pytorch-unet-master")
-            File = open('test_file_path.txt', 'w')
-            File.write(path + f)
-            File.close()
+            #print(f)
+            cbList.append(f)
+
+
+            #os.chdir("./AI/model3/pytorch-unet-master")
+            #File = open('test_file_path.txt', 'w')
+            #File.write(path + f)
+            #File.close()
         cb.move(50, 50)
+        print(cbList)
+        with open('./AI/model3/pytorch-unet-master/test_file_path.txt', 'w', encoding='UTF-8') as f:
+            for name in fileList:
+                f.write(name + '\n')
 
 
 
@@ -610,29 +619,23 @@ class MyApp(QWidget):
         self.reset()
 
         # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
-        path = os.getcwd()
-
-        # os.chdir("./AI/model3/pytorch-unet-master")
-        # inputFile = open('learn_input_file1.txt', 'w')
-
         # train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
-        epoch_value = 3e-1
-        learn_value = 2
-        batch_value = 2
-        train_value = 'test'
-        model_value = 'model'
-        print(path)
+        train_file = open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'r')
+        lines = train_file.readlines()
+        linesList = []
+        for line in lines:
+            linesList.append(line)
 
-        # inputFile.write(epoch_value + '\n' + learn_value + '\n' + batch_value + '\n' + train_value + '\n' + model_value)
-
-        # inputFile.close()
-        # print('asdf')
-
-
+        #lineList에는 입력받은 데이터인 epoch_value / learn_value / batch_value / train_value / model_value 이렇게 들어가있음!
+        print(linesList)
+        with open('./AI/model3/pytorch-unet-master/learn_input_file1.txt', 'w', encoding='UTF-8') as f:
+            for name in linesList:
+                f.write(name)
+        os.chdir("./AI/model3/pytorch-unet-master")
+        print(os.getcwd())
         self.reset()
         os.system("python train.py")
         self.cancel()
-        # os.chdir(path)
 
     def cancel(self):
         self.roding.hide()
