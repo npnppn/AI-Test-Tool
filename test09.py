@@ -128,7 +128,7 @@ class MyApp(QWidget):
         font2 = label2.font()
         font2.setPointSize(15)
         font2.setBold(True)
-        label3 = QLabel('파라미터', self)
+        label3 = QLabel('학습 정보 입력', self)
         label3.setAlignment(Qt.AlignCenter)
         font3 = label3.font()
         font3.setPointSize(20)
@@ -183,16 +183,15 @@ class MyApp(QWidget):
         # label12 = QLabel('batch_size', self)
 
         resultBox.addRow(label3)
+
+        resultBox.addRow(space_widget)
+        resultBox.addRow("모델 이름 ", self.model_widget)
         resultBox.addRow(space_widget)
         resultBox.addRow("Epoch ", self.epoch_widget)
         resultBox.addRow(space_widget)
-        resultBox.addRow("Iteration ", self.learn_widget)
+        resultBox.addRow("Learning Rate ", self.learn_widget)
         resultBox.addRow(space_widget)
-        resultBox.addRow("Loss ", self.batch_widget)
-        resultBox.addRow(space_widget)
-        resultBox.addRow(label10)
-        resultBox.addRow(self.model_widget)
-        resultBox.addRow(space_widget)
+        resultBox.addRow("Batch Size ", self.batch_widget)
         resultBox.addRow(space_widget)
 
         # 우측 하단 버튼
@@ -315,16 +314,16 @@ class MyApp(QWidget):
         font10.setBold(True)
         label0.setFont(font0)
 
-        label3 = QLabel('테스트 결과', self)
+        label3 = QLabel('------------', self)
         label3.setAlignment(Qt.AlignCenter)
         font3 = label3.font()
         font3.setPointSize(20)
         font3.setBold(True)
 
-        label4 = QLabel('적용된 parameter', self)
+        label4 = QLabel('사진 비교', self)
         label4.setAlignment(Qt.AlignCenter)
         font4 = label4.font()
-        font4.setPointSize(12)
+        font4.setPointSize(20)
         font4.setBold(True)
 
         label3.setFont(font3)
@@ -334,11 +333,14 @@ class MyApp(QWidget):
         #버튼들
         startTest = QPushButton('Test')
         getModel = QPushButton('모델 추출')
-        testComButton = QPushButton('Test 비교')
+        #testComButton = QPushButton('Test 비교')
         buttonbox = QHBoxLayout()
-        buttonbox.addWidget(getModel)
         buttonbox.addWidget(startTest)
-        buttonbox.addWidget(testComButton)
+        buttonbox.addWidget(getModel)
+        #buttonbox.addWidget(testComButton)
+
+        #버튼 기능
+        startTest.clicked.connect(self.roding2)
 
 
         # 이미지 박스
@@ -372,57 +374,77 @@ class MyApp(QWidget):
         listBox = QVBoxLayout()
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidget)
-        listBox.addWidget(label10)
-        listBox.addWidget(cb)
 
 
 
-        # 결과값 화면 보여주는 공간 배치
-        # 변수받는 공간
-        resultBox = QFormLayout()  # QFormLayout 생성
+        # 결과값 화면 보여주는 공간
+        result_layout = QVBoxLayout()
 
-        self.epoch_widget = QLabel("3")
-        self.iter_widget = QLabel("20")
-        self.loss_widget = QLabel("0.02")
-        self.accuracy_widget = QLabel("99.7%")
-        self.error_widget = QLabel("0.3%")
-        self.learning_widget = QLabel("2")
-        self.batch_widget = QLabel("1")
+
+
+
+        groupbox_model = QGroupBox("모델 정보")
+        groupbox_model.setAlignment(5)
+
+        groupbox_learn = QGroupBox("학습 정보")
+        groupbox_learn.setAlignment(5)
+        groupbox_image = QGroupBox("라벨/결과 비교")
+        groupbox_image.setAlignment(5)
+
+
+        self.epoch_widget = QLineEdit()
+        self.epoch_widget.setPlaceholderText("epoch")
+        self.loss_widget = QLineEdit()
+        self.loss_widget.setPlaceholderText("loss")
+        self.accuracy_widget = QLineEdit()
+        self.accuracy_widget.setPlaceholderText("accuracy")
+        self.learning_widget = QLineEdit()
+        self.learning_widget.setPlaceholderText("learning")
+        self.batch_widget = QLineEdit()
+        self.batch_widget.setPlaceholderText("batch")
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
 
-        # 행 추가하는 공간
-        resultBox.addRow(label3)  # 결과값
+
+
+        resultBox = QFormLayout()
+        resultBox.addRow(space_widget)
         resultBox.addRow("Epoch ", self.epoch_widget)
         resultBox.addRow(space_widget)
-        resultBox.addRow("Iteration ", self.iter_widget)
-        resultBox.addRow(space_widget)
-        resultBox.addRow("Loss ", self.loss_widget)
+        resultBox.addRow("Loss Rate ", self.loss_widget)
         resultBox.addRow(space_widget)
         resultBox.addRow("Accuracy ", self.accuracy_widget)
         resultBox.addRow(space_widget)
-        resultBox.addRow("Error Rate ", self.error_widget)
-        resultBox.addRow(space_widget)
 
-        resultBox.addRow(label4)  # 적용된 패러미터
-        resultBox.addRow("Learning_Rate ", self.learning_widget)
-        resultBox.addRow(space_widget)
-        resultBox.addRow("Batch_Size ", self.batch_widget)
-        resultBox.addRow(space_widget)
+        #iou스코어는 학습부분? 모델부분? 결과부분?
+        resultBox2 = QFormLayout()
+        resultBox2.addRow("Learning Rate ", self.learning_widget)
+        resultBox2.addRow(space_widget)
+        resultBox2.addRow("Batch Size ", self.batch_widget)
+        resultBox2.addRow(space_widget)
 
-        resultBox.addRow(label10)  # 모델 선택
-        resultBox.addRow(cb)
-        resultBox.addRow(space_widget)
-        resultBox.addRow(space_widget)
+        resultBox3 = QHBoxLayout()
+        btn1 = QPushButton()
+        btn1.setText('원본 사진')
+        btn2 = QPushButton()
+        btn2.setText('결과 사진')
+        resultBox3.addWidget(btn1)
+        resultBox3.addWidget(btn2)
 
-        resultBox.addRow(startTest)
-        resultBox.addRow(getModel)
-        resultBox.addRow(testComButton)
+        groupbox_model.setLayout(resultBox)
+        groupbox_learn.setLayout(resultBox2)
+        groupbox_image.setLayout(resultBox3)
 
+        result_layout.addWidget(label10)
+        result_layout.addWidget(cb)
 
-        self.setLayout(resultBox)
+        result_layout.addWidget(QLabel("\n"))
+        result_layout.addWidget(groupbox_model)
+        result_layout.addWidget(groupbox_learn)
+        result_layout.addWidget(label3)
+        result_layout.addWidget(groupbox_image)
+
+        self.setLayout(result_layout)
         self.show()
-
-        startTest.clicked.connect(self.roding2)
 
         # 가로
         hbox = QHBoxLayout()
@@ -431,8 +453,9 @@ class MyApp(QWidget):
         hbox.setStretchFactor(listBox, 2)
         hbox.addLayout(vbox)
         hbox.setStretchFactor(vbox, 6)
-        hbox.addLayout(resultBox)
-        hbox.setStretchFactor(resultBox, 2)
+        hbox.addLayout(result_layout)
+        hbox.setStretchFactor(result_layout, 2)
+
 
         # hbox.addWidget(self.lbl_img4)
         # hbox.addStretch(1)              # 결과값 넣을 곳
