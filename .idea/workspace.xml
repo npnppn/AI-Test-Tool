@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="Merge branch 'feat/min' of https://lab.ssafy.com/s05-final/S05P31F004 into feat/min&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;AI/model3/pytorch-unet-master/train.py">
-      <change beforePath="$PROJECT_DIR$/.idea/PrjLast.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PrjLast.iml" afterDir="false" />
+    <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test09.py" beforeDir="false" afterPath="$PROJECT_DIR$/test09.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,20 +15,23 @@
     <session id="-1238070455">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="436" />
+          <entry key="py" value="804" />
+          <entry key="txt" value="38" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="436" />
+          <entry key="PLAIN_TEXT" value="38" />
+          <entry key="Python" value="804" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -65,8 +64,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test09.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="547" lean-forward="true" selection-start-line="547" selection-end-line="547" />
+            <state relative-caret-position="177">
+              <caret line="337" column="33" lean-forward="true" selection-start-line="337" selection-start-column="33" selection-end-line="337" selection-end-column="33" />
+              <folding>
+                <element signature="e#11#25#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -153,6 +155,8 @@
       <find>test</find>
       <find>학습 하기</find>
       <find>epoch</find>
+      <find>split</find>
+      <find>label0</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,8 +210,8 @@
         <option value="$PROJECT_DIR$/testForAI.py" />
         <option value="$PROJECT_DIR$/test05.py" />
         <option value="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" />
-        <option value="$PROJECT_DIR$/test09.py" />
         <option value="$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt" />
+        <option value="$PROJECT_DIR$/test09.py" />
       </list>
     </option>
   </component>
@@ -434,7 +438,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636009011844</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="[ADD] test하기 눌렀을 때 창 꺼지는 문제 해결(경로 문제)">
+      <created>1636361561610</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1636361561610</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -455,14 +466,14 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4818242" visible="true" weight="0.3068182" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.48116326" visible="true" weight="0.3068182" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49834764" weight="0.32954547" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49636483" weight="0.32954547" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49504295" weight="0.32954547" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49504295" weight="0.3252841" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5181758" side_tool="true" visible="true" weight="0.3068182" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.51883674" side_tool="true" visible="true" weight="0.3068182" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49834764" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -476,7 +487,8 @@
     <MESSAGE value="[MODIFY] : 배경색 추가" />
     <MESSAGE value="[ADD] : 파일 브라우징 기능 추가" />
     <MESSAGE value="[MERGE] 재민님 코드 가져오기" />
-    <option name="LAST_COMMIT_MESSAGE" value="[MERGE] 재민님 코드 가져오기" />
+    <MESSAGE value="[ADD] test하기 눌렀을 때 창 꺼지는 문제 해결(경로 문제)" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] test하기 눌렀을 때 창 꺼지는 문제 해결(경로 문제)" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test01/th.py" />
@@ -576,6 +588,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file1.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/tensor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -583,6 +605,13 @@
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -612,27 +641,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file1.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/test09.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="547" lean-forward="true" selection-start-line="547" selection-end-line="547" />
+        <state relative-caret-position="177">
+          <caret line="337" column="33" lean-forward="true" selection-start-line="337" selection-start-column="33" selection-end-line="337" selection-end-column="33" />
+          <folding>
+            <element signature="e#11#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

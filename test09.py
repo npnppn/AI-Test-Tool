@@ -274,8 +274,6 @@ class MyApp(QWidget):
 
     # 테스트 페이지
     def testOpen(self):
-
-
         # self.dialog = QDialog()
         # 이미지 불러오기
         self.pixmap = QPixmap('./test/img01.jpg')
@@ -294,40 +292,54 @@ class MyApp(QWidget):
 
         # QListWidget 추가
         self.listwidget = QListWidget(self)
+        self.listwidget.setSelectionMode(QAbstractItemView.ExtendedSelection)
 
+        # 확장자명 제거해서 리스트에 추가
         for f in fileList:
-            self.listwidget.addItem(f)
+            self.listwidget.addItem(f.split(".")[0])
 
         # 리스트 클릭 이벤트
         self.listwidget.itemClicked.connect(self.chkItemClicked2)
 
         # 폰트 및 글자
-        label0 = QLabel('Test \n 파일 리스트', self)
+        label0 = QLabel('이미지 선택', self)
         label0.setAlignment(Qt.AlignCenter)
         font0 = label0.font()
         font0.setPointSize(20)
         font0.setBold(True)
-        label3 = QLabel('결과값', self)
+
+        label10 = QLabel('\n' + '모델 선택', self)
+        label10.setAlignment(Qt.AlignCenter)
+        font10 = label10.font()
+        font10.setPointSize(20)
+        font10.setBold(True)
+        label0.setFont(font0)
+
+        label3 = QLabel('테스트 결과', self)
         label3.setAlignment(Qt.AlignCenter)
         font3 = label3.font()
         font3.setPointSize(20)
         font3.setBold(True)
+
         label4 = QLabel('적용된 parameter', self)
         label4.setAlignment(Qt.AlignCenter)
         font4 = label4.font()
         font4.setPointSize(12)
         font4.setBold(True)
-        label10 = QLabel('모델 선택', self)
-        label10.setAlignment(Qt.AlignCenter)
-        font10 = label10.font()
-        font10.setPointSize(12)
-        font10.setBold(True)
-        # 폰트 적용
-        label0.setFont(font0)
 
         label3.setFont(font3)
         label4.setFont(font4)
         label10.setFont(font10)
+
+        #버튼들
+        startTest = QPushButton('Test')
+        getModel = QPushButton('모델 추출')
+        testComButton = QPushButton('Test 비교')
+        buttonbox = QHBoxLayout()
+        buttonbox.addWidget(getModel)
+        buttonbox.addWidget(startTest)
+        buttonbox.addWidget(testComButton)
+
 
         # 이미지 박스
         imgBox = QHBoxLayout()
@@ -337,52 +349,35 @@ class MyApp(QWidget):
         vbox = QVBoxLayout()
         # vbox.addWidget(self.lbl_img)
         vbox.addLayout(imgBox)
-        vbox.addStretch(2)  # 그래프 넣을 곳
+        vbox.addLayout(buttonbox)
+
+
+        # 테스트 모델 경로
+        path = './AI/model3/pytorch-unet-master/checkpoint'
+        fileList2 = os.listdir(path)
+
+        # 모델 선택
+        cb = QComboBox(self)
+        cbList = []
+        for f in fileList2:
+            cbList.append(f)
+            cb.addItem(f.split(".")[0])
+        cb.move(50, 50)
+        print(cbList)
+        with open('./AI/model3/pytorch-unet-master/test_file_path.txt', 'w', encoding='UTF-8') as f:
+            for name in fileList2:
+                f.write(name + '\n')
 
         # 좌측 (리스트)
         listBox = QVBoxLayout()
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidget)
-
-        # 테스트 모델 경로
-        path = './AI/model3/pytorch-unet-master/checkpoint'
-        fileList = os.listdir(path)
-        # if fileList is None:
-        #     label0 = QLabel('학습 중 ...', self)
-        #     label0.setAlignment(Qt.AlignCenter)
-        #     font0 = label0.font()
-        #     font0.setPointSize(30)
-        #     font0.setBold(True)
-        #
-        #     label0.setFont(font0)
-
-        # 모델 선택
-        cb = QComboBox(self)
-        cbList = []
-        for f in fileList:
-            cb.addItem(f)
-            #print(f)
-            cbList.append(f)
+        listBox.addWidget(label10)
+        listBox.addWidget(cb)
 
 
-            #os.chdir("./AI/model3/pytorch-unet-master")
-            #File = open('test_file_path.txt', 'w')
-            #File.write(path + f)
-            #File.close()
-        cb.move(50, 50)
-        print(cbList)
-        with open('./AI/model3/pytorch-unet-master/test_file_path.txt', 'w', encoding='UTF-8') as f:
-            for name in fileList:
-                f.write(name + '\n')
-
-
-
-        startTest = QPushButton('Test 하기')
-        getModel = QPushButton('모델 추출')
-        testComButton = QPushButton('Test 비교하기')
 
         # 결과값 화면 보여주는 공간 배치
-
         # 변수받는 공간
         resultBox = QFormLayout()  # QFormLayout 생성
 
@@ -423,12 +418,6 @@ class MyApp(QWidget):
         resultBox.addRow(getModel)
         resultBox.addRow(testComButton)
 
-        # self.dialog.resultBox.setStyleSheet("background-color: black;")
-        # resultBox.setObjectName("result_box")
-        # resultBox.objectName("result_box")
-
-        # 색깔 변경은 어떻게 할까?
-        # self.setStyleSheet('color: blue; background:rgb(255,0,0)')
 
         self.setLayout(resultBox)
         self.show()
