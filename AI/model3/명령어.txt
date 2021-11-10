@@ -6,3 +6,5 @@ python train.py --lr 1e-2 --batch_size 2 --num_epoch 300 --data_dir "./data_imag
 tensorboard --logdir=log_v2
 
 http://localhost:6006/
+
+11
