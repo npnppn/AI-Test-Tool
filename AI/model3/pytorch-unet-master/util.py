@@ -5,12 +5,12 @@ import torch
 import torch.nn as nn
 
 ## 네트워크 저장하기
-def save(ckpt_dir, net, optim, epoch):
+def save(ckpt_dir, net, optim, epoch, name):
     if not os.path.exists(ckpt_dir):
         os.makedirs(ckpt_dir)
 
     torch.save({'net': net.state_dict(), 'optim': optim.state_dict()},
-               "%s/model_epoch%d.pth" % (ckpt_dir, epoch))
+               "%s/model_%s_epoch%d.pth" % (ckpt_dir, name, epoch))
 
 ## 네트워크 불러오기
 def load(ckpt_dir, net, optim):
