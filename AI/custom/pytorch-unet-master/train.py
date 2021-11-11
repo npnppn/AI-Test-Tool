@@ -137,6 +137,7 @@ st_epoch = 0
 
 # TRAIN MODE
 if mode == 'train':
+    best_loss = 100
     if train_continue == "on":
         net, optim, st_epoch = load(ckpt_dir=ckpt_dir, net=net, optim=optim)
 
@@ -161,6 +162,13 @@ if mode == 'train':
 
             # 손실함수 계산
             loss_arr += [loss.item()]
+
+            # VALID에서 Best LOSS
+            if best_loss > np.mean(loss_arr):
+                best_loss = np.mean(loss_arr)
+                # SAVE
+                best_save(ckpt_dir=ckpt_dir, net=net,
+                          optim=optim, epoch=epoch)
 
             # Tensorboard 저장하기
             label = fn_tonumpy(label)
@@ -213,18 +221,21 @@ if mode == 'train':
         writer_val.add_scalar('loss', np.mean(loss_arr), epoch)
 
         if epoch == num_epoch:
-            save(ckpt_dir=ckpt_dir, net=net, optim=optim, epoch=epoch)
+            save(ckpt_dir=ckpt_dir, net=net,
+                 optim=optim, epoch=epoch, name="test")
 
     writer_train.close()
     writer_val.close()
 
 # TEST MODE
 else:
-    net, optim, st_epoch = load(ckpt_dir=ckpt_dir, net=net, optim=optim)
+    net, optim, st_epoch = load(
+        ckpt_dir=ckpt_dir, net=net, optim=optim, name="test_model.pth")
 
     with torch.no_grad():
         net.eval()
         loss_arr = []
+        iou_arr = []
 
         for batch, data in enumerate(loader_test, 1):
             # forward pass
@@ -238,13 +249,16 @@ else:
 
             loss_arr += [loss.item()]
 
-            print("TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-                  (batch, num_batch_test, np.mean(loss_arr), iou_numpy(output, label)))
-
             # Tensorboard 저장하기
             label = fn_tonumpy(label)
             input = fn_tonumpy(fn_denorm(input, mean=0.5, std=0.5))
             output = fn_tonumpy(fn_class(output))
+
+            iou = iou_numpy(output, label)
+            iou_arr += [iou]
+
+            print("TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+                  (batch, num_batch_test, np.mean(loss_arr), iou))
 
             for j in range(label.shape[0]):
                 id = num_batch_test * (batch - 1) + j
@@ -263,5 +277,5 @@ else:
                 np.save(os.path.join(result_dir, 'numpy',
                         'output_%04d.npy' % id), output[j].squeeze())
 
-    print("AVERAGE TEST: BATCH %04d / %04d | LOSS %.4f" %
-          (batch, num_batch_test, np.mean(loss_arr)))
+    print("AVERAGE TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+          (batch, num_batch_test, np.mean(loss_arr), np.mean(iou_arr)))
