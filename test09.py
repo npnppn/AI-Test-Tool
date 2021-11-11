@@ -75,6 +75,7 @@ class MyApp(QWidget):
 
     # 학습 페이지
     def learningOpen(self):
+
         # 이미지 불러오기
         self.pixmap = QPixmap('./test/img01.jpg')
         self.lbl_img = QLabel()
@@ -86,7 +87,7 @@ class MyApp(QWidget):
 
         self.lbl_img2 = QLabel()
         self.lbl_img2.setPixmap(self.pixmap)
-        self.lbl_img2.setContentsMargins(0, 10, 0, 10)
+        #self.lbl_img2.setContentsMargins(0, 10, 0, 10)
         # 사이즈 조정
         self.pixmap2 = self.pixmap.scaled(200, 200)
         self.lbl_img2.setPixmap(self.pixmap2)
@@ -94,7 +95,7 @@ class MyApp(QWidget):
         self.pixmap3 = QPixmap('./mask/img01.png')
         self.lbl_img3 = QLabel()
         self.lbl_img3.setPixmap(self.pixmap3)
-        self.lbl_img3.setContentsMargins(0, 10, 0, 10)
+        #self.lbl_img3.setContentsMargins(0, 10, 0, 10)
         # 사이즈 조정
         self.pixmap3 = self.pixmap3.scaled(200, 200)
         self.lbl_img3.setPixmap(self.pixmap3)
@@ -107,13 +108,13 @@ class MyApp(QWidget):
         self.listwidgetLearning = QListWidget(self)
 
         for f in fileList:
-            self.listwidgetLearning.addItem(f)
+            self.listwidgetLearning.addItem(f.split(".")[0])
 
         # 리스트 클릭 이벤트
         self.listwidgetLearning.itemClicked.connect(self.chkItemClicked)
 
         # 폰트 및 글자
-        label0 = QLabel('Input \n 파일 리스트', self)
+        label0 = QLabel('이미지 선택', self)
         label0.setAlignment(Qt.AlignCenter)
         font0 = label0.font()
         font0.setPointSize(20)
@@ -128,7 +129,7 @@ class MyApp(QWidget):
         font2 = label2.font()
         font2.setPointSize(15)
         font2.setBold(True)
-        label3 = QLabel('학습 정보 입력', self)
+        label3 = QLabel('정보 입력', self)
         label3.setAlignment(Qt.AlignCenter)
         font3 = label3.font()
         font3.setPointSize(20)
@@ -147,27 +148,39 @@ class MyApp(QWidget):
 
         # 박스 레이아웃
         # 이미지 박스 (우측)
-        subImgBox = QVBoxLayout()
-        subImgBox.addWidget(label1)
+        subImgBox = QHBoxLayout()
+        #subImgBox.addWidget(label1)
         subImgBox.addWidget(self.lbl_img2)
-        subImgBox.addWidget(label2)
+        #subImgBox.addWidget(label2)
         subImgBox.addWidget(self.lbl_img3)
-        subImgBox.addStretch(1)
+        #subImgBox.addStretch(1)
 
         # 이미지 박스
-        imgBox = QHBoxLayout()
+        imgBox = QVBoxLayout()
         imgBox.addWidget(self.lbl_img)
         imgBox.addLayout(subImgBox)
 
         # 중간
         vbox = QVBoxLayout()
         vbox.addLayout(imgBox)
-        vbox.addStretch(2)  # 그래프 넣을 곳
+        #vbox.addStretch(2)  # 그래프 넣을 곳
 
         # 좌측 (리스트)
         listBox = QVBoxLayout()
+        btn = QPushButton('뒤로')
+        btn.clicked.connect(self.clickButton)
+        listBox.addWidget(btn)
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidgetLearning)
+
+        # 결과값 화면 보여주는 공간
+        result_layout = QVBoxLayout()
+
+        groupbox1 = QGroupBox("학습 정보")
+        groupbox1.setAlignment(5)
+
+        groupbox2 = QGroupBox("")
+        groupbox2.setAlignment(5)
 
         # 결과
         resultBox = QFormLayout()  # QFormLayout 생성
@@ -175,15 +188,9 @@ class MyApp(QWidget):
         self.learn_widget = QLineEdit()
         self.batch_widget = QLineEdit()
         self.model_widget = QLineEdit()
-
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
 
-        # label5 = QLabel('Epoch', self)
-        # label11 = QLabel('learning_rate', self)
-        # label12 = QLabel('batch_size', self)
-
         resultBox.addRow(label3)
-
         resultBox.addRow(space_widget)
         resultBox.addRow("모델 이름 ", self.model_widget)
         resultBox.addRow(space_widget)
@@ -192,23 +199,34 @@ class MyApp(QWidget):
         resultBox.addRow("Learning Rate ", self.learn_widget)
         resultBox.addRow(space_widget)
         resultBox.addRow("Batch Size ", self.batch_widget)
-        resultBox.addRow(space_widget)
+        #resultBox.addRow(space_widget)
 
-        # 우측 하단 버튼
-        startLearning = QPushButton('학습 하기')
-        getModel = QPushButton('모델 추출')
-        testButton = QPushButton('Test 하기')
+        startLearning = QPushButton('학습 시작', self)
+        testButton = QPushButton('Test')
 
-        # 결과값 박스 레이아웃
+        learning_font = startLearning.font()
+        test_font = testButton.font()
 
-        resultBox.addRow(startLearning)
-        resultBox.addRow(getModel)
-        resultBox.addRow(testButton)
+        learning_font.setPointSize(30)
+        startLearning.setFont(learning_font)
+        test_font.setPointSize(30)
+        testButton.setFont(test_font)
+
+        startLearning.setMaximumHeight(200)
+        testButton.setMaximumHeight(200)
 
         # 버튼 클릭 이벤트
         testButton.clicked.connect(self.testOpen)
-
+        #여기를 지우면 뒤로가기가 잘됨.  왜지?
         startLearning.clicked.connect(self.roding)
+        #print("여기가 오류인가")
+        groupbox1.setLayout(resultBox)
+        result_layout.addWidget(groupbox1)
+        result_layout.addWidget(startLearning)
+        result_layout.addWidget(testButton)
+        self.setLayout(result_layout)
+        self.show()
+
 
         # 가로
         hbox = QHBoxLayout()
@@ -217,8 +235,8 @@ class MyApp(QWidget):
         hbox.setStretchFactor(listBox, 2)
         hbox.addLayout(vbox)
         hbox.setStretchFactor(vbox, 6)
-        hbox.addLayout(resultBox)
-        hbox.setStretchFactor(resultBox, 2)
+        hbox.addLayout(result_layout)
+        #hbox.setStretchFactor(resultBox, 2)
         # hbox.addStretch(1)              # 결과값 넣을 곳
 
         self.learning.setLayout(hbox)
@@ -248,15 +266,11 @@ class MyApp(QWidget):
         # QDialog 세팅
         self.learning.setWindowTitle('learning')
         self.learning.setWindowModality(Qt.NonModal)
-        # 반응형
-        # self.dialog.setGeometry(350, 100, 1200, 800)
-        # 크기 고정
         self.learning.setFixedSize(1200, 800)
-        # 배경색 변경
+        self.hide()
+        self.dialog.hide()
         self.learning.setStyleSheet("background-color: #0c4da2; color: white;")
         self.learning.show()
-        # 메인페이지 종료
-        self.hide()
 
     # 파일 열기 기능. 나중에 이 목록을 가져와서 리스트로 쭈욱 나열하면 될 듯
     def pushButtonClicked(self):
@@ -332,11 +346,16 @@ class MyApp(QWidget):
 
         #버튼들
         startTest = QPushButton('Test')
-        getModel = QPushButton('모델 추출')
+        test_font = startTest.font()
+        test_font.setPointSize(30)
+        startTest.setFont(test_font)
+        startTest.setMaximumHeight(200)
+
+        #getModel = QPushButton('모델 추출')
         #testComButton = QPushButton('Test 비교')
         buttonbox = QHBoxLayout()
         buttonbox.addWidget(startTest)
-        buttonbox.addWidget(getModel)
+        #buttonbox.addWidget(getModel)
         #buttonbox.addWidget(testComButton)
 
         #버튼 기능
@@ -360,6 +379,9 @@ class MyApp(QWidget):
 
         # 모델 선택
         cb = QComboBox(self)
+        cb.addItem("ㅡㅡㅡㅡ모델을 선택하세요ㅡㅡㅡㅡ")
+        cb.setPlaceholderText("---모델을 선택하세요---")
+        cb.setCurrentIndex(0)
         cbList = []
         for f in fileList2:
             cbList.append(f)
@@ -370,18 +392,18 @@ class MyApp(QWidget):
             for name in fileList2:
                 f.write(name + '\n')
 
+        cb.currentTextChanged.connect(self.combobox_changed)
+
         # 좌측 (리스트)
         listBox = QVBoxLayout()
+        btn = QPushButton('뒤로')
+        btn.clicked.connect(self.clickButton)
+        listBox.addWidget(btn)
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidget)
 
-
-
         # 결과값 화면 보여주는 공간
         result_layout = QVBoxLayout()
-
-
-
 
         groupbox_model = QGroupBox("모델 정보")
         groupbox_model.setAlignment(5)
@@ -390,7 +412,6 @@ class MyApp(QWidget):
         groupbox_learn.setAlignment(5)
         groupbox_image = QGroupBox("라벨/결과 비교")
         groupbox_image.setAlignment(5)
-
 
         self.epoch_widget = QLineEdit()
         self.epoch_widget.setPlaceholderText("epoch")
@@ -404,11 +425,7 @@ class MyApp(QWidget):
         self.batch_widget.setPlaceholderText("batch")
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
 
-
-
         resultBox = QFormLayout()
-        resultBox.addRow(space_widget)
-        resultBox.addRow("Epoch ", self.epoch_widget)
         resultBox.addRow(space_widget)
         resultBox.addRow("Loss Rate ", self.loss_widget)
         resultBox.addRow(space_widget)
@@ -417,6 +434,8 @@ class MyApp(QWidget):
 
         #iou스코어는 학습부분? 모델부분? 결과부분?
         resultBox2 = QFormLayout()
+        resultBox2.addRow("Epoch ", self.epoch_widget)
+        resultBox2.addRow(space_widget)
         resultBox2.addRow("Learning Rate ", self.learning_widget)
         resultBox2.addRow(space_widget)
         resultBox2.addRow("Batch Size ", self.batch_widget)
@@ -424,9 +443,9 @@ class MyApp(QWidget):
 
         resultBox3 = QHBoxLayout()
         btn1 = QPushButton()
-        btn1.setText('원본 사진')
+        btn1.setText('원본')
         btn2 = QPushButton()
-        btn2.setText('결과 사진')
+        btn2.setText('결과')
         resultBox3.addWidget(btn1)
         resultBox3.addWidget(btn2)
 
@@ -513,6 +532,23 @@ class MyApp(QWidget):
         self.pixmap = self.pixmap.scaled(700, 700)
         self.lbl_img.setPixmap(self.pixmap)
 
+    def clickButton(self):
+        self.initUI()
+
+    # 모델 콤보 박스 클릭시?
+    def combobox_changed(self):
+        readFile = open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'r')
+        reads = readFile.readlines()
+        readList = []
+        for read in reads:
+            readList.append(read)
+
+        print(readList)
+        self.epoch_widget.setText(readList[0])
+        self.learning_widget.setText(readList[1])
+        self.batch_widget.setText(readList[2])
+        #print("ㅇㅇ콤보박스 이벤트")
+
     def roding(self):
         #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         epoch_value = self.epoch_widget.text()
@@ -579,8 +615,12 @@ class MyApp(QWidget):
         os.chdir(path)
 
     def roding2(self):
-        # TEST
 
+
+
+
+
+        # TEST
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
         self.lbl_img5.setGraphicsEffect(opacity_effect)
