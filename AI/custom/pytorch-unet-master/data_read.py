@@ -18,14 +18,16 @@ if not os.path.exists(dir_save_val):
 if not os.path.exists(dir_save_test):
     os.makedirs(dir_save_test)
 
+
 img_data = './image_leather/Imgs/'
 labels_data = './image_leather/labels/'
 
 nframe = len(os.listdir(img_data))
 
-nframe_train = 61
-nframe_val = 6
-nframe_test = 6
+nframe_train = int(nframe * 3/4) 
+nframe_val = int(nframe * 1/8) 
+nframe_test = int(nframe * 1/8)
+
 
 id_frame = np.arange(nframe)
 np.random.shuffle(id_frame)

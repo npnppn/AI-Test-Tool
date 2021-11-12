@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="Merge branch 'feature/AI_GUI' of https://lab.ssafy.com/s05-final/S05P31F004 into feat/min&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;AI/model3/pytorch-unet-master/train.py&#10;#&#9;test05.py">
+    <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/log/train/events.out.tfevents.1635993795.DESKTOP-KVCQHCD.7760.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/log/train/events.out.tfevents.1636000096.DESKTOP-KVCQHCD.3916.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/log/train/events.out.tfevents.1636000603.DESKTOP-KVCQHCD.1496.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/log/val/events.out.tfevents.1635993795.DESKTOP-KVCQHCD.7760.1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/log/val/events.out.tfevents.1636000096.DESKTOP-KVCQHCD.3916.1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/log/val/events.out.tfevents.1636000603.DESKTOP-KVCQHCD.1496.1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test05.py" beforeDir="false" afterPath="$PROJECT_DIR$/test05.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test09.py" beforeDir="false" afterPath="$PROJECT_DIR$/test09.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,74 +16,37 @@
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1238070455">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="11" />
-          <entry key="project.open.time.4" value="2" />
-          <entry key="project.open.time.5" value="5" />
-          <entry key="project.open.time.6" value="2" />
-          <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="10" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="jpg" value="2" />
-          <entry key="py" value="4" />
-          <entry key="xml" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="Image" value="2" />
-          <entry key="Python" value="4" />
-          <entry key="XML" value="1" />
-        </counts>
-      </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="528" />
-          <entry key="txt" value="39" />
+          <entry key="py" value="3147" />
+          <entry key="txt" value="94" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="39" />
-          <entry key="Python" value="528" />
+          <entry key="PLAIN_TEXT" value="94" />
+          <entry key="Python" value="3147" />
         </counts>
       </usages-collector>
-      <usages-collector id="statistics.vcs.git.usages">
-        <counts>
-          <entry key="git.branch.checkout.local" value="3" />
-          <entry key="git.checkout.as.new.branch" value="1" />
-        </counts>
-      </usages-collector>
-    </session>
-    <session id="191073817">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="py" value="146" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="Python" value="146" />
+          <entry key="project.closed" value="6" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.7" value="3" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="6" />
+          <entry key="pth" value="2" />
+          <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="6" />
+          <entry key="PLAIN_TEXT" value="4" />
         </counts>
       </usages-collector>
     </session>
@@ -95,59 +54,49 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test05.py">
+        <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7722">
-              <caret line="518" selection-start-line="518" selection-end-line="518" />
+            <state relative-caret-position="152">
+              <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
               <folding>
-                <element signature="e#11#25#0" expanded="true" />
+                <element signature="e#14#29#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test00.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test08.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-57">
-              <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test05.spec">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="15" column="15" lean-forward="true" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py">
+        <entry file="file://$PROJECT_DIR$/test09.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+            <state relative-caret-position="101">
+              <caret line="348" column="36" lean-forward="true" selection-start-line="348" selection-start-column="36" selection-end-line="348" selection-end-column="36" />
+              <folding>
+                <element signature="e#11#25#0" expanded="true" />
+                <marker date="1636619181576" expanded="true" signature="17067:17095" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tensor.py">
+        <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file1.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="171">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/tensor.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -156,20 +105,33 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test01/img01.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/img01.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+        <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1273">
-              <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+            <state relative-caret-position="76">
+              <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/util.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -197,6 +159,12 @@
       <find>파일 리스트</find>
       <find>test</find>
       <find>학습 하기</find>
+      <find>epoch</find>
+      <find>split</find>
+      <find>label0</find>
+      <find>qpushbutton</find>
+      <find>align</find>
+      <find>getmodel</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -250,15 +218,18 @@
         <option value="$PROJECT_DIR$/testForAI.py" />
         <option value="$PROJECT_DIR$/test05.py" />
         <option value="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" />
+        <option value="$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt" />
         <option value="$PROJECT_DIR$/test09.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
+    <option name="y" value="-10" />
     <option name="width" value="1750" />
     <option name="height" value="970" />
   </component>
+  <component name="ProjectId" id="20U5JKW11mfHtxoSz7xR8gnwnbo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
@@ -301,11 +272,23 @@
               <item name="model3" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="pytorch-unet-master" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
+            <path>
+              <item name="PrjLast" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="AI" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="model3" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="pytorch-unet-master" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="checkpoint" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
     </panes>
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -323,7 +306,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test05">
+  <component name="RunManager" selected="Python.test09">
     <configuration name="test05" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="PrjLast" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -337,6 +320,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test05.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test09" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="PrjLast" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test09.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -366,18 +370,44 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="PrjLast" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/AI/model3/pytorch-unet-master" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.test05" />
+      <item itemvalue="Python.test09" />
       <item itemvalue="Python.testForAI" />
+      <item itemvalue="Python.train" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test09" />
+        <item itemvalue="Python.train" />
         <item itemvalue="Python.test05" />
         <item itemvalue="Python.testForAI" />
         <item itemvalue="Python.test05" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -410,21 +440,42 @@
       <option name="project" value="LOCAL" />
       <updated>1635831937824</updated>
     </task>
-    <task id="LOCAL-00004" summary="feat: [Revise] 스타일 주석처리">
-      <created>1635729773993</created>
+    <task id="LOCAL-00004" summary="[MERGE] 재민님 코드 가져오기">
+      <created>1636009003934</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1635729773993</updated>
+      <updated>1636009003934</updated>
     </task>
-    <task id="LOCAL-00005" summary="feat: [Revise] 파이썬 버전 변경">
-      <created>1635733106115</created>
+    <task id="LOCAL-00005" summary="[MERGE] 재민님 코드 가져오기">
+      <created>1636009011844</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1635733106115</updated>
+      <updated>1636009011844</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00006" summary="[ADD] test하기 눌렀을 때 창 꺼지는 문제 해결(경로 문제)">
+      <created>1636361561610</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1636361561610</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[ADD] test화면 좌측+중앙 UI 변경, 이미지 리스트 다중선택">
+      <created>1636425445478</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1636425445478</updated>
+    </task>
+    <task id="LOCAL-00008" summary="[ADD] test화면 UI 전체적으로 변경">
+      <created>1636447023724</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1636447023724</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -438,21 +489,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4871117" weight="0.1875" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.47918043" visible="true" weight="0.3068182" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49966952" weight="0.32954547" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49834764" weight="0.32954547" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49636483" weight="0.3252841" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5128883" side_tool="true" visible="true" weight="0.1875" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4990086" weight="0.32954547" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49834764" weight="0.32954547" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49239922" weight="0.328125" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49504295" weight="0.3252841" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.52081954" side_tool="true" visible="true" weight="0.3068182" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49834764" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -464,7 +516,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="[MODIFY] : 배경색 추가" />
     <MESSAGE value="[ADD] : 파일 브라우징 기능 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADD] : 파일 브라우징 기능 추가" />
+    <MESSAGE value="[MERGE] 재민님 코드 가져오기" />
+    <MESSAGE value="[ADD] test하기 눌렀을 때 창 꺼지는 문제 해결(경로 문제)" />
+    <MESSAGE value="[ADD] test화면 좌측+중앙 UI 변경, 이미지 리스트 다중선택" />
+    <MESSAGE value="[ADD] test화면 UI 전체적으로 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] test화면 UI 전체적으로 변경" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test01/th.py" />
@@ -476,19 +532,110 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test04.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/test04.py" />
+    <entry file="file://$PROJECT_DIR$/test03.py" />
+    <entry file="file://$PROJECT_DIR$/test05.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9747">
+          <caret line="518" selection-start-line="518" selection-end-line="518" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test03.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/test05.spec">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="15" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test01.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/test01/img01.jpg">
+      <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/img01.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test00.py" />
+    <entry file="file://$PROJECT_DIR$/test01.py" />
     <entry file="file://$PROJECT_DIR$/test07.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testForAI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="9" column="46" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tensor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="37" lean-forward="true" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test08.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/data_read.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="11" column="38" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/checkpoint/model_epoch_ssafy1.pth">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="-96438" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/tensor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -499,55 +646,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testForAI.py" />
-    <entry file="file://$PROJECT_DIR$/test/img01.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test01/img01.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test05.py">
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7722">
-          <caret line="518" selection-start-line="518" selection-end-line="518" />
-          <folding>
-            <element signature="e#11#25#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="76">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test08.py">
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-57">
-          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+        <state relative-caret-position="171">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file1.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
+          <folding>
+            <element signature="e#14#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test09.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="439" column="50" lean-forward="true" selection-start-line="439" selection-start-column="50" selection-end-line="439" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test05.spec">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="15" column="15" lean-forward="true" selection-start-line="15" selection-start-column="15" selection-end-line="15" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1273">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+        <state relative-caret-position="101">
+          <caret line="348" column="36" lean-forward="true" selection-start-line="348" selection-start-column="36" selection-end-line="348" selection-end-column="36" />
+          <folding>
+            <element signature="e#11#25#0" expanded="true" />
+            <marker date="1636619181576" expanded="true" signature="17067:17095" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
