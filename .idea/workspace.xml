@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test09.py" beforeDir="false" afterPath="$PROJECT_DIR$/test09.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,24 +16,25 @@
     <session id="-1238070455">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="3310" />
-          <entry key="txt" value="121" />
+          <entry key="py" value="3393" />
+          <entry key="txt" value="135" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="121" />
-          <entry key="Python" value="3310" />
+          <entry key="PLAIN_TEXT" value="135" />
+          <entry key="Python" value="3393" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.7" value="3" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -56,11 +57,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test09.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="29" column="49" lean-forward="true" selection-start-line="29" selection-start-column="49" selection-end-line="29" selection-end-column="49" />
+            <state relative-caret-position="114">
+              <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
               <folding>
                 <element signature="e#11#25#0" expanded="true" />
-                <marker date="1636683831848" expanded="true" signature="16971:16999" ph="..." />
+                <marker date="1636695353778" expanded="true" signature="16701:16729" ph="..." />
               </folding>
             </state>
           </provider>
@@ -85,7 +86,7 @@
         <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="171">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -166,6 +167,7 @@
       <find>label4</find>
       <find>roding2</find>
       <find>roding</find>
+      <find>lbl_img</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -457,7 +459,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636621379003</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="[ADD] 학습하기 화면 마무리">
+      <created>1636686018180</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1636686018180</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -473,19 +482,19 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2536913" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25313947" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49932885" weight="0.32954547" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.47785234" visible="true" weight="0.3068182" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.47719762" visible="true" weight="0.3068182" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49834764" weight="0.32954547" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49107733" weight="0.32765958" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.48975545" weight="0.32624114" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49504295" weight="0.3252841" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.52214766" side_tool="true" visible="true" weight="0.3068182" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.52280235" side_tool="true" visible="true" weight="0.3068182" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49834764" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -503,7 +512,8 @@
     <MESSAGE value="[ADD] test화면 좌측+중앙 UI 변경, 이미지 리스트 다중선택" />
     <MESSAGE value="[ADD] test화면 UI 전체적으로 변경" />
     <MESSAGE value="[ADD] 뒤로가기 버튼, 전체적으로 UI 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADD] 뒤로가기 버튼, 전체적으로 UI 수정" />
+    <MESSAGE value="[ADD] 학습하기 화면 마무리" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] 학습하기 화면 마무리" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test01/th.py" />
@@ -597,11 +607,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1501">
           <caret line="95" selection-start-line="95" selection-end-line="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test09.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
           <folding>
-            <element signature="e#14#29#0" expanded="true" />
+            <element signature="e#11#25#0" expanded="true" />
+            <marker date="1636695353778" expanded="true" signature="16701:16729" ph="..." />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mask/img01.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/img/dark.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/learn_input_file1.txt">
       <provider selected="true" editor-type-id="text-editor" />
@@ -609,7 +633,7 @@
     <entry file="file://$PROJECT_DIR$/AI/model3/pytorch-unet-master/test_file_path.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
@@ -653,23 +677,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="779">
           <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/dark.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mask/img01.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test09.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="29" column="49" lean-forward="true" selection-start-line="29" selection-start-column="49" selection-end-line="29" selection-end-column="49" />
-          <folding>
-            <element signature="e#11#25#0" expanded="true" />
-            <marker date="1636683831848" expanded="true" signature="16971:16999" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>

@@ -80,23 +80,17 @@ class MyApp(QWidget):
         self.pixmap = QPixmap('./test/img01.jpg')
         self.lbl_img = QLabel()
         self.lbl_img.setPixmap(self.pixmap)
-        # self.lbl_img.setContentsMargins(10, 10, 10, 10)
-        # 사이즈 조정
         self.pixmap = self.pixmap.scaled(450, 500)
         self.lbl_img.setPixmap(self.pixmap)
 
         self.lbl_img2 = QLabel()
         self.lbl_img2.setPixmap(self.pixmap)
-        #self.lbl_img2.setContentsMargins(0, 10, 0, 10)
-        # 사이즈 조정
         self.pixmap2 = self.pixmap.scaled(200, 200)
         self.lbl_img2.setPixmap(self.pixmap2)
 
         self.pixmap3 = QPixmap('./mask/img01.png')
         self.lbl_img3 = QLabel()
         self.lbl_img3.setPixmap(self.pixmap3)
-        #self.lbl_img3.setContentsMargins(0, 10, 0, 10)
-        # 사이즈 조정
         self.pixmap3 = self.pixmap3.scaled(200, 200)
         self.lbl_img3.setPixmap(self.pixmap3)
 
@@ -229,7 +223,6 @@ class MyApp(QWidget):
         self.setLayout(result_layout)
         self.show()
 
-
         # 가로
         hbox = QHBoxLayout()
         hbox.addLayout(listBox)
@@ -238,8 +231,6 @@ class MyApp(QWidget):
         hbox.addLayout(vbox)
         hbox.setStretchFactor(vbox, 6)
         hbox.addLayout(result_layout)
-        #hbox.setStretchFactor(resultBox, 2)
-        # hbox.addStretch(1)              # 결과값 넣을 곳
 
         self.learning.setLayout(hbox)
 
@@ -251,7 +242,8 @@ class MyApp(QWidget):
         self.lbl_img4.setGraphicsEffect(opacity_effect)
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
-        self.lbl_img4.setGeometry(323, 11, 450, 500)
+        self.lbl_img4.setAlignment(Qt.AlignCenter)
+        self.lbl_img4.setGeometry(324, 10, 450, 500)
 
         self.pixmap5 = QPixmap('./img/dark.png')
         self.lbl_img5 = QLabel(self.learning)
@@ -494,7 +486,7 @@ class MyApp(QWidget):
         self.dialog.setStyleSheet("background-color: #0c4da2; color: white;")
         self.dialog.show()
 
-    # 리스트 클릭시 이미지 변경 ( test )
+    # 리스트 클릭시 이미지 변경 (학습부분 )
     def chkItemClicked(self):
         # print(self.listwidget.currentItem().text())
         self.pixmap = QPixmap('./test/' + self.listwidgetLearning.currentItem().text())
@@ -515,7 +507,7 @@ class MyApp(QWidget):
         self.lbl_img4.setPixmap(self.pixmap4)
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
-        self.lbl_img4.setGeometry(252, 19, 450, 500)
+        self.lbl_img4.setGeometry(324, 10, 450, 500)
 
     # 리스트 클릭시 이미지 변경
     def chkItemClicked2(self):
