@@ -214,16 +214,15 @@ if mode == 'train':
         writer_val.add_scalar('loss', np.mean(loss_arr), epoch)
 
         if epoch == num_epoch:
-            save(ckpt_dir=ckpt_dir, net=net, optim=optim, epoch=epoch, name=name)
+            save(ckpt_dir=ckpt_dir + '/' + name, net=net, optim=optim, epoch=epoch, name=name)
 
     writer_train.close()
     writer_val.close()
 
 # TEST MODE
 else:
-    sys.stdin = open('test_file_path.txt', 'r')
-    name = input()
     net, optim, st_epoch, name = load(ckpt_dir='/' + ckpt_dir, net=net, optim=optim, name=name)
+    print(name)
 
     with torch.no_grad():
         net.eval()

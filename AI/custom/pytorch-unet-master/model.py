@@ -26,7 +26,6 @@ class UNet(nn.Module):
         # Contracting path
         self.enc1_1 = CBR2d(in_channels=1, out_channels=64)
         self.enc1_2 = CBR2d(in_channels=64, out_channels=64)
-        self.enc1_3 = CBR2d(in_channels=64, out_channels=64)
 
         self.pool1 = nn.MaxPool2d(kernel_size=2)
 
@@ -51,24 +50,14 @@ class UNet(nn.Module):
         self.pool5 = nn.MaxPool2d(kernel_size=2)
 
         self.enc6_1 = CBR2d(in_channels=1024, out_channels=2048)
-        self.enc6_2 = CBR2d(in_channels=2048, out_channels=2048)
-
-        self.pool6 = nn.MaxPool2d(kernel_size=2)
-
-        self.enc7_1 = CBR2d(in_channels=2048, out_channels=4096)
 
         # Expansive path
-        self.dec7_1 = CBR2d(in_channels=4096, out_channels=2048)
 
-        self.unpool6 = nn.ConvTranspose2d(in_channels=2048, out_channels=2048,
-                                          kernel_size=2, stride=2, padding=0, bias=True)
-        
-        self.dec6_2 = CBR2d(in_channels=2 * 2048, out_channels=2048)
         self.dec6_1 = CBR2d(in_channels=2048, out_channels=1024)
 
         self.unpool5 = nn.ConvTranspose2d(in_channels=1024, out_channels=1024,
                                           kernel_size=2, stride=2, padding=0, bias=True)
-        
+
         self.dec5_2 = CBR2d(in_channels=2 * 1024, out_channels=1024)
         self.dec5_1 = CBR2d(in_channels=1024, out_channels=512)
 
@@ -93,75 +82,74 @@ class UNet(nn.Module):
         self.unpool1 = nn.ConvTranspose2d(in_channels=64, out_channels=64,
                                           kernel_size=2, stride=2, padding=0, bias=True)
 
-        self.dec1_3 = CBR2d(in_channels=2 * 64, out_channels=64)
-        self.dec1_2 = CBR2d(in_channels=64, out_channels=64)
+        self.dec1_2 = CBR2d(in_channels=2 * 64, out_channels=64)
         self.dec1_1 = CBR2d(in_channels=64, out_channels=64)
 
-        self.fc1 = nn.Conv2d(in_channels=32, out_channels=1,
-                             kernel_size=1, stride=1, padding=0, bias=True)
+        self.dropout = nn.Dropout(0.2)
 
         self.fc = nn.Conv2d(in_channels=64, out_channels=32,
                             kernel_size=1, stride=1, padding=0, bias=True)
+        self.fc1 = nn.Conv2d(in_channels=32, out_channels=1,
+                             kernel_size=1, stride=1, padding=0, bias=True)
 
     def forward(self, x):
         enc1_1 = self.enc1_1(x)
         enc1_2 = self.enc1_2(enc1_1)
-        enc1_3 = self.enc1_3(enc1_2)
         pool1 = self.pool1(enc1_2)
+        pool1 = self.dropout(pool1)
 
         enc2_1 = self.enc2_1(pool1)
         enc2_2 = self.enc2_2(enc2_1)
         pool2 = self.pool2(enc2_2)
+        pool2 = self.dropout(pool2)
 
         enc3_1 = self.enc3_1(pool2)
         enc3_2 = self.enc3_2(enc3_1)
         pool3 = self.pool3(enc3_2)
+        pool3 = self.dropout(pool3)
 
         enc4_1 = self.enc4_1(pool3)
         enc4_2 = self.enc4_2(enc4_1)
         pool4 = self.pool4(enc4_2)
+        pool4 = self.dropout(pool4)
 
         enc5_1 = self.enc5_1(pool4)
         enc5_2 = self.enc5_2(enc5_1)
         pool5 = self.pool5(enc5_2)
+        pool5 = self.dropout(pool5)
 
         enc6_1 = self.enc6_1(pool5)
-        enc6_2 = self.enc6_2(enc6_1)
-        pool6 = self.pool6(enc6_2)
 
-        enc7_1 = self.enc7_1(pool6)
-
-        dec7_1 = self.dec7_1(enc7_1)
-
-        unpool6 = self.unpool6(dec7_1)
-        cat6 = torch.cat((unpool6, enc6_2), dim=1)
-        dec6_2 = self.dec6_2(cat6)
-        dec6_1 = self.dec6_1(dec6_2)
+        dec6_1 = self.dec6_1(enc6_1)
 
         unpool5 = self.unpool5(dec6_1)
+        unpool5 = self.dropout(unpool5)
         cat5 = torch.cat((unpool5, enc5_2), dim=1)
         dec5_2 = self.dec5_2(cat5)
         dec5_1 = self.dec5_1(dec5_2)
 
         unpool4 = self.unpool4(dec5_1)
+        unpool5 = self.dropout(unpool4)
         cat4 = torch.cat((unpool4, enc4_2), dim=1)
         dec4_2 = self.dec4_2(cat4)
         dec4_1 = self.dec4_1(dec4_2)
 
         unpool3 = self.unpool3(dec4_1)
+        unpool5 = self.dropout(unpool3)
         cat3 = torch.cat((unpool3, enc3_2), dim=1)
         dec3_2 = self.dec3_2(cat3)
         dec3_1 = self.dec3_1(dec3_2)
 
         unpool2 = self.unpool2(dec3_1)
+        unpool5 = self.dropout(unpool2)
         cat2 = torch.cat((unpool2, enc2_2), dim=1)
         dec2_2 = self.dec2_2(cat2)
         dec2_1 = self.dec2_1(dec2_2)
 
         unpool1 = self.unpool1(dec2_1)
+        unpool5 = self.dropout(unpool1)
         cat1 = torch.cat((unpool1, enc1_2), dim=1)
-        dec1_3 = self.dec1_3(cat1)
-        dec1_2 = self.dec1_2(dec1_3)
+        dec1_2 = self.dec1_2(cat1)
         dec1_1 = self.dec1_1(dec1_2)
 
         x = self.fc(dec1_1)

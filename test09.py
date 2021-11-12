@@ -1,5 +1,5 @@
 # 학습하기 페이지
-import sys, os
+import sys, os, glob
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -27,6 +27,7 @@ class MyApp(QWidget):
         testComButton = QPushButton('Test 비교')
 
         # 버튼 이벤트
+        pretreatmentButton.clicked.connect(self.pretreatmentOpen)
         testButton.clicked.connect(self.testOpen)
         QApplication.processEvents()
         learningButton.clicked.connect(self.learningOpen)
@@ -75,23 +76,39 @@ class MyApp(QWidget):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
+    # 데이터 전처리
+    def pretreatmentOpen(self):
+        path = os.getcwd()
+        os.chdir("./AI/model3/pytorch-unet-master")
+        self.reset()
+        os.system("python data_read.py")
+        os.chdir(path)
+        self.learningOpen()
+
     # 학습 페이지
     def learningOpen(self):
+
         # 이미지 불러오기
         self.pixmap = QPixmap('./test/img01.jpg')
         self.lbl_img = QLabel()
         self.lbl_img.setPixmap(self.pixmap)
+        # self.lbl_img.setContentsMargins(10, 10, 10, 10)
+        # 사이즈 조정
         self.pixmap = self.pixmap.scaled(450, 500)
         self.lbl_img.setPixmap(self.pixmap)
 
         self.lbl_img2 = QLabel()
         self.lbl_img2.setPixmap(self.pixmap)
+        #self.lbl_img2.setContentsMargins(0, 10, 0, 10)
+        # 사이즈 조정
         self.pixmap2 = self.pixmap.scaled(200, 200)
         self.lbl_img2.setPixmap(self.pixmap2)
 
         self.pixmap3 = QPixmap('./mask/img01.png')
         self.lbl_img3 = QLabel()
         self.lbl_img3.setPixmap(self.pixmap3)
+        #self.lbl_img3.setContentsMargins(0, 10, 0, 10)
+        # 사이즈 조정
         self.pixmap3 = self.pixmap3.scaled(200, 200)
         self.lbl_img3.setPixmap(self.pixmap3)
 
@@ -147,6 +164,7 @@ class MyApp(QWidget):
         subImgBox.addWidget(self.lbl_img2, alignment=Qt.AlignHCenter)
         subImgBox.addWidget(self.lbl_img3, alignment=Qt.AlignHCenter)
 
+
         # 이미지 박스
         imgBox = QVBoxLayout()
         imgBox.addWidget(self.lbl_img, alignment=Qt.AlignHCenter)
@@ -156,7 +174,6 @@ class MyApp(QWidget):
         imgName = QHBoxLayout()
         imgName.addWidget(label1)
         imgName.addWidget(label2)
-
         # 중간
         vbox = QVBoxLayout()
         vbox.addLayout(imgBox)
@@ -181,9 +198,9 @@ class MyApp(QWidget):
 
         # 결과
         resultBox = QFormLayout()  # QFormLayout 생성
-        self.epoch_widget = QLineEdit()
         self.learn_widget = QLineEdit()
         self.batch_widget = QLineEdit()
+        self.epoch_widget = QLineEdit()
         self.model_widget = QLineEdit()
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
 
@@ -223,6 +240,7 @@ class MyApp(QWidget):
         self.setLayout(result_layout)
         self.show()
 
+
         # 가로
         hbox = QHBoxLayout()
         hbox.addLayout(listBox)
@@ -244,7 +262,6 @@ class MyApp(QWidget):
         self.lbl_img4.setPixmap(self.pixmap4)
         self.lbl_img4.setAlignment(Qt.AlignCenter)
         self.lbl_img4.setGeometry(324, 10, 450, 500)
-
         self.pixmap5 = QPixmap('./img/dark.png')
         self.lbl_img5 = QLabel(self.learning)
         self.lbl_img5.setPixmap(self.pixmap5)
@@ -255,7 +272,7 @@ class MyApp(QWidget):
         self.lbl_img5.setPixmap(self.pixmap5)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
-        #self.loading = QDialog()
+        self.loading = QDialog()
 
         # QDialog 세팅
         self.learning.setWindowTitle('Learning')
@@ -347,6 +364,7 @@ class MyApp(QWidget):
         #버튼 기능
         startTest.clicked.connect(self.loading2)
 
+
         # 이미지 박스
         imgBox = QHBoxLayout()
         imgBox.addWidget(self.lbl_img)
@@ -367,12 +385,18 @@ class MyApp(QWidget):
         cb.addItem("ㅡㅡㅡㅡ모델을 선택하세요ㅡㅡㅡㅡ")
         cb.setPlaceholderText("---모델을 선택하세요---")
         cb.setCurrentIndex(0)
-        cbList = []
-        for f in fileList2:
-            cbList.append(f)
-            cb.addItem(f.split(".")[0])
+
+        # 모델들 하위 경로 가져오기
+        targetPattern = r"./AI/model3/pytorch-unet-master/" + "**/**/*.pth"
+        cbList = glob.glob(targetPattern)
+        arr = []
+        for f in cbList:
+            file = os.path.basename(f)
+            cb.addItem(file)
+
         cb.move(50, 50)
-        print(cbList)
+
+
         with open('./AI/model3/pytorch-unet-master/test_file_path.txt', 'w', encoding='UTF-8') as f:
             for name in fileList2:
                 f.write(name + '\n')
@@ -536,10 +560,10 @@ class MyApp(QWidget):
 
     def loading(self):
         QApplication.processEvents()
-        #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
-        epoch_value = self.epoch_widget.text()
+       #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         learn_value = self.learn_widget.text()
         batch_value = self.batch_widget.text()
+        epoch_value = self.epoch_widget.text()
         train_value = 'train'
         model_value = self.model_widget.text()
 
@@ -592,7 +616,7 @@ class MyApp(QWidget):
         path = os.getcwd()
         os.chdir("./AI/model3/pytorch-unet-master")
         inputFile = open('learn_input_file.txt', 'w')
-        inputFile.write(epoch_value + '\n' + learn_value + '\n' + batch_value + '\n' + train_value + '\n' + model_value)
+        inputFile.write(learn_value + '\n' + batch_value + '\n' + epoch_value  + '\n' + train_value + '\n' + model_value)
         inputFile.close()
 
         self.reset()
@@ -601,7 +625,7 @@ class MyApp(QWidget):
         os.chdir(path)
 
     def loading2(self):
-        # TEST
+         # TEST
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
         self.lbl_img5.setGraphicsEffect(opacity_effect)
@@ -661,9 +685,13 @@ class MyApp(QWidget):
 
         #lineList에는 입력받은 데이터인 epoch_value / learn_value / batch_value / train_value / model_value 이렇게 들어가있음!
         print(linesList)
-        with open('./AI/model3/pytorch-unet-master/learn_input_file1.txt', 'w', encoding='UTF-8') as f:
+        with open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'w', encoding='UTF-8') as f:
             for name in linesList:
-                f.write(name)
+                if name == 'train\n':
+                    f.write('test\n')
+                else:
+                    f.write(name)
+
         os.chdir("./AI/model3/pytorch-unet-master")
         print(os.getcwd())
         self.reset()
