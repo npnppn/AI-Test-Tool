@@ -24,6 +24,10 @@ import gc
 gc.collect()
 torch.cuda.empty_cache()
 
+# TRAIN MODE :  python train.py --lr 1e-3 --batch_size 16 --num_epoch 10 --data_dir "./datasets" --name "abcd" --mode "train" 해당 name으로 폴더가 생성됨
+# TEST MODE : python train.py --lr 1e-3 --batch_size 16 --num_epoch 10 --data_dir "./datasets" --name "abcd" --mode "test" --model "abcd_model.pth"
+# COMPARE MODE : python train.py --lr 1e-3 --batch_size 16 --num_epoch 10 --data_dir "./datasets" --name "abcd" --mode "compare" --model1 "test.pth" --model2 "abcd_model.pth"
+
 # Parser 생성하기
 parser = argparse.ArgumentParser(description="Train the UNet",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -31,18 +35,16 @@ parser = argparse.ArgumentParser(description="Train the UNet",
 parser.add_argument("--lr", default=1e-3, type=float, dest="lr")
 parser.add_argument("--batch_size", default=4, type=int, dest="batch_size")
 parser.add_argument("--num_epoch", default=100, type=int, dest="num_epoch")
-
 parser.add_argument("--data_dir", default="./datasets",
                     type=str, dest="data_dir")
-parser.add_argument("--ckpt_dir", default="./checkpoint",
-                    type=str, dest="ckpt_dir")
-parser.add_argument("--log_dir", default="./log", type=str, dest="log_dir")
-parser.add_argument("--result_dir", default="./result",
-                    type=str, dest="result_dir")
-
 parser.add_argument("--mode", default="train", type=str, dest="mode")
 parser.add_argument("--train_continue", default="off",
                     type=str, dest="train_continue")
+# 저장할 모델이름
+parser.add_argument("--name", default="name", type=str, dest="name")
+parser.add_argument("--model", default="model.pth", type=str, dest="model")
+parser.add_argument("--model1", default="model.pth", type=str, dest="model1")
+parser.add_argument("--model2", default="model.pth", type=str, dest="model2")
 
 args = parser.parse_args()
 
@@ -51,10 +53,17 @@ lr = args.lr  # 학습횟수
 batch_size = args.batch_size
 num_epoch = args.num_epoch
 
+name = args.name
+
 data_dir = args.data_dir  # 데이터셋 저장 디렉토리
-ckpt_dir = args.ckpt_dir
-log_dir = args.log_dir  # tensorboard log 저장 디렉토리
-result_dir = args.result_dir
+ckpt_dir = "./" + name + "/checkpoint"
+log_dir = "./" + name + "/log"  # tensorboard log 저장 디렉토리
+result_dir = "./" + name + "/result"
+compare_dir = "./" + name + "/compare"
+
+model_name = args.model
+model1_name = args.model1
+model2_name = args.model2
 
 mode = args.mode
 train_continue = args.train_continue
@@ -69,12 +78,34 @@ print("data dir: %s" % data_dir)
 print("ckpt dir: %s" % ckpt_dir)
 print("log dir: %s" % log_dir)
 print("result dir: %s" % result_dir)
+print("compare dir: %s" % compare_dir)
 print("mode: %s" % mode)
 
-# 디렉토리 생성하기
+if mode == 'test':
+    print("test model %s" % model_name)
+elif mode == 'compare':
+    print("compare model1 %s" % model1_name)
+    print("compare model2 %s" % model2_name)
+
+# test 용 디렉토리 생성하기
 if not os.path.exists(result_dir):
-    os.makedirs(os.path.join(result_dir, 'png'))
-    os.makedirs(os.path.join(result_dir, 'numpy'))
+    os.makedirs(os.path.join(result_dir, 'png/label'))
+    os.makedirs(os.path.join(result_dir, 'png/input'))
+    os.makedirs(os.path.join(result_dir, 'png/output'))
+    os.makedirs(os.path.join(result_dir, 'numpy/label'))
+    os.makedirs(os.path.join(result_dir, 'numpy/input'))
+    os.makedirs(os.path.join(result_dir, 'numpy/output'))
+
+# compare 용 디렉토리 생성하기
+if not os.path.exists(compare_dir):
+    os.makedirs(os.path.join(compare_dir, 'png/label'))
+    os.makedirs(os.path.join(compare_dir, 'png/input'))
+    os.makedirs(os.path.join(compare_dir, 'png/output1'))
+    os.makedirs(os.path.join(compare_dir, 'png/output2'))
+    os.makedirs(os.path.join(compare_dir, 'numpy/label'))
+    os.makedirs(os.path.join(compare_dir, 'numpy/input'))
+    os.makedirs(os.path.join(compare_dir, 'numpy/output1'))
+    os.makedirs(os.path.join(compare_dir, 'numpy/output2'))
 
 # 네트워크 학습하기
 if mode == 'train':
@@ -113,6 +144,9 @@ else:
 
 # 네트워크 생성하기
 net = UNet().to(device)
+if mode == 'compare':
+    net1 = UNet().to(device)
+    net2 = UNet().to(device)
 
 # 손실함수 정의하기
 fn_loss = nn.BCEWithLogitsLoss().to(device)
@@ -144,7 +178,6 @@ if mode == 'train':
     for epoch in range(st_epoch + 1, num_epoch + 1):
         net.train()
         loss_arr = []
-
         for batch, data in enumerate(loader_train, 1):
             # forward pass
             label = data['label'].to(device)
@@ -163,20 +196,15 @@ if mode == 'train':
             # 손실함수 계산
             loss_arr += [loss.item()]
 
-            # VALID에서 Best LOSS
-            if best_loss > np.mean(loss_arr):
-                best_loss = np.mean(loss_arr)
-                # SAVE
-                best_save(ckpt_dir=ckpt_dir, net=net,
-                          optim=optim, epoch=epoch)
-
             # Tensorboard 저장하기
             label = fn_tonumpy(label)
             input = fn_tonumpy(fn_denorm(input, mean=0.5, std=0.5))
             output = fn_tonumpy(fn_class(output))
 
+            iou = iou_numpy(output, label)
+
             print("TRAIN: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-                  (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou_numpy(output, label)))
+                  (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou))
 
             writer_train.add_image(
                 'label', label, num_batch_train * (epoch - 1) + batch, dataformats='NHWC')
@@ -190,7 +218,7 @@ if mode == 'train':
         with torch.no_grad():
             net.eval()
             loss_arr = []
-
+            iou_arr = []
             for batch, data in enumerate(loader_val, 1):
                 # forward pass
                 label = data['label'].to(device)
@@ -208,8 +236,17 @@ if mode == 'train':
                 input = fn_tonumpy(fn_denorm(input, mean=0.5, std=0.5))
                 output = fn_tonumpy(fn_class(output))
 
+                iou = iou_numpy(output, label)
+                iou_arr += [iou]
+
                 print("VALID: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-                      (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou_numpy(output, label)))
+                      (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou))
+                # VALID에서 Best LOSS
+                if best_loss > np.mean(loss_arr):
+                    best_loss = np.mean(loss_arr)
+                    # SAVE
+                    best_save(ckpt_dir=ckpt_dir, net=net,
+                              optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr))
 
                 writer_val.add_image(
                     'label', label, num_batch_val * (epoch - 1) + batch, dataformats='NHWC')
@@ -222,15 +259,15 @@ if mode == 'train':
 
         if epoch == num_epoch:
             save(ckpt_dir=ckpt_dir, net=net,
-                 optim=optim, epoch=epoch, name="test")
+                 optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr))
 
     writer_train.close()
     writer_val.close()
 
 # TEST MODE
-else:
+elif mode == 'test':
     net, optim, st_epoch = load(
-        ckpt_dir=ckpt_dir, net=net, optim=optim, name="test_model.pth")
+        ckpt_dir=ckpt_dir, net=net, optim=optim, name=model_name)
 
     with torch.no_grad():
         net.eval()
@@ -263,19 +300,98 @@ else:
             for j in range(label.shape[0]):
                 id = num_batch_test * (batch - 1) + j
 
-                plt.imsave(os.path.join(result_dir, 'png', 'label_%04d.png' %
+                plt.imsave(os.path.join(result_dir, 'png/label', 'label_%04d.png' %
                            id), label[j].squeeze(), cmap='gray')
-                plt.imsave(os.path.join(result_dir, 'png', 'input_%04d.png' %
+                plt.imsave(os.path.join(result_dir, 'png/input', 'input_%04d.png' %
                            id), input[j].squeeze(), cmap='gray')
-                plt.imsave(os.path.join(result_dir, 'png', 'output_%04d.png' %
+                plt.imsave(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
                            id), output[j].squeeze(), cmap='gray')
 
-                np.save(os.path.join(result_dir, 'numpy',
+                np.save(os.path.join(result_dir, 'numpy/label',
                         'label_%04d.npy' % id), label[j].squeeze())
-                np.save(os.path.join(result_dir, 'numpy',
+                np.save(os.path.join(result_dir, 'numpy/input',
                         'input_%04d.npy' % id), input[j].squeeze())
-                np.save(os.path.join(result_dir, 'numpy',
+                np.save(os.path.join(result_dir, 'numpy/output',
                         'output_%04d.npy' % id), output[j].squeeze())
 
     print("AVERAGE TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
           (batch, num_batch_test, np.mean(loss_arr), np.mean(iou_arr)))
+
+# COMPARE MODE
+else:
+    net1, optim1, st_epoch1 = load(
+        ckpt_dir=ckpt_dir, net=net1, optim=optim, name=model1_name)
+
+    net2, optim2, st_epoch2 = load(
+        ckpt_dir=ckpt_dir, net=net2, optim=optim, name=model2_name)
+
+    with torch.no_grad():
+        net1.eval()
+        net2.eval()
+        loss_arr1 = []
+        iou_arr1 = []
+        loss_arr2 = []
+        iou_arr2 = []
+
+        for batch, data in enumerate(loader_test, 1):
+            # forward pass
+            label = data['label'].to(device)
+            input = data['input'].to(device)
+
+            output1 = net1(input)
+
+            # 손실함수 계산하기
+            loss1 = fn_loss(output1, label)
+
+            loss_arr1 += [loss1.item()]
+
+            output2 = net2(input)
+
+            # 손실함수 계산하기
+            loss2 = fn_loss(output2, label)
+
+            loss_arr2 += [loss2.item()]
+
+            # Tensorboard 저장하기
+            label = fn_tonumpy(label)
+            input = fn_tonumpy(fn_denorm(input, mean=0.5, std=0.5))
+            output1 = fn_tonumpy(fn_class(output1))
+            output2 = fn_tonumpy(fn_class(output2))
+
+            iou1 = iou_numpy(output1, label)
+            iou_arr1 += [iou1]
+
+            iou2 = iou_numpy(output2, label)
+            iou_arr2 += [iou2]
+
+            print("TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+                  (batch, num_batch_test, np.mean(loss_arr1), iou1))
+
+            print("TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+                  (batch, num_batch_test, np.mean(loss_arr2), iou2))
+
+            for j in range(label.shape[0]):
+                id = num_batch_test * (batch - 1) + j
+
+                plt.imsave(os.path.join(compare_dir, 'png/label', 'label_%04d.png' %
+                           id), label[j].squeeze(), cmap='gray')
+                plt.imsave(os.path.join(compare_dir, 'png/input', 'input_%04d.png' %
+                           id), input[j].squeeze(), cmap='gray')
+                plt.imsave(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
+                           id), output1[j].squeeze(), cmap='gray')
+                plt.imsave(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
+                           id), output2[j].squeeze(), cmap='gray')
+
+                np.save(os.path.join(compare_dir, 'numpy/label',
+                        'label_%04d.npy' % id), label[j].squeeze())
+                np.save(os.path.join(compare_dir, 'numpy/input',
+                        'input_%04d.npy' % id), input[j].squeeze())
+                np.save(os.path.join(compare_dir, 'numpy/output1',
+                        'output1_%04d.npy' % id), output1[j].squeeze())
+                np.save(os.path.join(compare_dir, 'numpy/output2',
+                        'output2_%04d.npy' % id), output2[j].squeeze())
+
+    print("AVERAGE TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+          (batch, num_batch_test, np.mean(loss_arr1), np.mean(iou_arr1)))
+    print("AVERAGE TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+          (batch, num_batch_test, np.mean(loss_arr2), np.mean(iou_arr2)))
