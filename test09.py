@@ -28,7 +28,9 @@ class MyApp(QWidget):
 
         # 버튼 이벤트
         testButton.clicked.connect(self.testOpen)
+        QApplication.processEvents()
         learningButton.clicked.connect(self.learningOpen)
+        QApplication.processEvents()
 
         # 박스 레이아웃
         h2box = QVBoxLayout()
@@ -75,7 +77,6 @@ class MyApp(QWidget):
 
     # 학습 페이지
     def learningOpen(self):
-
         # 이미지 불러오기
         self.pixmap = QPixmap('./test/img01.jpg')
         self.lbl_img = QLabel()
@@ -213,9 +214,8 @@ class MyApp(QWidget):
 
         # 버튼 클릭 이벤트
         testButton.clicked.connect(self.testOpen)
-        #여기를 지우면 뒤로가기가 잘됨.  왜지?
         startLearning.clicked.connect(self.loading)
-        #print("여기가 오류인가")
+
         groupbox1.setLayout(resultBox)
         result_layout.addWidget(groupbox1)
         result_layout.addWidget(startLearning)
@@ -255,7 +255,7 @@ class MyApp(QWidget):
         self.lbl_img5.setPixmap(self.pixmap5)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
-        self.loading = QDialog()
+        #self.loading = QDialog()
 
         # QDialog 세팅
         self.learning.setWindowTitle('Learning')
@@ -535,6 +535,7 @@ class MyApp(QWidget):
         #print("ㅇㅇ콤보박스 이벤트")
 
     def loading(self):
+        QApplication.processEvents()
         #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         epoch_value = self.epoch_widget.text()
         learn_value = self.learn_widget.text()
