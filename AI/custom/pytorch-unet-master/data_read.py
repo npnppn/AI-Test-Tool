@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 
-path = './image_conflate/'
+path = './image_leather/'
 
 dir_save_train = os.path.join(path, 'train')
 dir_save_val = os.path.join(path, 'val')
@@ -18,14 +18,16 @@ if not os.path.exists(dir_save_val):
 if not os.path.exists(dir_save_test):
     os.makedirs(dir_save_test)
 
-img_data = './image_conflate/Imgs/'
-labels_data = './image_conflate/labels/'
+
+img_data = './image_leather/Imgs/'
+labels_data = './image_leather/labels/'
 
 nframe = len(os.listdir(img_data))
 
 nframe_train = int(nframe * 3/4) 
 nframe_val = int(nframe * 1/8) 
-nframe_test = int(nframe * 1/8) 
+nframe_test = int(nframe * 1/8)
+
 
 id_frame = np.arange(nframe)
 np.random.shuffle(id_frame)
