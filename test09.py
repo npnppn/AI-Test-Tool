@@ -149,21 +149,23 @@ class MyApp(QWidget):
         # 박스 레이아웃
         # 이미지 박스 (우측)
         subImgBox = QHBoxLayout()
-        #subImgBox.addWidget(label1)
-        subImgBox.addWidget(self.lbl_img2)
-        #subImgBox.addWidget(label2)
-        subImgBox.addWidget(self.lbl_img3)
-        #subImgBox.addStretch(1)
+        subImgBox.addWidget(self.lbl_img2, alignment=Qt.AlignHCenter)
+        subImgBox.addWidget(self.lbl_img3, alignment=Qt.AlignHCenter)
 
         # 이미지 박스
         imgBox = QVBoxLayout()
-        imgBox.addWidget(self.lbl_img)
+        imgBox.addWidget(self.lbl_img, alignment=Qt.AlignHCenter)
+        imgBox.addWidget(QLabel("\n"))
         imgBox.addLayout(subImgBox)
+
+        imgName = QHBoxLayout()
+        imgName.addWidget(label1)
+        imgName.addWidget(label2)
 
         # 중간
         vbox = QVBoxLayout()
         vbox.addLayout(imgBox)
-        #vbox.addStretch(2)  # 그래프 넣을 곳
+        vbox.addLayout(imgName)
 
         # 좌측 (리스트)
         listBox = QVBoxLayout()
@@ -218,7 +220,7 @@ class MyApp(QWidget):
         # 버튼 클릭 이벤트
         testButton.clicked.connect(self.testOpen)
         #여기를 지우면 뒤로가기가 잘됨.  왜지?
-        startLearning.clicked.connect(self.roding)
+        startLearning.clicked.connect(self.loading)
         #print("여기가 오류인가")
         groupbox1.setLayout(resultBox)
         result_layout.addWidget(groupbox1)
@@ -249,7 +251,7 @@ class MyApp(QWidget):
         self.lbl_img4.setGraphicsEffect(opacity_effect)
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
-        self.lbl_img4.setGeometry(252, 19, 450, 500)
+        self.lbl_img4.setGeometry(323, 11, 450, 500)
 
         self.pixmap5 = QPixmap('./img/dark.png')
         self.lbl_img5 = QLabel(self.learning)
@@ -261,10 +263,10 @@ class MyApp(QWidget):
         self.lbl_img5.setPixmap(self.pixmap5)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
-        self.roding = QDialog()
+        self.loading = QDialog()
 
         # QDialog 세팅
-        self.learning.setWindowTitle('learning')
+        self.learning.setWindowTitle('Learning')
         self.learning.setWindowModality(Qt.NonModal)
         self.learning.setFixedSize(1200, 800)
         self.hide()
@@ -333,15 +335,7 @@ class MyApp(QWidget):
         font3 = label3.font()
         font3.setPointSize(20)
         font3.setBold(True)
-
-        label4 = QLabel('사진 비교', self)
-        label4.setAlignment(Qt.AlignCenter)
-        font4 = label4.font()
-        font4.setPointSize(20)
-        font4.setBold(True)
-
         label3.setFont(font3)
-        label4.setFont(font4)
         label10.setFont(font10)
 
         #버튼들
@@ -359,8 +353,7 @@ class MyApp(QWidget):
         #buttonbox.addWidget(testComButton)
 
         #버튼 기능
-        startTest.clicked.connect(self.roding2)
-
+        startTest.clicked.connect(self.loading2)
 
         # 이미지 박스
         imgBox = QHBoxLayout()
@@ -549,7 +542,7 @@ class MyApp(QWidget):
         self.batch_widget.setText(readList[2])
         #print("ㅇㅇ콤보박스 이벤트")
 
-    def roding(self):
+    def loading(self):
         #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         epoch_value = self.epoch_widget.text()
         learn_value = self.learn_widget.text()
@@ -594,12 +587,12 @@ class MyApp(QWidget):
         vbox.addLayout(hbox)
         vbox.addStretch(1)
 
-        self.roding.setLayout(vbox)
+        self.loading.setLayout(vbox)
 
-        self.roding.setWindowTitle('roding')
-        self.roding.setWindowModality(Qt.ApplicationModal)
-        self.roding.setFixedSize(600, 400)
-        self.roding.show()
+        self.loading.setWindowTitle('Loading')
+        self.loading.setWindowModality(Qt.ApplicationModal)
+        self.loading.setFixedSize(600, 400)
+        self.loading.show()
         self.reset()
 
         # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
@@ -614,12 +607,7 @@ class MyApp(QWidget):
         self.cancel()
         os.chdir(path)
 
-    def roding2(self):
-
-
-
-
-
+    def loading2(self):
         # TEST
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
@@ -631,7 +619,7 @@ class MyApp(QWidget):
         # 결과 값 변경
         self.epoch_widget.setText(str(epoch))
 
-        self.roding2 = QDialog()
+        self.loading2 = QDialog()
         label0 = QLabel('Test 중 ...', self)
         label0.setAlignment(Qt.AlignCenter)
         font0 = label0.font()
@@ -661,13 +649,13 @@ class MyApp(QWidget):
         vbox.addLayout(hbox)
         vbox.addStretch(1)
 
-        self.roding2.setLayout(vbox)
+        self.loading2.setLayout(vbox)
 
-        self.roding2.setWindowTitle('roding')
-        self.roding2.setWindowModality(Qt.ApplicationModal)
-        self.roding2.setFixedSize(600, 400)
+        self.loading2.setWindowTitle('Loading')
+        self.loading2.setWindowModality(Qt.ApplicationModal)
+        self.loading2.setFixedSize(600, 400)
         # self.dialog.setStyleSheet("background-color: black;")
-        self.roding2.show()
+        self.loading2.show()
         self.reset()
 
         # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
@@ -690,14 +678,14 @@ class MyApp(QWidget):
         self.cancel()
 
     def cancel(self):
-        self.roding.hide()
+        self.loading.hide()
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
         self.lbl_img5.setGraphicsEffect(opacity_effect)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
     def cancel2(self):
-        self.roding2.hide()
+        self.loading2.hide()
 
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
