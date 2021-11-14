@@ -178,6 +178,7 @@ if mode == 'train':
     for epoch in range(st_epoch + 1, num_epoch + 1):
         net.train()
         loss_arr = []
+        iou_arr = []
         for batch, data in enumerate(loader_train, 1):
             # forward pass
             label = data['label'].to(device)
@@ -202,9 +203,11 @@ if mode == 'train':
             output = fn_tonumpy(fn_class(output))
 
             iou = iou_numpy(output, label)
+            iou_arr += [iou]
+            acc = np.mean(output == label) * 100
 
-            print("TRAIN: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-                  (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou))
+            print("TRAIN: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
+                  (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou, acc))
 
             writer_train.add_image(
                 'label', label, num_batch_train * (epoch - 1) + batch, dataformats='NHWC')
@@ -214,11 +217,13 @@ if mode == 'train':
                 'output', output, num_batch_train * (epoch - 1) + batch, dataformats='NHWC')
 
         writer_train.add_scalar('loss', np.mean(loss_arr), epoch)
+        writer_train.add_scalar('iou', np.mean(iou_arr), epoch)
 
         with torch.no_grad():
             net.eval()
             loss_arr = []
             iou_arr = []
+            acc = 0
             for batch, data in enumerate(loader_val, 1):
                 # forward pass
                 label = data['label'].to(device)
@@ -238,15 +243,16 @@ if mode == 'train':
 
                 iou = iou_numpy(output, label)
                 iou_arr += [iou]
+                acc = np.mean(output == label) * 100
 
-                print("VALID: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-                      (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou))
+                print("VALID: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
+                      (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou, acc))
                 # VALID에서 Best LOSS
                 if best_loss > np.mean(loss_arr):
                     best_loss = np.mean(loss_arr)
                     # SAVE
                     best_save(ckpt_dir=ckpt_dir, net=net,
-                              optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr))
+                              optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr), acc=acc)
 
                 writer_val.add_image(
                     'label', label, num_batch_val * (epoch - 1) + batch, dataformats='NHWC')
@@ -256,10 +262,11 @@ if mode == 'train':
                     'output', output, num_batch_val * (epoch - 1) + batch, dataformats='NHWC')
 
         writer_val.add_scalar('loss', np.mean(loss_arr), epoch)
+        writer_val.add_scalar('iou', np.mean(iou_arr), epoch)
 
         if epoch == num_epoch:
             save(ckpt_dir=ckpt_dir, net=net,
-                 optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr))
+                 optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr), acc=acc)
 
     writer_train.close()
     writer_val.close()
@@ -273,6 +280,7 @@ elif mode == 'test':
         net.eval()
         loss_arr = []
         iou_arr = []
+        acc_arr = []
 
         for batch, data in enumerate(loader_test, 1):
             # forward pass
@@ -293,9 +301,11 @@ elif mode == 'test':
 
             iou = iou_numpy(output, label)
             iou_arr += [iou]
+            acc = np.mean(output == label) * 100
+            acc_arr += [acc]
 
-            print("TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-                  (batch, num_batch_test, np.mean(loss_arr), iou))
+            print("TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
+                  (batch, num_batch_test, np.mean(loss_arr), iou, acc))
 
             for j in range(label.shape[0]):
                 id = num_batch_test * (batch - 1) + j
@@ -314,8 +324,8 @@ elif mode == 'test':
                 np.save(os.path.join(result_dir, 'numpy/output',
                         'output_%04d.npy' % id), output[j].squeeze())
 
-    print("AVERAGE TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-          (batch, num_batch_test, np.mean(loss_arr), np.mean(iou_arr)))
+    print("AVERAGE TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
+          (batch, num_batch_test, np.mean(loss_arr), np.mean(iou_arr), np.mean(acc_arr)))
 
 # COMPARE MODE
 else:
@@ -332,6 +342,8 @@ else:
         iou_arr1 = []
         loss_arr2 = []
         iou_arr2 = []
+        acc_arr1 = []
+        acc_arr2 = []
 
         for batch, data in enumerate(loader_test, 1):
             # forward pass
@@ -364,11 +376,17 @@ else:
             iou2 = iou_numpy(output2, label)
             iou_arr2 += [iou2]
 
-            print("TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-                  (batch, num_batch_test, np.mean(loss_arr1), iou1))
+            acc1 = np.mean(output1 == label) * 100
+            acc_arr1 += [acc1]
 
-            print("TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-                  (batch, num_batch_test, np.mean(loss_arr2), iou2))
+            acc2 = np.mean(output2 == label) * 100
+            acc_arr2 += [acc2]
+
+            print("TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
+                  (batch, num_batch_test, np.mean(loss_arr1), iou1, acc1))
+
+            print("TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
+                  (batch, num_batch_test, np.mean(loss_arr2), iou2, acc2))
 
             for j in range(label.shape[0]):
                 id = num_batch_test * (batch - 1) + j
@@ -391,7 +409,7 @@ else:
                 np.save(os.path.join(compare_dir, 'numpy/output2',
                         'output2_%04d.npy' % id), output2[j].squeeze())
 
-    print("AVERAGE TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-          (batch, num_batch_test, np.mean(loss_arr1), np.mean(iou_arr1)))
-    print("AVERAGE TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
-          (batch, num_batch_test, np.mean(loss_arr2), np.mean(iou_arr2)))
+    print("AVERAGE TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
+          (batch, num_batch_test, np.mean(loss_arr1), np.mean(iou_arr1), np.mean(acc_arr1)))
+    print("AVERAGE TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f| ACC %.4f" %
+          (batch, num_batch_test, np.mean(loss_arr2), np.mean(iou_arr2), np.mean(acc_arr2)))
