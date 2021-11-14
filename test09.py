@@ -559,7 +559,6 @@ class MyApp(QWidget):
         #print("ㅇㅇ콤보박스 이벤트")
 
     def loading(self):
-        QApplication.processEvents()
        #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         learn_value = self.learn_widget.text()
         batch_value = self.batch_widget.text()
@@ -570,42 +569,28 @@ class MyApp(QWidget):
         url = 'http://localhost:6006/'
         webbrowser.open(url)
 
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
-        opacity_effect.setOpacity(0.5)
-        self.lbl_img5.setGraphicsEffect(opacity_effect)
-        self.lbl_img5.setGeometry(0, 0, 1200, 800)
-
-        label0 = QLabel('학습 중 ...', self)
-        label0.setAlignment(Qt.AlignCenter)
-        font0 = label0.font()
-        font0.setPointSize(30)
-        font0.setBold(True)
-
-        label0.setFont(font0)
-
-        cancelButton = QPushButton('Cancel')
-
-        hbox = QHBoxLayout()
-        hbox.addStretch(1)
-        hbox.addWidget(cancelButton)
-        hbox.addStretch(1)
-
-        h2box = QHBoxLayout()
-        h2box.addStretch(1)
-        h2box.addWidget(label0)
-        h2box.addStretch(1)
-
-        cancelButton.clicked.connect(self.cancel)
+        #로딩화면 꾸미는 부분
+        self.label0 = QLabel()
+        label1 = QLabel('로딩 중 ...', self)
+        label1.setAlignment(Qt.AlignCenter)
+        font1 = label1.font()
+        font1.setPointSize(30)
+        font1.setBold(True)
+        label1.setFont(font1)
+        self.label0.setAlignment(Qt.AlignCenter)
+        #print(os.getcwd())
+        self.movie = QMovie('loading.gif', QByteArray(), self)
+        self.movie.setCacheMode(QMovie.CacheAll)
+        self.label0.setMovie(self.movie)
+        self.movie.start()
+        # 윈도우 해더 숨기기
+        self.setWindowFlags(Qt.FramelessWindowHint)
 
         vbox = QVBoxLayout()
-        vbox.addStretch(1)
-        vbox.addLayout(h2box)
-        vbox.addStretch(1)
-        vbox.addLayout(hbox)
-        vbox.addStretch(1)
+        vbox.addWidget(self.label0)
+        vbox.addWidget(label1)
 
         self.loading.setLayout(vbox)
-
         self.loading.setWindowTitle('Loading')
         self.loading.setWindowModality(Qt.ApplicationModal)
         self.loading.setFixedSize(600, 400)
@@ -625,55 +610,37 @@ class MyApp(QWidget):
         os.chdir(path)
 
     def loading2(self):
-         # TEST
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
-        opacity_effect.setOpacity(0.5)
-        self.lbl_img5.setGraphicsEffect(opacity_effect)
-        self.lbl_img5.setGeometry(0, 0, 1200, 800)
-
-
-        epoch = 1
-        # 결과 값 변경
-        self.epoch_widget.setText(str(epoch))
-
-        self.loading2 = QDialog()
-        label0 = QLabel('Test 중 ...', self)
-        label0.setAlignment(Qt.AlignCenter)
-        font0 = label0.font()
-        font0.setPointSize(30)
-        font0.setBold(True)
-
-        label0.setFont(font0)
-
-        cancelButton = QPushButton('Cancel')
-
-        hbox = QHBoxLayout()
-        hbox.addStretch(1)
-        hbox.addWidget(cancelButton)
-        hbox.addStretch(1)
-
-        h2box = QHBoxLayout()
-        h2box.addStretch(1)
-        h2box.addWidget(label0)
-        h2box.addStretch(1)
-
-        cancelButton.clicked.connect(self.cancel2)
+        # TEST
+        # 로딩화면 꾸미는 부분
+        self.label0 = QLabel()
+        label1 = QLabel('로딩 중 ...', self)
+        label1.setAlignment(Qt.AlignCenter)
+        font1 = label1.font()
+        font1.setPointSize(30)
+        font1.setBold(True)
+        label1.setFont(font1)
+        self.label0.setAlignment(Qt.AlignCenter)
+        print(os.getcwd())
+        self.movie = QMovie('loading.gif', QByteArray(), self)
+        self.movie.setCacheMode(QMovie.CacheAll)
+        self.label0.setMovie(self.movie)
+        self.movie.start()
+        # 윈도우 해더 숨기기
+        self.setWindowFlags(Qt.FramelessWindowHint)
 
         vbox = QVBoxLayout()
-        vbox.addStretch(1)
-        vbox.addLayout(h2box)
-        vbox.addStretch(1)
-        vbox.addLayout(hbox)
-        vbox.addStretch(1)
+        vbox.addWidget(self.label0)
+        vbox.addWidget(label1)
 
-        self.loading2.setLayout(vbox)
-
-        self.loading2.setWindowTitle('Loading')
-        self.loading2.setWindowModality(Qt.ApplicationModal)
-        self.loading2.setFixedSize(600, 400)
-        # self.dialog.setStyleSheet("background-color: black;")
-        self.loading2.show()
+        self.loading.setLayout(vbox)
+        self.loading.setWindowTitle('Loading')
+        self.loading.setWindowModality(Qt.ApplicationModal)
+        self.loading.setFixedSize(600, 400)
+        self.loading.show()
         self.reset()
+        #self.epoch_widget.setText(str(epoch))
+
+
 
         # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
         # train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
