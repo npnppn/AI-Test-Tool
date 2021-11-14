@@ -7,19 +7,19 @@ import torch.nn as nn
 # 네트워크 저장하기
 
 
-def save(ckpt_dir, net, optim, epoch, name, loss, iou):
+def save(ckpt_dir, net, optim, epoch, name, loss, iou, acc):
     if not os.path.exists(ckpt_dir):
         os.makedirs(ckpt_dir)
 
-    torch.save({'net': net.state_dict(), 'optim': optim.state_dict(), 'epoch': epoch, 'loss': loss, 'iou': iou},
+    torch.save({'net': net.state_dict(), 'optim': optim.state_dict(), 'epoch': epoch, 'loss': loss, 'iou': iou, 'acc': acc},
                "%s/%s_model.pth" % (ckpt_dir, name))
 
 
-def best_save(ckpt_dir, net, optim, epoch, name, loss, iou):
+def best_save(ckpt_dir, net, optim, epoch, name, loss, iou, acc):
     if not os.path.exists(ckpt_dir):
         os.makedirs(ckpt_dir)
-    torch.save({'net': net.state_dict(), 'optim': optim.state_dict(), 'epoch': epoch, 'loss': loss, 'iou': iou},
-               "%s/%s_best_loss_model.pth" % (ckpt_dir, name))
+    torch.save({'net': net.state_dict(), 'optim': optim.state_dict(), 'epoch': epoch, 'loss': loss, 'iou': iou, 'acc': acc},
+               "%s/%s_best_model.pth" % (ckpt_dir, name))
 
 # 네트워크 불러오기
 
@@ -35,5 +35,7 @@ def load(ckpt_dir, net, optim, name):
     optim.load_state_dict(dict_model['optim'])
     epoch = dict_model['epoch']
     loss = dict_model['loss']
+    acc = dict_model['acc']
+    iou = dict_model['iou']
 
     return net, optim, epoch
