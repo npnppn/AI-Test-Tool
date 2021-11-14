@@ -1,11 +1,10 @@
 # 학습하기 페이지
-import sys, os
+import sys, os, glob
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 # import webview
 import webbrowser
-
 
 class MyApp(QWidget):
 
@@ -28,8 +27,11 @@ class MyApp(QWidget):
         testComButton = QPushButton('Test 비교')
 
         # 버튼 이벤트
+        pretreatmentButton.clicked.connect(self.pretreatmentOpen)
         testButton.clicked.connect(self.testOpen)
+        QApplication.processEvents()
         learningButton.clicked.connect(self.learningOpen)
+        QApplication.processEvents()
 
         # 박스 레이아웃
         h2box = QVBoxLayout()
@@ -74,8 +76,18 @@ class MyApp(QWidget):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
+    # 데이터 전처리
+    def pretreatmentOpen(self):
+        path = os.getcwd()
+        os.chdir("./AI/model3/pytorch-unet-master")
+        self.reset()
+        os.system("python data_read.py")
+        os.chdir(path)
+        self.learningOpen()
+
     # 학습 페이지
     def learningOpen(self):
+
         # 이미지 불러오기
         self.pixmap = QPixmap('./test/img01.jpg')
         self.lbl_img = QLabel()
@@ -87,7 +99,7 @@ class MyApp(QWidget):
 
         self.lbl_img2 = QLabel()
         self.lbl_img2.setPixmap(self.pixmap)
-        self.lbl_img2.setContentsMargins(0, 10, 0, 10)
+        #self.lbl_img2.setContentsMargins(0, 10, 0, 10)
         # 사이즈 조정
         self.pixmap2 = self.pixmap.scaled(200, 200)
         self.lbl_img2.setPixmap(self.pixmap2)
@@ -95,7 +107,7 @@ class MyApp(QWidget):
         self.pixmap3 = QPixmap('./mask/img01.png')
         self.lbl_img3 = QLabel()
         self.lbl_img3.setPixmap(self.pixmap3)
-        self.lbl_img3.setContentsMargins(0, 10, 0, 10)
+        #self.lbl_img3.setContentsMargins(0, 10, 0, 10)
         # 사이즈 조정
         self.pixmap3 = self.pixmap3.scaled(200, 200)
         self.lbl_img3.setPixmap(self.pixmap3)
@@ -108,13 +120,13 @@ class MyApp(QWidget):
         self.listwidgetLearning = QListWidget(self)
 
         for f in fileList:
-            self.listwidgetLearning.addItem(f)
+            self.listwidgetLearning.addItem(f.split(".")[0])
 
         # 리스트 클릭 이벤트
         self.listwidgetLearning.itemClicked.connect(self.chkItemClicked)
 
         # 폰트 및 글자
-        label0 = QLabel('Input \n 파일 리스트', self)
+        label0 = QLabel('이미지 선택', self)
         label0.setAlignment(Qt.AlignCenter)
         font0 = label0.font()
         font0.setPointSize(20)
@@ -129,7 +141,7 @@ class MyApp(QWidget):
         font2 = label2.font()
         font2.setPointSize(15)
         font2.setBold(True)
-        label3 = QLabel('파라미터', self)
+        label3 = QLabel('정보 입력', self)
         label3.setAlignment(Qt.AlignCenter)
         font3 = label3.font()
         font3.setPointSize(20)
@@ -148,69 +160,86 @@ class MyApp(QWidget):
 
         # 박스 레이아웃
         # 이미지 박스 (우측)
-        subImgBox = QVBoxLayout()
-        subImgBox.addWidget(label1)
-        subImgBox.addWidget(self.lbl_img2)
-        subImgBox.addWidget(label2)
-        subImgBox.addWidget(self.lbl_img3)
-        subImgBox.addStretch(1)
+        subImgBox = QHBoxLayout()
+        subImgBox.addWidget(self.lbl_img2, alignment=Qt.AlignHCenter)
+        subImgBox.addWidget(self.lbl_img3, alignment=Qt.AlignHCenter)
+
 
         # 이미지 박스
-        imgBox = QHBoxLayout()
-        imgBox.addWidget(self.lbl_img)
+        imgBox = QVBoxLayout()
+        imgBox.addWidget(self.lbl_img, alignment=Qt.AlignHCenter)
+        imgBox.addWidget(QLabel("\n"))
         imgBox.addLayout(subImgBox)
 
+        imgName = QHBoxLayout()
+        imgName.addWidget(label1)
+        imgName.addWidget(label2)
         # 중간
         vbox = QVBoxLayout()
         vbox.addLayout(imgBox)
-        vbox.addStretch(2)  # 그래프 넣을 곳
+        vbox.addLayout(imgName)
 
         # 좌측 (리스트)
         listBox = QVBoxLayout()
+        btn = QPushButton('뒤로')
+        btn.clicked.connect(self.clickButton)
+        listBox.addWidget(btn)
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidgetLearning)
 
+        # 결과값 화면 보여주는 공간
+        result_layout = QVBoxLayout()
+
+        groupbox1 = QGroupBox("학습 정보")
+        groupbox1.setAlignment(5)
+
+        groupbox2 = QGroupBox("")
+        groupbox2.setAlignment(5)
+
         # 결과
         resultBox = QFormLayout()  # QFormLayout 생성
-        self.epoch_widget = QLineEdit()
         self.learn_widget = QLineEdit()
         self.batch_widget = QLineEdit()
+        self.epoch_widget = QLineEdit()
         self.model_widget = QLineEdit()
-
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
-
-        # label5 = QLabel('Epoch', self)
-        # label11 = QLabel('learning_rate', self)
-        # label12 = QLabel('batch_size', self)
 
         resultBox.addRow(label3)
         resultBox.addRow(space_widget)
+        resultBox.addRow("모델 이름 ", self.model_widget)
+        resultBox.addRow(space_widget)
         resultBox.addRow("Epoch ", self.epoch_widget)
         resultBox.addRow(space_widget)
-        resultBox.addRow("Iteration ", self.learn_widget)
+        resultBox.addRow("Learning Rate ", self.learn_widget)
         resultBox.addRow(space_widget)
-        resultBox.addRow("Loss ", self.batch_widget)
-        resultBox.addRow(space_widget)
-        resultBox.addRow(label10)
-        resultBox.addRow(self.model_widget)
-        resultBox.addRow(space_widget)
-        resultBox.addRow(space_widget)
+        resultBox.addRow("Batch Size ", self.batch_widget)
+        #resultBox.addRow(space_widget)
 
-        # 우측 하단 버튼
-        startLearning = QPushButton('학습 하기')
-        getModel = QPushButton('모델 추출')
-        testButton = QPushButton('Test 하기')
+        startLearning = QPushButton('학습 시작', self)
+        testButton = QPushButton('Test')
 
-        # 결과값 박스 레이아웃
+        learning_font = startLearning.font()
+        test_font = testButton.font()
 
-        resultBox.addRow(startLearning)
-        resultBox.addRow(getModel)
-        resultBox.addRow(testButton)
+        learning_font.setPointSize(30)
+        startLearning.setFont(learning_font)
+        test_font.setPointSize(30)
+        testButton.setFont(test_font)
+
+        startLearning.setMaximumHeight(200)
+        testButton.setMaximumHeight(200)
 
         # 버튼 클릭 이벤트
         testButton.clicked.connect(self.testOpen)
+        startLearning.clicked.connect(self.loading)
 
-        startLearning.clicked.connect(self.roding)
+        groupbox1.setLayout(resultBox)
+        result_layout.addWidget(groupbox1)
+        result_layout.addWidget(startLearning)
+        result_layout.addWidget(testButton)
+        self.setLayout(result_layout)
+        self.show()
+
 
         # 가로
         hbox = QHBoxLayout()
@@ -219,9 +248,7 @@ class MyApp(QWidget):
         hbox.setStretchFactor(listBox, 2)
         hbox.addLayout(vbox)
         hbox.setStretchFactor(vbox, 6)
-        hbox.addLayout(resultBox)
-        hbox.setStretchFactor(resultBox, 2)
-        # hbox.addStretch(1)              # 결과값 넣을 곳
+        hbox.addLayout(result_layout)
 
         self.learning.setLayout(hbox)
 
@@ -233,8 +260,8 @@ class MyApp(QWidget):
         self.lbl_img4.setGraphicsEffect(opacity_effect)
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
-        self.lbl_img4.setGeometry(252, 19, 450, 500)
-
+        self.lbl_img4.setAlignment(Qt.AlignCenter)
+        self.lbl_img4.setGeometry(324, 10, 450, 500)
         self.pixmap5 = QPixmap('./img/dark.png')
         self.lbl_img5 = QLabel(self.learning)
         self.lbl_img5.setPixmap(self.pixmap5)
@@ -245,20 +272,16 @@ class MyApp(QWidget):
         self.lbl_img5.setPixmap(self.pixmap5)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
-        self.roding = QDialog()
+        self.loading = QDialog()
 
         # QDialog 세팅
-        self.learning.setWindowTitle('learning')
+        self.learning.setWindowTitle('Learning')
         self.learning.setWindowModality(Qt.NonModal)
-        # 반응형
-        # self.dialog.setGeometry(350, 100, 1200, 800)
-        # 크기 고정
         self.learning.setFixedSize(1200, 800)
-        # 배경색 변경
+        self.hide()
+        self.dialog.hide()
         self.learning.setStyleSheet("background-color: #0c4da2; color: white;")
         self.learning.show()
-        # 메인페이지 종료
-        self.hide()
 
     # 파일 열기 기능. 나중에 이 목록을 가져와서 리스트로 쭈욱 나열하면 될 듯
     def pushButtonClicked(self):
@@ -293,40 +316,54 @@ class MyApp(QWidget):
 
         # QListWidget 추가
         self.listwidget = QListWidget(self)
+        self.listwidget.setSelectionMode(QAbstractItemView.ExtendedSelection)
 
+        # 확장자명 제거해서 리스트에 추가
         for f in fileList:
-            self.listwidget.addItem(f)
+            self.listwidget.addItem(f.split(".")[0])
 
         # 리스트 클릭 이벤트
         self.listwidget.itemClicked.connect(self.chkItemClicked2)
 
         # 폰트 및 글자
-        label0 = QLabel('Test \n 파일 리스트', self)
+        label0 = QLabel('이미지 선택', self)
         label0.setAlignment(Qt.AlignCenter)
         font0 = label0.font()
         font0.setPointSize(20)
         font0.setBold(True)
-        label3 = QLabel('결과값', self)
+
+        label10 = QLabel('\n' + '모델 선택', self)
+        label10.setAlignment(Qt.AlignCenter)
+        font10 = label10.font()
+        font10.setPointSize(20)
+        font10.setBold(True)
+        label0.setFont(font0)
+
+        label3 = QLabel('------------', self)
         label3.setAlignment(Qt.AlignCenter)
         font3 = label3.font()
         font3.setPointSize(20)
         font3.setBold(True)
-        label4 = QLabel('적용된 parameter', self)
-        label4.setAlignment(Qt.AlignCenter)
-        font4 = label4.font()
-        font4.setPointSize(12)
-        font4.setBold(True)
-        label10 = QLabel('모델 선택', self)
-        label10.setAlignment(Qt.AlignCenter)
-        font10 = label10.font()
-        font10.setPointSize(12)
-        font10.setBold(True)
-        # 폰트 적용
-        label0.setFont(font0)
-
         label3.setFont(font3)
-        label4.setFont(font4)
         label10.setFont(font10)
+
+        #버튼들
+        startTest = QPushButton('Test')
+        test_font = startTest.font()
+        test_font.setPointSize(30)
+        startTest.setFont(test_font)
+        startTest.setMaximumHeight(200)
+
+        #getModel = QPushButton('모델 추출')
+        #testComButton = QPushButton('Test 비교')
+        buttonbox = QHBoxLayout()
+        buttonbox.addWidget(startTest)
+        #buttonbox.addWidget(getModel)
+        #buttonbox.addWidget(testComButton)
+
+        #버튼 기능
+        startTest.clicked.connect(self.loading2)
+
 
         # 이미지 박스
         imgBox = QHBoxLayout()
@@ -336,79 +373,106 @@ class MyApp(QWidget):
         vbox = QVBoxLayout()
         # vbox.addWidget(self.lbl_img)
         vbox.addLayout(imgBox)
-        vbox.addStretch(2)  # 그래프 넣을 곳
+        vbox.addLayout(buttonbox)
 
-        # 좌측 (리스트)
-        listBox = QVBoxLayout()
-        listBox.addWidget(label0)
-        listBox.addWidget(self.listwidget)
 
-        path = './test01'
-        fileList = os.listdir(path)
+        # 테스트 모델 경로
+        path = './AI/model3/pytorch-unet-master/checkpoint'
+        fileList2 = os.listdir(path)
 
         # 모델 선택
         cb = QComboBox(self)
-        for f in fileList:
-            cb.addItem(f)
+        cb.addItem("ㅡㅡㅡㅡ모델을 선택하세요ㅡㅡㅡㅡ")
+        cb.setPlaceholderText("---모델을 선택하세요---")
+        cb.setCurrentIndex(0)
+
+        # 모델들 하위 경로 가져오기
+        targetPattern = r"./AI/model3/pytorch-unet-master/" + "**/**/*.pth"
+        cbList = glob.glob(targetPattern)
+        arr = []
+        for f in cbList:
+            file = os.path.basename(f)
+            cb.addItem(file)
+
         cb.move(50, 50)
 
-        startTest = QPushButton('Test 하기')
-        getModel = QPushButton('모델 추출')
-        testComButton = QPushButton('Test 비교하기')
 
-        # 결과값 화면 보여주는 공간 배치
+        with open('./AI/model3/pytorch-unet-master/test_file_path.txt', 'w', encoding='UTF-8') as f:
+            for name in fileList2:
+                f.write(name + '\n')
 
-        # 변수받는 공간
-        resultBox = QFormLayout()  # QFormLayout 생성
+        cb.currentTextChanged.connect(self.combobox_changed)
 
-        self.epoch_widget = QLabel("3")
-        self.iter_widget = QLabel("20")
-        self.loss_widget = QLabel("0.02")
-        self.accuracy_widget = QLabel("99.7%")
-        self.error_widget = QLabel("0.3%")
-        self.learning_widget = QLabel("2")
-        self.batch_widget = QLabel("1")
+        # 좌측 (리스트)
+        listBox = QVBoxLayout()
+        btn = QPushButton('뒤로')
+        btn.clicked.connect(self.clickButton)
+        listBox.addWidget(btn)
+        listBox.addWidget(label0)
+        listBox.addWidget(self.listwidget)
+
+        # 결과값 화면 보여주는 공간
+        result_layout = QVBoxLayout()
+
+        groupbox_model = QGroupBox("모델 정보")
+        groupbox_model.setAlignment(5)
+
+        groupbox_learn = QGroupBox("학습 정보")
+        groupbox_learn.setAlignment(5)
+        groupbox_image = QGroupBox("라벨/결과 비교")
+        groupbox_image.setAlignment(5)
+
+        self.epoch_widget = QLineEdit()
+        self.epoch_widget.setPlaceholderText("epoch")
+        self.loss_widget = QLineEdit()
+        self.loss_widget.setPlaceholderText("loss")
+        self.accuracy_widget = QLineEdit()
+        self.accuracy_widget.setPlaceholderText("accuracy")
+        self.learning_widget = QLineEdit()
+        self.learning_widget.setPlaceholderText("learning")
+        self.batch_widget = QLineEdit()
+        self.batch_widget.setPlaceholderText("batch")
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
 
-        # 행 추가하는 공간
-        resultBox.addRow(label3)  # 결과값
-        resultBox.addRow("Epoch ", self.epoch_widget)
+        resultBox = QFormLayout()
         resultBox.addRow(space_widget)
-        resultBox.addRow("Iteration ", self.iter_widget)
-        resultBox.addRow(space_widget)
-        resultBox.addRow("Loss ", self.loss_widget)
+        resultBox.addRow("Loss Rate ", self.loss_widget)
         resultBox.addRow(space_widget)
         resultBox.addRow("Accuracy ", self.accuracy_widget)
         resultBox.addRow(space_widget)
-        resultBox.addRow("Error Rate ", self.error_widget)
-        resultBox.addRow(space_widget)
 
-        resultBox.addRow(label4)  # 적용된 패러미터
-        resultBox.addRow("Learning_Rate ", self.learning_widget)
-        resultBox.addRow(space_widget)
-        resultBox.addRow("Batch_Size ", self.batch_widget)
-        resultBox.addRow(space_widget)
+        #iou스코어는 학습부분? 모델부분? 결과부분?
+        resultBox2 = QFormLayout()
+        resultBox2.addRow("Epoch ", self.epoch_widget)
+        resultBox2.addRow(space_widget)
+        resultBox2.addRow("Learning Rate ", self.learning_widget)
+        resultBox2.addRow(space_widget)
+        resultBox2.addRow("Batch Size ", self.batch_widget)
+        resultBox2.addRow(space_widget)
 
-        resultBox.addRow(label10)  # 모델 선택
-        resultBox.addRow(cb)
-        resultBox.addRow(space_widget)
-        resultBox.addRow(space_widget)
+        resultBox3 = QHBoxLayout()
+        btn1 = QPushButton()
+        btn1.setText('원본')
+        btn2 = QPushButton()
+        btn2.setText('결과')
+        resultBox3.addWidget(btn1)
+        resultBox3.addWidget(btn2)
 
-        resultBox.addRow(startTest)
-        resultBox.addRow(getModel)
-        resultBox.addRow(testComButton)
+        groupbox_model.setLayout(resultBox)
+        groupbox_learn.setLayout(resultBox2)
+        groupbox_image.setLayout(resultBox3)
 
-        # self.dialog.resultBox.setStyleSheet("background-color: black;")
-        # resultBox.setObjectName("result_box")
-        # resultBox.objectName("result_box")
+        result_layout.addWidget(label10)
+        result_layout.addWidget(cb)
 
-        # 색깔 변경은 어떻게 할까?
-        # self.setStyleSheet('color: blue; background:rgb(255,0,0)')
+        result_layout.addWidget(QLabel("\n"))
+        result_layout.addWidget(groupbox_model)
+        result_layout.addWidget(groupbox_learn)
+        result_layout.addWidget(label3)
+        result_layout.addWidget(groupbox_image)
 
-        self.setLayout(resultBox)
+        self.setLayout(result_layout)
         self.show()
-
-        startTest.clicked.connect(self.roding2)
 
         # 가로
         hbox = QHBoxLayout()
@@ -417,8 +481,9 @@ class MyApp(QWidget):
         hbox.setStretchFactor(listBox, 2)
         hbox.addLayout(vbox)
         hbox.setStretchFactor(vbox, 6)
-        hbox.addLayout(resultBox)
-        hbox.setStretchFactor(resultBox, 2)
+        hbox.addLayout(result_layout)
+        hbox.setStretchFactor(result_layout, 2)
+
 
         # hbox.addWidget(self.lbl_img4)
         # hbox.addStretch(1)              # 결과값 넣을 곳
@@ -445,7 +510,7 @@ class MyApp(QWidget):
         self.dialog.setStyleSheet("background-color: #0c4da2; color: white;")
         self.dialog.show()
 
-    # 리스트 클릭시 이미지 변경 ( test )
+    # 리스트 클릭시 이미지 변경 (학습부분 )
     def chkItemClicked(self):
         # print(self.listwidget.currentItem().text())
         self.pixmap = QPixmap('./test/' + self.listwidgetLearning.currentItem().text())
@@ -466,7 +531,7 @@ class MyApp(QWidget):
         self.lbl_img4.setPixmap(self.pixmap4)
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
-        self.lbl_img4.setGeometry(252, 19, 450, 500)
+        self.lbl_img4.setGeometry(324, 10, 450, 500)
 
     # 리스트 클릭시 이미지 변경
     def chkItemClicked2(self):
@@ -476,9 +541,32 @@ class MyApp(QWidget):
         self.pixmap = self.pixmap.scaled(700, 700)
         self.lbl_img.setPixmap(self.pixmap)
 
-    def roding(self):
-        # webview.create_window('Hi', 'http://localhost:6006/')
-        # webview.start()
+    def clickButton(self):
+        self.initUI()
+
+    # 모델 콤보 박스 클릭시?
+    def combobox_changed(self):
+        readFile = open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'r')
+        reads = readFile.readlines()
+        readList = []
+        for read in reads:
+            readList.append(read)
+
+        print(readList)
+        self.epoch_widget.setText(readList[0])
+        self.learning_widget.setText(readList[1])
+        self.batch_widget.setText(readList[2])
+        #print("ㅇㅇ콤보박스 이벤트")
+
+    def loading(self):
+        QApplication.processEvents()
+       #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
+        learn_value = self.learn_widget.text()
+        batch_value = self.batch_widget.text()
+        epoch_value = self.epoch_widget.text()
+        train_value = 'train'
+        model_value = self.model_widget.text()
+
         url = 'http://localhost:6006/'
         webbrowser.open(url)
 
@@ -516,32 +604,39 @@ class MyApp(QWidget):
         vbox.addLayout(hbox)
         vbox.addStretch(1)
 
-        self.roding.setLayout(vbox)
+        self.loading.setLayout(vbox)
 
-        self.roding.setWindowTitle('roding')
-        self.roding.setWindowModality(Qt.ApplicationModal)
-        self.roding.setFixedSize(600, 400)
-        self.roding.show()
+        self.loading.setWindowTitle('Loading')
+        self.loading.setWindowModality(Qt.ApplicationModal)
+        self.loading.setFixedSize(600, 400)
+        self.loading.show()
         self.reset()
 
+        # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
         path = os.getcwd()
         os.chdir("./AI/model3/pytorch-unet-master")
+        inputFile = open('learn_input_file.txt', 'w')
+        inputFile.write(learn_value + '\n' + batch_value + '\n' + epoch_value  + '\n' + train_value + '\n' + model_value)
+        inputFile.close()
+
         self.reset()
         os.system("python train.py")
         self.cancel()
         os.chdir(path)
 
-    def roding2(self):
+    def loading2(self):
+         # TEST
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
         self.lbl_img5.setGraphicsEffect(opacity_effect)
         self.lbl_img5.setGeometry(0, 0, 1200, 800)
 
+
         epoch = 1
         # 결과 값 변경
         self.epoch_widget.setText(str(epoch))
 
-        self.roding2 = QDialog()
+        self.loading2 = QDialog()
         label0 = QLabel('Test 중 ...', self)
         label0.setAlignment(Qt.AlignCenter)
         font0 = label0.font()
@@ -571,23 +666,47 @@ class MyApp(QWidget):
         vbox.addLayout(hbox)
         vbox.addStretch(1)
 
-        self.roding2.setLayout(vbox)
+        self.loading2.setLayout(vbox)
 
-        self.roding2.setWindowTitle('roding')
-        self.roding2.setWindowModality(Qt.ApplicationModal)
-        self.roding2.setFixedSize(600, 400)
+        self.loading2.setWindowTitle('Loading')
+        self.loading2.setWindowModality(Qt.ApplicationModal)
+        self.loading2.setFixedSize(600, 400)
         # self.dialog.setStyleSheet("background-color: black;")
-        self.roding2.show()
+        self.loading2.show()
+        self.reset()
+
+        # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
+        # train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
+        train_file = open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'r')
+        lines = train_file.readlines()
+        linesList = []
+        for line in lines:
+            linesList.append(line)
+
+        #lineList에는 입력받은 데이터인 epoch_value / learn_value / batch_value / train_value / model_value 이렇게 들어가있음!
+        print(linesList)
+        with open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'w', encoding='UTF-8') as f:
+            for name in linesList:
+                if name == 'train\n':
+                    f.write('test\n')
+                else:
+                    f.write(name)
+
+        os.chdir("./AI/model3/pytorch-unet-master")
+        print(os.getcwd())
+        self.reset()
+        os.system("python train.py")
+        self.cancel()
 
     def cancel(self):
-        self.roding.hide()
+        self.loading.hide()
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
         self.lbl_img5.setGraphicsEffect(opacity_effect)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
     def cancel2(self):
-        self.roding2.hide()
+        self.loading2.hide()
 
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
@@ -599,8 +718,8 @@ class MyApp(QWidget):
         QTimer.singleShot(100, loop.quit)  # msec
         loop.exec_()
 
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyApp()
+
     sys.exit(app.exec_())
