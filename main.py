@@ -133,24 +133,34 @@ class MyApp(QWidget):
 
     # 학습 페이지
     def learningOpen(self):
+        # 맨 처음 이미지 불러오기
+        file_list = os.listdir('learning')
+        learning_list =[]
+        for i in file_list:
+            learning_list.append(i)
+        first_image_path = r"./learning/" + learning_list[0]
+        self.pixmap = QPixmap(first_image_path)
 
-        # 이미지 불러오기
-        self.pixmap = QPixmap('./test/img01.jpg')
         self.lbl_img = QLabel()
         self.lbl_img.setPixmap(self.pixmap)
-        # self.lbl_img.setContentsMargins(10, 10, 10, 10)
-        # 사이즈 조정
         self.pixmap = self.pixmap.scaled(450, 500)
         self.lbl_img.setPixmap(self.pixmap)
 
         self.lbl_img2 = QLabel()
         self.lbl_img2.setPixmap(self.pixmap)
-        #self.lbl_img2.setContentsMargins(0, 10, 0, 10)
+
         # 사이즈 조정
         self.pixmap2 = self.pixmap.scaled(200, 200)
         self.lbl_img2.setPixmap(self.pixmap2)
 
-        self.pixmap3 = QPixmap('./mask/img01.png')
+        mask_list = os.listdir('mask')
+        msk_list = []
+        for i in mask_list:
+            msk_list.append(i)
+        first_msk_path = r"./mask/" + msk_list[0]
+        self.pixmap3 = QPixmap(first_msk_path)
+
+        #self.pixmap3 = QPixmap('./mask/img01.png')
         self.lbl_img3 = QLabel()
         self.lbl_img3.setPixmap(self.pixmap3)
         #self.lbl_img3.setContentsMargins(0, 10, 0, 10)
@@ -159,7 +169,7 @@ class MyApp(QWidget):
         self.lbl_img3.setPixmap(self.pixmap3)
 
         # 리스트 불러오기
-        path = './test'
+        path = './learning'
         fileList = os.listdir(path)
 
         # QListWidget 추가
@@ -298,7 +308,7 @@ class MyApp(QWidget):
 
         self.learning.setLayout(hbox)
 
-        self.pixmap4 = QPixmap('./mask/img01.png')
+        self.pixmap4 = QPixmap(first_msk_path)
         self.lbl_img4 = QLabel(self.learning)
         self.lbl_img4.setPixmap(self.pixmap4)
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
@@ -344,16 +354,17 @@ class MyApp(QWidget):
 
     # 테스트 페이지
     def testOpen(self):
-        # self.dialog = QDialog()
-        # 이미지 불러오기
-        self.pixmap = QPixmap('./test/img01.jpg')
+
+        # 맨 처음 이미지 불러오기
+        file_list2 = os.listdir('test')
+        test_list = []
+        for i in file_list2:
+            test_list.append(i)
+        first_img_path = r"./test/" + test_list[0]
+        self.pixmap = QPixmap(first_img_path)
         self.lbl_img = QLabel()
         self.lbl_img.setPixmap(self.pixmap)
-        # self.lbl_img.setContentsMargins(10, 10, 10, 10)
-        # 사이즈 조정
         self.pixmap = self.pixmap.scaled(700, 700)
-        # self.pixmapLearning = self.pixmapLearning.scaled(self.learning.width()/3, self.learning.height()/3)
-        # self.lbl_imgLearning = QLabel('Width: ' + str(self.pixmapLearning.width()) + ', Height: ' + str(self.pixmapLearning.height()))   # 원래 사진크기
         self.lbl_img.setPixmap(self.pixmap)
 
         # 리스트 불러오기
@@ -550,7 +561,7 @@ class MyApp(QWidget):
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
         # QDialog 세팅
-        self.dialog.setWindowTitle('Dialog')
+        self.dialog.setWindowTitle('Test')
         self.dialog.setWindowModality(Qt.NonModal)
         # self.dialog.setGeometry(350,100,1200,800)
         self.dialog.setFixedSize(1200, 800)
@@ -562,7 +573,7 @@ class MyApp(QWidget):
     # 리스트 클릭시 이미지 변경 (학습부분 )
     def chkItemClicked(self):
         # print(self.listwidget.currentItem().text())
-        self.pixmap = QPixmap('./test/' + self.listwidgetLearning.currentItem().text())
+        self.pixmap = QPixmap('./learning/' + self.listwidgetLearning.currentItem().text())
 
         self.pixmap = self.pixmap.scaled(450, 500)
         self.lbl_img.setPixmap(self.pixmap)
@@ -605,7 +616,6 @@ class MyApp(QWidget):
         self.epoch_widget.setText(readList[0])
         self.learning_widget.setText(readList[1])
         self.batch_widget.setText(readList[2])
-        #print("ㅇㅇ콤보박스 이벤트")
 
     def loading(self):
        #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
