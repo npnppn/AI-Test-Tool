@@ -246,7 +246,7 @@ if mode == 'train':
                 acc = np.mean(output == label) * 100
 
                 print("VALID: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
-                      (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou, acc))
+                      (epoch, num_epoch, batch, num_batch_val, np.mean(loss_arr), iou, acc))
                 # VALID에서 Best LOSS
                 if best_loss > np.mean(loss_arr):
                     best_loss = np.mean(loss_arr)
