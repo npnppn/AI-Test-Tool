@@ -87,7 +87,6 @@ class MyApp(QWidget):
 
     # 학습 페이지
     def learningOpen(self):
-
         # 이미지 불러오기
         self.pixmap = QPixmap('./test/img01.jpg')
         self.lbl_img = QLabel()
@@ -605,6 +604,7 @@ class MyApp(QWidget):
         inputFile.close()
 
         self.reset()
+        #train파일을 실행하도록 import 시켜서 바로.
         os.system("python train.py")
         self.cancel()
         os.chdir(path)
