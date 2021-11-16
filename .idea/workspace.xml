@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -15,14 +16,14 @@
     <session id="-1238070455">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="5388" />
-          <entry key="txt" value="181" />
+          <entry key="py" value="5964" />
+          <entry key="txt" value="213" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="181" />
-          <entry key="Python" value="5388" />
+          <entry key="PLAIN_TEXT" value="213" />
+          <entry key="Python" value="5964" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -89,10 +90,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="733" lean-forward="true" selection-start-line="733" selection-end-line="733" />
+            <state relative-caret-position="228">
+              <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
               <folding>
-                <element signature="e#11#31#0" expanded="true" />
+                <element signature="e#0#20#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -250,8 +251,8 @@
         <option value="$PROJECT_DIR$/test09.py" />
         <option value="$PROJECT_DIR$/iou.py" />
         <option value="$PROJECT_DIR$/train.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/hh.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
@@ -542,7 +543,21 @@
       <option name="project" value="LOCAL" />
       <updated>1637026449202</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="[bug] 프로그래스바 일단은 나중으로">
+      <created>1637077585122</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1637077585122</updated>
+    </task>
+    <task id="LOCAL-00015" summary="[bug] 프로그래스바 일단은 나중으로">
+      <created>1637077629629</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1637077629629</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView">
@@ -563,14 +578,14 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7567746" weight="0.25852272" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.75545275" visible="true" weight="0.25852272" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4976867" weight="0.32954547" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.48843357" weight="0.3252841" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.48777264" weight="0.3252841" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.483807" weight="0.38636363" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.24322538" side_tool="true" visible="true" weight="0.25852272" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.24454726" side_tool="true" visible="true" weight="0.25852272" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49834764" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -590,7 +605,8 @@
     <MESSAGE value="[ADD] 학습&amp; 테스트 할 때 로딩 창을 에니메이션으로 구현" />
     <MESSAGE value="[Clean] 지금까지 GUI 한 것들 정리" />
     <MESSAGE value="[ADD] 이미지 경로들 다시 설정" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADD] 이미지 경로들 다시 설정" />
+    <MESSAGE value="[bug] 프로그래스바 일단은 나중으로" />
+    <option name="LAST_COMMIT_MESSAGE" value="[bug] 프로그래스바 일단은 나중으로" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test01/th.py" />
@@ -743,10 +759,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="733" lean-forward="true" selection-start-line="733" selection-end-line="733" />
+        <state relative-caret-position="228">
+          <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
           <folding>
-            <element signature="e#11#31#0" expanded="true" />
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
