@@ -1,5 +1,6 @@
 # 학습하기 페이지
 import sys, os, glob
+import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -113,7 +114,6 @@ class MyApp(QWidget):
         # self.dialog.setStyleSheet("background-color: black;")
         self.pretreatmentOpen.show()
         self.reset()
-
         data_read()
         self.learningOpen()
 
@@ -125,11 +125,11 @@ class MyApp(QWidget):
     def learningOpen(self):
         self.learning = QDialog()
         # 맨 처음 이미지 불러오기
-        file_list = os.listdir('learning')
+        file_list = os.listdir('datasets/train')
         learning_list =[]
         for i in file_list:
             learning_list.append(i)
-        first_image_path = r"./learning/" + learning_list[0]
+        first_image_path = r"./datasets/train/" + learning_list[0]
         self.pixmap = QPixmap(first_image_path)
 
         self.lbl_img = QLabel()
@@ -160,7 +160,7 @@ class MyApp(QWidget):
         self.lbl_img3.setPixmap(self.pixmap3)
 
         # 리스트 불러오기
-        path = './learning'
+        path = './datasets/train'
         fileList = os.listdir(path)
 
         # QListWidget 추가
@@ -560,7 +560,7 @@ class MyApp(QWidget):
     # 리스트 클릭시 이미지 변경 (학습부분 )
     def chkItemClicked(self):
         # print(self.listwidget.currentItem().text())
-        self.pixmap = QPixmap('./learning/' + self.listwidgetLearning.currentItem().text())
+        self.pixmap = QPixmap('./datasets/train/' + self.listwidgetLearning.currentItem().text())
 
         self.pixmap = self.pixmap.scaled(450, 500)
         self.lbl_img.setPixmap(self.pixmap)
@@ -606,7 +606,11 @@ class MyApp(QWidget):
         self.batch_widget.setText(readList[2])
 
     def loading(self):
-        self.train = QDialog()
+
+        self.thread = Thread()
+        self.thread._signal.connect(self.signal_accept)
+        self.thread.start()
+        print("쓰레드 시작")
 
        #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         learn_value = self.learn_widget.text()
@@ -618,36 +622,12 @@ class MyApp(QWidget):
         url = 'http://localhost:6006/'
         webbrowser.open(url)
 
-        label0 = QLabel('학습 중 ...', self)
-        label0.setAlignment(Qt.AlignCenter)
-        font0 = label0.font()
-        font0.setPointSize(30)
-        font0.setBold(True)
-        label0.setFont(font0)
-
-        h2box = QHBoxLayout()
-        h2box.addStretch(1)
-        h2box.addWidget(label0)
-        h2box.addStretch(1)
-
-        vbox = QVBoxLayout()
-        vbox.addStretch(1)
-        vbox.addLayout(h2box)
-        vbox.addStretch(1)
-        vbox.addStretch(1)
-
-        self.train.setLayout(vbox)
-
-        self.train.setWindowTitle('train')
-        self.train.setWindowModality(Qt.ApplicationModal)
-        self.train.setFixedSize(600, 400)
-        self.train.show()
-        self.reset()
-
+        print("train시작")
         train(learn_value, batch_value, epoch_value, train_value, model_value)
-
-        self.cancel()
-        self.reset()
+        #self.reset()
+        print("train끝")
+        #self.cancel()
+        #self.reset()
         #########################################################################
         # #로딩화면 꾸미는 부분
         # self.label0 = QLabel()
@@ -679,8 +659,43 @@ class MyApp(QWidget):
         # self.loading.setFixedSize(600, 400)
         # self.loading.show()
 
+    def signal_accept(self, msg):
+        print("신호를 받았을 때")
+        self.train = QDialog()
+        label0 = QLabel('학습 중 ...\n', self)
+        label0.setAlignment(Qt.AlignCenter)
+        font0 = label0.font()
+        font0.setPointSize(30)
+        font0.setBold(True)
+        label0.setFont(font0)
 
+        self.pbar = QProgressBar()
+        self.pbar.setValue(0)
+        self.pbar.resize(300, 100)
 
+        h2box = QVBoxLayout()
+        h2box.addStretch(1)
+        h2box.addWidget(label0)
+        h2box.addStretch(1)
+        h2box.addWidget(self.pbar)
+
+        vbox = QVBoxLayout()
+        vbox.addStretch(1)
+        vbox.addLayout(h2box)
+        vbox.addStretch(1)
+        vbox.addStretch(1)
+
+        self.train.setLayout(vbox)
+
+        self.train.setWindowTitle('train')
+        self.train.setWindowModality(Qt.ApplicationModal)
+        self.train.setFixedSize(600, 400)
+        self.train.show()
+        self.pbar.setValue(int(msg))
+        print("게이지바 올라갑니다")
+        if self.pbar.value() == 99:
+            self.pbar.setValue(0)
+            print('완료')
 
     def loading2(self):
         self.loading2 = QDialog
@@ -762,6 +777,22 @@ class MyApp(QWidget):
         loop = QEventLoop()
         QTimer.singleShot(100, loop.quit)  # msec
         loop.exec_()
+
+class Thread(QThread):
+    _signal = pyqtSignal(int)
+    def __init__(self):
+        super(Thread, self).__init__()
+
+    def __del__(self):
+        self.wait()
+
+    def run(self):
+        print("run함수시작")
+        for i in range(100):
+            time.sleep(0.1)
+            self._signal.emit(i)
+
+        print("run함수 끝")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
