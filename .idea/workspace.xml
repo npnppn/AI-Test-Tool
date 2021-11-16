@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/귀여운 곰.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,14 +15,14 @@
     <session id="-1238070455">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="6438" />
-          <entry key="txt" value="379" />
+          <entry key="py" value="6617" />
+          <entry key="txt" value="409" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="379" />
-          <entry key="Python" value="6438" />
+          <entry key="PLAIN_TEXT" value="409" />
+          <entry key="Python" value="6617" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -84,8 +82,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="425" lean-forward="true" selection-start-line="425" selection-end-line="425" />
+            <state relative-caret-position="293">
+              <caret line="891" column="52" lean-forward="true" selection-start-line="891" selection-start-column="52" selection-end-line="891" selection-end-column="52" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -200,6 +198,10 @@
       <find>pushButtonClicked</find>
       <find>lbl_img5</find>
       <find>lbl_img4</find>
+      <find>clickButton</find>
+      <find>info_load</find>
+      <find>reset</find>
+      <find>first_msk</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -570,7 +572,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637085816843</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="[ADD] 학습하기까지 모든 기능 및 디자인 완료">
+      <created>1637092812139</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1637092812139</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView">
@@ -591,14 +600,14 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.752809" visible="true" weight="0.25852272" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.75214803" visible="true" weight="0.25852272" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4976867" weight="0.32954547" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.48578984" weight="0.32386363" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.48512888" weight="0.32386363" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.48116326" weight="0.3858156" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.24719101" side_tool="true" visible="true" weight="0.25852272" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.24785195" side_tool="true" visible="true" weight="0.25852272" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49834764" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -623,7 +632,8 @@
     <MESSAGE value="[ADD] 메인페이지 UI 꾸미기" />
     <MESSAGE value="[ADD] 메인화면 UI" />
     <MESSAGE value="[ADD] 메인화면 UI 꾸미기" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADD] 메인화면 UI 꾸미기" />
+    <MESSAGE value="[ADD] 학습하기까지 모든 기능 및 디자인 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] 학습하기까지 모든 기능 및 디자인 완료" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test01/th.py" />
@@ -782,8 +792,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="425" lean-forward="true" selection-start-line="425" selection-end-line="425" />
+        <state relative-caret-position="293">
+          <caret line="891" column="52" lean-forward="true" selection-start-line="891" selection-start-column="52" selection-end-line="891" selection-end-column="52" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>

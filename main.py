@@ -441,17 +441,14 @@ class MyApp(QWidget):
 
         # 리스트 불러오기
         path = './result'
-
         fileList = os.listdir(path)
 
         # QListWidget 추가
         self.listwidget = QListWidget(self)
         self.listwidget.setSelectionMode(QAbstractItemView.ExtendedSelection)
 
-
         # 리스트 클릭 이벤트
         self.listwidget.itemClicked.connect(self.chkItemClicked2)
-
 
         # 아웃풋 이미지 주소
         self.test_model_path = ''
@@ -480,6 +477,12 @@ class MyApp(QWidget):
 
         #버튼들
         startTest = QPushButton('Test')
+        startTest.setStyleSheet("""QPushButton { 
+                                   color: white;
+                                   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955,
+                                   stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255));
+                                   border-radius: 20px;
+                                   }""")
         test_font = startTest.font()
         test_font.setPointSize(30)
         startTest.setFont(test_font)
@@ -487,7 +490,6 @@ class MyApp(QWidget):
 
         buttonbox = QHBoxLayout()
         buttonbox.addWidget(startTest)
-
 
         #버튼 기능
         startTest.clicked.connect(self.loading2)
@@ -507,7 +509,6 @@ class MyApp(QWidget):
         self.cb.addItem("ㅡㅡㅡㅡ모델을 선택하세요ㅡㅡㅡㅡ")
         self.cb.setPlaceholderText("---모델을 선택하세요---")
         self.cb.setCurrentIndex(0)
-
 
         # 모델들 하위 경로 가져오기
         targetPattern = r"./" + "*/**/*.pth"
@@ -604,7 +605,6 @@ class MyApp(QWidget):
         resultBox.addRow("IoU ", self.iou_widget)
         resultBox.addRow(space_widget)
 
-        #iou스코어는 학습부분? 모델부분? 결과부분?
         resultBox2 = QFormLayout()
         resultBox2.addRow("Epoch ", self.epoch_widget)
         resultBox2.addRow(space_widget)
@@ -647,7 +647,6 @@ class MyApp(QWidget):
         hbox.addLayout(result_layout)
         hbox.setStretchFactor(result_layout, 2)
 
-
         # hbox.addWidget(self.lbl_img4)
         # hbox.addStretch(1)              # 결과값 넣을 곳
 
@@ -671,37 +670,33 @@ class MyApp(QWidget):
         self.testOpen_Di.setStyleSheet("background-color: #0c4da2; color: white;")
         self.testOpen_Di.show()
 
-    # 리스트 클릭시 이미지 변경 (학습부분 )
+    # 리스트 클릭시 이미지 변경 (학습부분)
     def chkItemClicked(self):
         # print(self.listwidget.currentItem().text())
-        self.pixmap = QPixmap('./datasets/train/' + self.listwidgetLearning.currentItem().text())
-
+        self.pixmap = QPixmap('./datasets/imgs/' + self.listwidgetLearning.currentItem().text())
         self.pixmap = self.pixmap.scaled(450, 500)
         self.lbl_img.setPixmap(self.pixmap)
 
         self.pixmap2 = self.pixmap.scaled(200, 200)
         self.lbl_img2.setPixmap(self.pixmap2)
-
         s = self.listwidgetLearning.currentItem().text().split(".")
         # print(s[0])
-        self.pixmap3 = QPixmap('./mask/' + s[0] + ".png")
+        self.pixmap3 = QPixmap('./datasets/labels/' + s[0] + ".png")
         self.pixmap3 = self.pixmap3.scaled(200, 200)
         self.lbl_img3.setPixmap(self.pixmap3)
 
-        self.pixmap4 = QPixmap('./mask/' + s[0] + ".png")
+        self.pixmap4 = QPixmap('./datasets/labels/' + s[0] + ".png")
         self.lbl_img4.setPixmap(self.pixmap4)
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
         self.lbl_img4.setGeometry(324, 10, 450, 500)
 
-    # 리스트 클릭시 이미지 변경
+    # 리스트 클릭시 이미지 변경 (테스트 부분)
     def chkItemClicked2(self):
         # print(self.listwidgetLearning.currentItem().text())
         self.pixmap = QPixmap(self.test_model_path + 'input/' + self.listwidget.currentItem().text())
-
         self.pixmap = self.pixmap.scaled(700, 700)
         self.lbl_img.setPixmap(self.pixmap)
-
 
         a = self.test_input_fileList[self.listwidget.currentRow()]
         b = self.test_label_fileList[self.listwidget.currentRow()]
@@ -730,12 +725,6 @@ class MyApp(QWidget):
         # self.lbl_img4.setPixmap(self.pixmap4)
         # self.lbl_img4.setGeometry(324, 10, 450, 500)
 
-
-
-    def clickButton(self):
-        QCoreApplication.instance().quit
-
-
     # 모델 콤보 박스 클릭시?
     def combobox_changed(self):
         text = self.cb.currentText()
@@ -746,7 +735,6 @@ class MyApp(QWidget):
         res = path.split('\\')[-1]
         res1 = path.split('\\')[2]
         path1 = './checkpoint/' + res1 + '/' + res
-
         self.test_model_path  = './result/' + res1 + '/png/'
 
         epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value = info_load(path1)
@@ -778,8 +766,6 @@ class MyApp(QWidget):
             for f in output_fileList:
                 self.test_output_fileList.append(f)
 
-
-
         else:
             self.listwidget.clear()
             self.notest = QDialog()
@@ -810,14 +796,11 @@ class MyApp(QWidget):
             self.notest.show()
             self.reset()
 
-
-
-
-
+    # 학습하기 버튼 눌렀을 때
     def loading(self):
         self.train = QDialog()
 
-       #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
+        #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         learn_value = self.learn_widget.text()
         batch_value = self.batch_widget.text()
         epoch_value = self.epoch_widget.text()
@@ -846,19 +829,16 @@ class MyApp(QWidget):
         vbox.addStretch(1)
 
         self.train.setLayout(vbox)
-
         self.train.setWindowTitle('train')
         self.train.setWindowModality(Qt.ApplicationModal)
         self.train.setFixedSize(600, 400)
         self.train.show()
         self.reset()
-
         train(learn_value, batch_value, epoch_value, train_value, model_value)
-
         self.cancel()
         self.reset()
 
-
+    # 테스트 눌렀을 때
     def loading2(self):
         self.test = QDialog()
         path = './checkpoint/' + self.cb.currentText().split('_')[0] + '/' + self.cb.currentText()
@@ -883,7 +863,6 @@ class MyApp(QWidget):
         vbox.addStretch(1)
 
         self.test.setLayout(vbox)
-
         self.test.setWindowTitle('test')
         self.test.setWindowModality(Qt.ApplicationModal)
         self.test.setFixedSize(600, 400)
@@ -893,15 +872,33 @@ class MyApp(QWidget):
         train(learn_value, batch_value, epoch_value, 'test', model_value, path)
 
         self.cancel2()
-        self.reset()
 
+
+        # 여기에 이제 테스트 결과 이미지들 겹쳐서 보여주면 되겠군 ---> (아직 모델 눌렀을 떄 뭐 안나와서 코드 뼈대만 적어놓은상태!)
+        # 마스킹 맨 처음 이미지 보여주기 (그래야 화면에 바로 나오니까)
+        # mask_list = os.listdir('datasets/labels')
+        # msk_list = []
+        # for i in mask_list:
+        #     msk_list.append(i)
+        # first_msk_path = r"./datasets/labels/" + msk_list[0]
+        # self.pixmap4 = QPixmap(first_msk_path)
+        # self.lbl_img4 = QLabel(self.learning)
+        # self.lbl_img4.setPixmap(self.pixmap4)
+        # opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
+        # opacity_effect.setOpacity(0.2)
+        # self.lbl_img4.setGraphicsEffect(opacity_effect)
+        # self.pixmap4 = self.pixmap4.scaled(450, 500)
+        # self.lbl_img4.setPixmap(self.pixmap4)
+        # self.lbl_img4.setAlignment(Qt.AlignCenter)
+        # self.lbl_img4.setGeometry(324, 10, 450, 500)
+
+        self.reset()
 
     def cancel(self):
         self.train.hide()
 
     def cancel2(self):
         self.test.hide()
-
 
     def cancel_pre(self):
         self.pretreatmentOpen.hide()
@@ -914,5 +911,4 @@ class MyApp(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyApp()
-
     sys.exit(app.exec_())
