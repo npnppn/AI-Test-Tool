@@ -3,6 +3,7 @@ import sys, os, glob
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+
 # import webview
 import webbrowser
 
@@ -10,6 +11,9 @@ from data_read import *
 from train import *
 
 class MyApp(QWidget):
+    #dialog = None
+    #learning = None
+    #loading = None
 
     def __init__(self):
         super().__init__()
@@ -36,6 +40,7 @@ class MyApp(QWidget):
         learningButton.clicked.connect(self.learningOpen)
         QApplication.processEvents()
 
+
         # 박스 레이아웃
         h2box = QVBoxLayout()
         h2box.addStretch(1)
@@ -58,9 +63,9 @@ class MyApp(QWidget):
         self.setLayout(vbox)
 
         # QDialog 설정
-        self.dialog = QDialog()
-        self.learning = QDialog()
-        self.gray = QDialog()
+        # self.dialog = QDialog()
+        # self.learning = QDialog()
+        # self.gray = QDialog()
 
         self.setWindowTitle('main')
         # 창 크기 고정
@@ -87,28 +92,17 @@ class MyApp(QWidget):
         font0 = label0.font()
         font0.setPointSize(30)
         font0.setBold(True)
-
         label0.setFont(font0)
-
-        cancelButton = QPushButton('Cancel')
-
-        hbox = QHBoxLayout()
-        hbox.addStretch(1)
-        hbox.addWidget(cancelButton)
-        hbox.addStretch(1)
 
         h2box = QHBoxLayout()
         h2box.addStretch(1)
         h2box.addWidget(label0)
         h2box.addStretch(1)
 
-        cancelButton.clicked.connect(self.cancel_pre)
-
         vbox = QVBoxLayout()
         vbox.addStretch(1)
         vbox.addLayout(h2box)
         vbox.addStretch(1)
-        vbox.addLayout(hbox)
         vbox.addStretch(1)
 
         self.pretreatmentOpen.setLayout(vbox)
@@ -120,19 +114,16 @@ class MyApp(QWidget):
         self.pretreatmentOpen.show()
         self.reset()
 
-        ###########################################################
-        # path = os.getcwd()
-        # os.chdir("./AI/model3/pytorch-unet-master")
-        # self.reset()
-        # os.system("python data_read.py")
-        # os.chdir(path)
         data_read()
         self.learningOpen()
 
         self.cancel_pre()
+        self.reset()
+
 
     # 학습 페이지
     def learningOpen(self):
+        self.learning = QDialog()
         # 맨 처음 이미지 불러오기
         file_list = os.listdir('learning')
         learning_list =[]
@@ -238,7 +229,7 @@ class MyApp(QWidget):
         # 좌측 (리스트)
         listBox = QVBoxLayout()
         btn = QPushButton('뒤로')
-        btn.clicked.connect(self.clickButton)
+        #btn.clicked.connect(self.initUI)
         listBox.addWidget(btn)
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidgetLearning)
@@ -253,11 +244,15 @@ class MyApp(QWidget):
         groupbox2.setAlignment(5)
 
         # 결과
+        QToolTip.setFont(QFont('맑은고딕',20))  # Tooltip font 정의
+
         resultBox = QFormLayout()  # QFormLayout 생성
         self.learn_widget = QLineEdit()
         self.batch_widget = QLineEdit()
         self.epoch_widget = QLineEdit()
         self.model_widget = QLineEdit()
+        self.model_widget.setToolTip('모델의 이름을 정해라')
+        self.epoch_widget.setToolTip('Epoch는 뭐시기다')
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
 
         resultBox.addRow(label3)
@@ -272,6 +267,7 @@ class MyApp(QWidget):
         #resultBox.addRow(space_widget)
 
         startLearning = QPushButton('학습 시작', self)
+        startLearning.setToolTip('좀 되거라')
         testButton = QPushButton('Test')
 
         learning_font = startLearning.font()
@@ -328,14 +324,12 @@ class MyApp(QWidget):
         self.lbl_img5.setPixmap(self.pixmap5)
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
-        self.loading = QDialog()
+        #self.loading = QDialog()
 
         # QDialog 세팅
         self.learning.setWindowTitle('Learning')
         self.learning.setWindowModality(Qt.NonModal)
         self.learning.setFixedSize(1200, 800)
-        self.hide()
-        self.dialog.hide()
         self.learning.setStyleSheet("background-color: #0c4da2; color: white;")
         self.learning.show()
 
@@ -354,7 +348,7 @@ class MyApp(QWidget):
 
     # 테스트 페이지
     def testOpen(self):
-
+        self.testOpen_Di = QDialog()
         # 맨 처음 이미지 불러오기
         file_list2 = os.listdir('test')
         test_list = []
@@ -432,11 +426,6 @@ class MyApp(QWidget):
         vbox.addLayout(imgBox)
         vbox.addLayout(buttonbox)
 
-
-        # 테스트 모델 경로
-        path = './AI/model3/pytorch-unet-master/checkpoint'
-        fileList2 = os.listdir(path)
-
         # 모델 선택
         cb = QComboBox(self)
         cb.addItem("ㅡㅡㅡㅡ모델을 선택하세요ㅡㅡㅡㅡ")
@@ -447,11 +436,11 @@ class MyApp(QWidget):
         targetPattern = r"./" + "**/**/*.pth"
         cbList = glob.glob(targetPattern)
         arr = []
-        for f in cbList:
-            file = os.path.basename(f)
-            cb.addItem(file)
-            with open('./AI/model3/pytorch-unet-master/test_file_path.txt', 'w', encoding='UTF-8') as f:
-                f.write(file + '\n')
+        # for f in cbList:
+        #     file = os.path.basename(f)
+        #     cb.addItem(file)
+        #     with open('./AI/model3/pytorch-unet-master/test_file_path.txt', 'w', encoding='UTF-8') as f:
+        #         f.write(file + '\n')
 
         cb.move(50, 50)
 
@@ -548,10 +537,10 @@ class MyApp(QWidget):
         # hbox.addWidget(self.lbl_img4)
         # hbox.addStretch(1)              # 결과값 넣을 곳
 
-        self.dialog.setLayout(hbox)
+        self.testOpen_Di.setLayout(hbox)
 
         self.pixmap5 = QPixmap('./img/dark.png')
-        self.lbl_img5 = QLabel(self.dialog)
+        self.lbl_img5 = QLabel(self.testOpen_Di)
         self.lbl_img5.setPixmap(self.pixmap5)
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
         opacity_effect.setOpacity(0.5)
@@ -561,14 +550,12 @@ class MyApp(QWidget):
         self.lbl_img5.setGeometry(0, 0, 0, 0)
 
         # QDialog 세팅
-        self.dialog.setWindowTitle('Test')
-        self.dialog.setWindowModality(Qt.NonModal)
+        self.testOpen_Di.setWindowTitle('Test')
+        self.testOpen_Di.setWindowModality(Qt.NonModal)
         # self.dialog.setGeometry(350,100,1200,800)
-        self.dialog.setFixedSize(1200, 800)
-        self.hide()
-        self.learning.hide()
-        self.dialog.setStyleSheet("background-color: #0c4da2; color: white;")
-        self.dialog.show()
+        self.testOpen_Di.setFixedSize(1200, 800)
+        self.testOpen_Di.setStyleSheet("background-color: #0c4da2; color: white;")
+        self.testOpen_Di.show()
 
     # 리스트 클릭시 이미지 변경 (학습부분 )
     def chkItemClicked(self):
@@ -602,7 +589,8 @@ class MyApp(QWidget):
         self.lbl_img.setPixmap(self.pixmap)
 
     def clickButton(self):
-        self.initUI()
+        QCoreApplication.instance().quit
+
 
     # 모델 콤보 박스 클릭시?
     def combobox_changed(self):
@@ -618,6 +606,8 @@ class MyApp(QWidget):
         self.batch_widget.setText(readList[2])
 
     def loading(self):
+        self.train = QDialog()
+
        #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         learn_value = self.learn_widget.text()
         batch_value = self.batch_widget.text()
@@ -628,55 +618,75 @@ class MyApp(QWidget):
         url = 'http://localhost:6006/'
         webbrowser.open(url)
 
-        #로딩화면 꾸미는 부분
-        self.label0 = QLabel()
-        label1 = QLabel('로딩 중 ...', self)
-        label1.setAlignment(Qt.AlignCenter)
-        font1 = label1.font()
-        font1.setPointSize(30)
-        font1.setBold(True)
-        label1.setFont(font1)
-        self.label0.setAlignment(Qt.AlignCenter)
-        #print(os.getcwd())
-        self.movie = QMovie('loading.gif', QByteArray(), self)
-        self.movie.setCacheMode(QMovie.CacheAll)
-        self.label0.setMovie(self.movie)
-        self.movie.start()
-        # 윈도우 해더 숨기기
-        self.setWindowFlags(Qt.FramelessWindowHint)
+        label0 = QLabel('학습 중 ...', self)
+        label0.setAlignment(Qt.AlignCenter)
+        font0 = label0.font()
+        font0.setPointSize(30)
+        font0.setBold(True)
+        label0.setFont(font0)
 
+        h2box = QHBoxLayout()
+        h2box.addStretch(1)
+        h2box.addWidget(label0)
+        h2box.addStretch(1)
 
         vbox = QVBoxLayout()
-        vbox.addWidget(self.label0)
-        vbox.addWidget(label1)
+        vbox.addStretch(1)
+        vbox.addLayout(h2box)
+        vbox.addStretch(1)
+        vbox.addStretch(1)
 
+        self.train.setLayout(vbox)
 
-        self.loading.setLayout(vbox)
-
-        self.loading.setWindowTitle('Loading')
-        self.loading.setWindowModality(Qt.ApplicationModal)
-        self.loading.setFixedSize(600, 400)
-        self.loading.show()
+        self.train.setWindowTitle('train')
+        self.train.setWindowModality(Qt.ApplicationModal)
+        self.train.setFixedSize(600, 400)
+        self.train.show()
         self.reset()
 
         train(learn_value, batch_value, epoch_value, train_value, model_value)
 
-        # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
-        # path = os.getcwd()
-        # os.chdir("./AI/model3/pytorch-unet-master")
-        # inputFile = open('learn_input_file.txt', 'w')
-        # inputFile.write(learn_value + '\n' + batch_value + '\n' + epoch_value  + '\n' + train_value + '\n' + model_value)
-        # inputFile.close()
+        self.cancel()
+        self.reset()
+        #########################################################################
+        # #로딩화면 꾸미는 부분
+        # self.label0 = QLabel()
+        # label1 = QLabel('로딩 중 ...', self)
+        # label1.setAlignment(Qt.AlignCenter)
+        # font1 = label1.font()
+        # font1.setPointSize(30)
+        # font1.setBold(True)
+        # label1.setFont(font1)
+        # self.label0.setAlignment(Qt.AlignCenter)
+        # #print(os.getcwd())
+        # self.movie = QMovie('loading.gif', QByteArray(), self)
+        # self.movie.setCacheMode(QMovie.CacheAll)
+        # self.label0.setMovie(self.movie)
+        # self.movie.start()
+        # # 윈도우 해더 숨기기
+        # self.setWindowFlags(Qt.FramelessWindowHint)
+        #
+        #
+        # vbox = QVBoxLayout()
+        # vbox.addWidget(self.label0)
+        # vbox.addWidget(label1)
+        #
+        #
+        # self.loading.setLayout(vbox)
+        #
+        # self.loading.setWindowTitle('Loading')
+        # self.loading.setWindowModality(Qt.ApplicationModal)
+        # self.loading.setFixedSize(600, 400)
+        # self.loading.show()
 
 
-        # self.reset()
-        # os.system("python train.py")
-        # self.cancel()
-        # os.chdir(path)
+
 
     def loading2(self):
+        self.loading2 = QDialog
         # TEST
         # 로딩화면 꾸미는 부분
+        train()
         self.label0 = QLabel()
         label1 = QLabel('로딩 중 ...', self)
         label1.setAlignment(Qt.AlignCenter)
@@ -697,11 +707,11 @@ class MyApp(QWidget):
         vbox.addWidget(self.label0)
         vbox.addWidget(label1)
 
-        self.loading.setLayout(vbox)
-        self.loading.setWindowTitle('Loading')
-        self.loading.setWindowModality(Qt.ApplicationModal)
-        self.loading.setFixedSize(600, 400)
-        self.loading.show()
+        self.loading2.setLayout(vbox)
+        self.loading2.setWindowTitle('Loading')
+        self.loading2.setWindowModality(Qt.ApplicationModal)
+        self.loading2.setFixedSize(600, 400)
+        self.loading2.show()
         self.reset()
         #self.epoch_widget.setText(str(epoch))
 
@@ -709,33 +719,33 @@ class MyApp(QWidget):
 
         # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
         # train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
-        train_file = open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'r')
-        lines = train_file.readlines()
-        linesList = []
-        for line in lines:
-            linesList.append(line)
-
-        #lineList에는 입력받은 데이터인 epoch_value / learn_value / batch_value / train_value / model_value 이렇게 들어가있음!
-        print(linesList)
-        with open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'w', encoding='UTF-8') as f:
-            for name in linesList:
-                if name == 'train\n':
-                    f.write('test\n')
-                else:
-                    f.write(name)
-
-        os.chdir("./AI/model3/pytorch-unet-master")
-        print(os.getcwd())
+        # train_file = open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'r')
+        # lines = train_file.readlines()
+        # linesList = []
+        # for line in lines:
+        #     linesList.append(line)
+        #
+        # #lineList에는 입력받은 데이터인 epoch_value / learn_value / batch_value / train_value / model_value 이렇게 들어가있음!
+        # print(linesList)
+        # with open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'w', encoding='UTF-8') as f:
+        #     for name in linesList:
+        #         if name == 'train\n':
+        #             f.write('test\n')
+        #         else:
+        #             f.write(name)
+        #
+        # os.chdir("./AI/model3/pytorch-unet-master")
+        # print(os.getcwd())
         self.reset()
         os.system("python train.py")
         self.cancel()
 
     def cancel(self):
-        self.loading.hide()
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
-        opacity_effect.setOpacity(0.5)
-        self.lbl_img5.setGraphicsEffect(opacity_effect)
-        self.lbl_img5.setGeometry(0, 0, 0, 0)
+        self.train.hide()
+        # opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        # opacity_effect.setOpacity(0.5)
+        # self.lbl_img5.setGraphicsEffect(opacity_effect)
+        # self.lbl_img5.setGeometry(0, 0, 0, 0)
 
     def cancel2(self):
         self.loading2.hide()
