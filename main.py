@@ -1,57 +1,99 @@
 import sys, os, glob
-import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import webbrowser
-
 from data_read import *
 from train import *
 from util import *
 
 class MyApp(QWidget):
-
     def __init__(self):
         super().__init__()
         self.initUI()
 
     # 메인페이지
     def initUI(self):
-        pretreatmentButton = QPushButton('전처리하기')
+        pretreatmentButton = QPushButton('  전처리  ')
         pretreatmentButton.setStyleSheet("""QToolTip { 
                            background-color: black; 
                            color: white; 
                            border: black solid 1px
+                           }""" """QPushButton { 
+                           color: white;
+                           background-color: qlineargradient(spread:pad, x1:0, y1:0,
+                           x2:1, y2:1, stop:0 rgba(255, 190, 11, 255), stop:1
+                           rgba(251, 86, 7, 255));
+                           border-radius: 20px;
                            }""")
         pretreatmentButton.setToolTip(
             'datasets의 이미지를 변환시킵니다.')
 
-        learningButton = QPushButton('학습하기')
+        learningButton = QPushButton(' 학습 ')
         learningButton.setStyleSheet("""QToolTip { 
                            background-color: black; 
                            color: white; 
                            border: black solid 1px
+                           }""" """QPushButton { 
+                           color: white;
+                           background-color: qlineargradient(spread:pad, x1:0, y1:0,
+                           x2:1, y2:1, stop:0 rgba(255, 190, 11, 255), stop:1
+                           rgba(251, 86, 7, 255));
+                           border-radius: 20px;
                            }""")
         learningButton.setToolTip(
             '모델을 학습시킵니다.')
 
-        testButton = QPushButton('Test')
+        testButton = QPushButton(' Test ')
         testButton.setStyleSheet("""QToolTip { 
                            background-color: black; 
                            color: white; 
                            border: black solid 1px
+                           }""" """QPushButton { 
+                           color: white;
+                           background-color: qlineargradient(spread:pad, x1:0, y1:0,
+                           x2:1, y2:1, stop:0 rgba(255, 190, 11, 255), stop:1
+                           rgba(251, 86, 7, 255));
+                           border-radius: 20px;
                            }""")
         testButton.setToolTip(
             '학습된 모델을 평가합니다.')
 
-        testComButton = QPushButton('Test 비교')
+        testComButton = QPushButton(' Test 비교 ')
         testComButton.setStyleSheet("""QToolTip { 
                            background-color: black; 
                            color: white; 
                            border: black solid 1px
+                           }""" """QPushButton { 
+                           color: white;
+                           background-color: qlineargradient(spread:pad, x1:0, y1:0,
+                           x2:1, y2:1, stop:0 rgba(255, 190, 11, 255), stop:1
+                           rgba(251, 86, 7, 255));
+                           border-radius: 20px;
                            }""")
         testComButton.setToolTip(
             '서로 다른 모델을 비교합니다.')
+
+        #글씨체 파트
+        pretreatment_font = pretreatmentButton.font()
+        pretreatment_font.setPointSize(35)
+        pretreatmentButton.setFont(pretreatment_font)
+        pretreatmentButton.setMaximumHeight(500)
+
+        learning_font = learningButton.font()
+        learning_font.setPointSize(35)
+        learningButton.setFont(learning_font)
+        learningButton.setMaximumHeight(500)
+
+        test_font = testButton.font()
+        test_font.setPointSize(35)
+        testButton.setFont(test_font)
+        testButton.setMaximumHeight(500)
+
+        testcom_font = testComButton.font()
+        testcom_font.setPointSize(35)
+        testComButton.setFont(testcom_font)
+        testComButton.setMaximumHeight(500)
 
         # 버튼 이벤트
         pretreatmentButton.clicked.connect(self.pretreatmentOpen)
@@ -60,13 +102,27 @@ class MyApp(QWidget):
         learningButton.clicked.connect(self.learningOpen)
         QApplication.processEvents()
 
+        space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
+        title = QLabel("기능을 선택하세요!")
+        title.setAlignment(Qt.AlignCenter)
+        title_font = title.font()
+        title_font.setPointSize(15)
+        title_font.setBold(True)
+        title.setFont(title_font)
+        title.setStyleSheet("color : #DDDDDD")
 
         # 박스 레이아웃
         h2box = QVBoxLayout()
         h2box.addStretch(1)
+        h2box.addWidget(title)
+        h2box.addWidget(space_widget)
+        h2box.addWidget(space_widget)
         h2box.addWidget(pretreatmentButton)
+        h2box.addWidget(space_widget)
         h2box.addWidget(learningButton)
+        h2box.addWidget(space_widget)
         h2box.addWidget(testButton)
+        h2box.addWidget(space_widget)
         h2box.addWidget(testComButton)
         h2box.addStretch(1)
 
@@ -81,14 +137,9 @@ class MyApp(QWidget):
         vbox.addStretch(1)
 
         self.setLayout(vbox)
-
-        self.setWindowTitle('main')
-        # 창 크기 고정
+        self.setWindowTitle('AI 도우미')
         self.setFixedSize(800, 600)
-        # 창 반응형
-        # self.setGeometry(550, 100, 800, 600)
         self.center()
-        # self.testOpen()
         self.setStyleSheet("background-color: #0c4da2; color: white;")
         self.show()
 
@@ -121,7 +172,6 @@ class MyApp(QWidget):
         vbox.addStretch(1)
 
         self.pretreatmentOpen.setLayout(vbox)
-
         self.pretreatmentOpen.setWindowTitle('Loading')
         self.pretreatmentOpen.setWindowModality(Qt.ApplicationModal)
         self.pretreatmentOpen.setFixedSize(600, 400)
@@ -129,22 +179,21 @@ class MyApp(QWidget):
         self.reset()
         data_read()
         self.learningOpen()
-
         self.cancel_pre()
         self.reset()
-
 
     # 학습 페이지
     def learningOpen(self):
         self.learning = QDialog()
-        # 맨 처음 이미지 불러오기
-        file_list = os.listdir('datasets/train')
+        # imgs 폴더 맨 처음 이미지 불러오기 (그래야 첫 화면에서 그림이 나오니까!)
+        file_list = os.listdir('datasets/imgs')
         learning_list =[]
         for i in file_list:
             learning_list.append(i)
-        first_image_path = r"./datasets/train/" + learning_list[0]
+        first_image_path = r"./datasets/imgs/" + learning_list[0]
         self.pixmap = QPixmap(first_image_path)
 
+        # 중간에 큰 그림 나타내는 부분
         self.lbl_img = QLabel()
         self.lbl_img.setPixmap(self.pixmap)
         self.pixmap = self.pixmap.scaled(450, 500)
@@ -153,36 +202,55 @@ class MyApp(QWidget):
         self.lbl_img2 = QLabel()
         self.lbl_img2.setPixmap(self.pixmap)
 
-        # 사이즈 조정
+        # 원본 이미지
         self.pixmap2 = self.pixmap.scaled(200, 200)
         self.lbl_img2.setPixmap(self.pixmap2)
 
-        mask_list = os.listdir('mask')
+        # 마스킹 맨 처음 이미지 보여주기 (그래야 화면에 바로 나오니까)
+        mask_list = os.listdir('datasets/labels')
         msk_list = []
         for i in mask_list:
             msk_list.append(i)
-        first_msk_path = r"./mask/" + msk_list[0]
+        first_msk_path = r"./datasets/labels/" + msk_list[0]
         self.pixmap3 = QPixmap(first_msk_path)
 
-        #self.pixmap3 = QPixmap('./mask/img01.png')
+        # 마스킹 사진
         self.lbl_img3 = QLabel()
         self.lbl_img3.setPixmap(self.pixmap3)
-        #self.lbl_img3.setContentsMargins(0, 10, 0, 10)
-        # 사이즈 조정
         self.pixmap3 = self.pixmap3.scaled(200, 200)
         self.lbl_img3.setPixmap(self.pixmap3)
 
-        # 리스트 불러오기
-        path = './datasets/train'
+        # 투명도 주는 부분(겹치게 하기)
+        self.pixmap4 = QPixmap(first_msk_path)
+        self.lbl_img4 = QLabel(self.learning)
+        self.lbl_img4.setPixmap(self.pixmap4)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
+        opacity_effect.setOpacity(0.2)
+        self.lbl_img4.setGraphicsEffect(opacity_effect)
+        self.pixmap4 = self.pixmap4.scaled(450, 500)
+        self.lbl_img4.setPixmap(self.pixmap4)
+        self.lbl_img4.setAlignment(Qt.AlignCenter)
+        self.lbl_img4.setGeometry(324, 10, 450, 500)
+
+        # 로딩중에 화면 흐릿하게 보이는 부분인듯. 영향 없는 코드!
+        # self.pixmap5 = QPixmap('./img/dark.png')
+        # self.lbl_img5 = QLabel(self.learning)
+        # self.lbl_img5.setPixmap(self.pixmap5)
+        # opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        # opacity_effect.setOpacity(0.5)
+        # self.lbl_img5.setGraphicsEffect(opacity_effect)
+        # self.pixmap5 = self.pixmap5.scaled(1200, 800)
+        # self.lbl_img5.setPixmap(self.pixmap5)
+        # self.lbl_img5.setGeometry(0, 0, 0, 0)
+
+        # 이미지 리스트 불러오기
+        path = './datasets/imgs'
         fileList = os.listdir(path)
 
         # QListWidget 추가
         self.listwidgetLearning = QListWidget(self)
-
         for f in fileList:
             self.listwidgetLearning.addItem(f.split(".")[0])
-
-        # 리스트 클릭 이벤트
         self.listwidgetLearning.itemClicked.connect(self.chkItemClicked)
 
         # 폰트 및 글자
@@ -214,7 +282,6 @@ class MyApp(QWidget):
         label0.setFont(font0)
         label3.setFont(font3)
         label10.setFont(font10)
-
         label1.setFont(font1)
         label2.setFont(font2)
 
@@ -223,7 +290,6 @@ class MyApp(QWidget):
         subImgBox = QHBoxLayout()
         subImgBox.addWidget(self.lbl_img2, alignment=Qt.AlignHCenter)
         subImgBox.addWidget(self.lbl_img3, alignment=Qt.AlignHCenter)
-
 
         # 이미지 박스
         imgBox = QVBoxLayout()
@@ -234,6 +300,7 @@ class MyApp(QWidget):
         imgName = QHBoxLayout()
         imgName.addWidget(label1)
         imgName.addWidget(label2)
+
         # 중간
         vbox = QVBoxLayout()
         vbox.addLayout(imgBox)
@@ -241,22 +308,20 @@ class MyApp(QWidget):
 
         # 좌측 (리스트)
         listBox = QVBoxLayout()
-        btn = QPushButton('뒤로')
-        listBox.addWidget(btn)
+        #btn = QPushButton('뒤로')
+        #listBox.addWidget(btn)
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidgetLearning)
 
-        # 결과값 화면 보여주는 공간
+        # 결과값 화면 보여주는 공간 만들기
         result_layout = QVBoxLayout()
 
         groupbox1 = QGroupBox("학습 정보")
         groupbox1.setAlignment(5)
-
         groupbox2 = QGroupBox("")
         groupbox2.setAlignment(5)
 
-        # 결과
-
+        # 결과 정보들 틀 만들기
         resultBox = QFormLayout()  # QFormLayout 생성
         self.learn_widget = QLineEdit()
         self.learn_widget.setStyleSheet("""QToolTip { 
@@ -294,7 +359,6 @@ class MyApp(QWidget):
             '1epoch란 전체 데이터셋에 대해 한 번의 학습을 완료한 상태를 의미합니다.')
 
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
-
         resultBox.addRow(label3)
         resultBox.addRow(space_widget)
         resultBox.addRow("모델 이름 ", self.model_widget)
@@ -305,17 +369,29 @@ class MyApp(QWidget):
         resultBox.addRow(space_widget)
         resultBox.addRow("Batch Size ", self.batch_widget)
 
-        startLearning = QPushButton('학습 시작', self)
+        #버튼들 생성 및 꾸미기
+        startLearning = QPushButton('학습 시작')
+        startLearning.setStyleSheet("""QPushButton { 
+                                   color: white;
+                                   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955,
+                                   stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255));
+                                   border-radius: 20px;
+                                   }""")
+
         testButton = QPushButton('Test')
+        testButton.setStyleSheet("""QPushButton { 
+                                   color: white;
+                                   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955,
+                                   stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255));
+                                   border-radius: 20px;
+                                   }""")
 
         learning_font = startLearning.font()
         test_font = testButton.font()
-
         learning_font.setPointSize(30)
         startLearning.setFont(learning_font)
         test_font.setPointSize(30)
         testButton.setFont(test_font)
-
         startLearning.setMaximumHeight(200)
         testButton.setMaximumHeight(200)
 
@@ -323,13 +399,13 @@ class MyApp(QWidget):
         testButton.clicked.connect(self.testOpen)
         startLearning.clicked.connect(self.loading)
 
+        # 정보 나타내는 공간
         groupbox1.setLayout(resultBox)
         result_layout.addWidget(groupbox1)
         result_layout.addWidget(startLearning)
         result_layout.addWidget(testButton)
         self.setLayout(result_layout)
         self.show()
-
 
         # 가로
         hbox = QHBoxLayout()
@@ -340,49 +416,13 @@ class MyApp(QWidget):
         hbox.setStretchFactor(vbox, 6)
         hbox.addLayout(result_layout)
 
+        # 창 설정
         self.learning.setLayout(hbox)
-
-        self.pixmap4 = QPixmap(first_msk_path)
-        self.lbl_img4 = QLabel(self.learning)
-        self.lbl_img4.setPixmap(self.pixmap4)
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
-        opacity_effect.setOpacity(0.2)
-        self.lbl_img4.setGraphicsEffect(opacity_effect)
-        self.pixmap4 = self.pixmap4.scaled(450, 500)
-        self.lbl_img4.setPixmap(self.pixmap4)
-        self.lbl_img4.setAlignment(Qt.AlignCenter)
-        self.lbl_img4.setGeometry(324, 10, 450, 500)
-        self.pixmap5 = QPixmap('./img/dark.png')
-        self.lbl_img5 = QLabel(self.learning)
-        self.lbl_img5.setPixmap(self.pixmap5)
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
-        opacity_effect.setOpacity(0.5)
-        self.lbl_img5.setGraphicsEffect(opacity_effect)
-        self.pixmap5 = self.pixmap5.scaled(1200, 800)
-        self.lbl_img5.setPixmap(self.pixmap5)
-        self.lbl_img5.setGeometry(0, 0, 0, 0)
-
-        #self.loading = QDialog()
-
-        # QDialog 세팅
         self.learning.setWindowTitle('Learning')
         self.learning.setWindowModality(Qt.NonModal)
         self.learning.setFixedSize(1200, 800)
         self.learning.setStyleSheet("background-color: #0c4da2; color: white;")
         self.learning.show()
-
-    # 파일 열기 기능. 나중에 이 목록을 가져와서 리스트로 쭈욱 나열하면 될 듯
-    def pushButtonClicked(self):
-        fname = QFileDialog.getOpenFileName(self, 'Open file')
-        imagePath = fname[0]
-        self.pixmap = QPixmap(imagePath)
-        self.pixmap = self.pixmap.scaled(700, 700)
-        self.lbl_imgLearning.setPixmap(self.pixmap)
-
-        # 리스트에 파일이름만 저장하려고
-        image_name = fname[0]
-        self.label.setText(image_name)
-        self.listwidgetLearning.addItem(image_name.split("/")[-1])
 
     # 테스트 페이지
     def testOpen(self):
@@ -483,9 +523,9 @@ class MyApp(QWidget):
 
         # 좌측 (리스트)
         listBox = QVBoxLayout()
-        btn = QPushButton('뒤로')
-        btn.clicked.connect(self.clickButton)
-        listBox.addWidget(btn)
+        #btn = QPushButton('뒤로')
+        #btn.clicked.connect(self.clickButton)
+        #listBox.addWidget(btn)
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidget)
 
