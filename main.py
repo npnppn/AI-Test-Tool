@@ -166,13 +166,13 @@ class MyApp(QWidget):
         fileList = os.listdir(path)
 
         # QListWidget 추가
-        self.listwidgetLearning = QListWidget(self)
+        self.listwidgetLearning1 = QListWidget(self)
 
         for f in fileList:
-            self.listwidgetLearning.addItem(f.split(".")[0])
+            self.listwidgetLearning1.addItem(f.split(".")[0])
 
         # 리스트 클릭 이벤트
-        self.listwidgetLearning.itemClicked.connect(self.chkItemClicked)
+        self.listwidgetLearning1.itemClicked.connect(self.chkItemClicked)
 
         # 폰트 및 글자
         label0 = QLabel('이미지 선택', self)
@@ -233,7 +233,7 @@ class MyApp(QWidget):
         btn = QPushButton('뒤로')
         listBox.addWidget(btn)
         listBox.addWidget(label0)
-        listBox.addWidget(self.listwidgetLearning)
+        listBox.addWidget(self.listwidgetLearning1)
 
         # 결과값 화면 보여주는 공간
         result_layout = QVBoxLayout()
@@ -389,6 +389,7 @@ class MyApp(QWidget):
 
         # 리스트 불러오기
         path = './test'
+
         fileList = os.listdir(path)
 
         # QListWidget 추가
@@ -401,6 +402,10 @@ class MyApp(QWidget):
 
         # 리스트 클릭 이벤트
         self.listwidget.itemClicked.connect(self.chkItemClicked2)
+
+
+        # 아웃풋 이미지 주소
+        self.test_model_path = ''
 
         # 폰트 및 글자
         label0 = QLabel('이미지 선택', self)
@@ -458,7 +463,9 @@ class MyApp(QWidget):
         # 모델들 하위 경로 가져오기
         targetPattern = r"./" + "*/**/*.pth"
         cbList = glob.glob(targetPattern)
+        self.test_model_arr = ['a.a']
         for f in cbList:
+            self.test_model_arr.append(f)
             file = os.path.basename(f)
             self.cb.addItem(file)
 
@@ -656,14 +663,28 @@ class MyApp(QWidget):
         return text
 
     def selec_model(self):
-        path = './checkpoint/' + self.cb.currentText().split('_')[0] + '/' + self.cb.currentText()
-        epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value = info_load(path)
+        path = self.test_model_arr[self.cb.currentIndex()-1]
+        res = path.split('\\')[-1]
+        res1 = path.split('\\')[2]
+        path1 = './checkpoint/' + res1 + '/' + res
+
+        self.test_model_path  = './result/' + res1 + '/png/'
+
+        epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value = info_load(path1)
 
         self.epoch_widget.setText(str(epoch_value))
         self.loss_widget.setText(str(loss_value))
         self.iou_widget.setText(str(iou_value))
         self.learning_widget.setText(str(learn_value))
         self.batch_widget.setText(str(batch_value))
+
+        print(self.test_model_path + 'input')
+        fileList = os.listdir(self.test_model_path + 'input')
+
+        for f in fileList:
+            self.listwidgetLearning1.addItem(f)
+
+
 
 
 
