@@ -166,13 +166,13 @@ class MyApp(QWidget):
         fileList = os.listdir(path)
 
         # QListWidget 추가
-        self.listwidgetLearning1 = QListWidget(self)
+        self.listwidgetLearning = QListWidget(self)
 
         for f in fileList:
-            self.listwidgetLearning1.addItem(f.split(".")[0])
+            self.listwidgetLearning.addItem(f.split(".")[0])
 
         # 리스트 클릭 이벤트
-        self.listwidgetLearning1.itemClicked.connect(self.chkItemClicked)
+        self.listwidgetLearning.itemClicked.connect(self.chkItemClicked)
 
         # 폰트 및 글자
         label0 = QLabel('이미지 선택', self)
@@ -233,7 +233,7 @@ class MyApp(QWidget):
         btn = QPushButton('뒤로')
         listBox.addWidget(btn)
         listBox.addWidget(label0)
-        listBox.addWidget(self.listwidgetLearning1)
+        listBox.addWidget(self.listwidgetLearning)
 
         # 결과값 화면 보여주는 공간
         result_layout = QVBoxLayout()
@@ -388,7 +388,7 @@ class MyApp(QWidget):
         self.lbl_img.setPixmap(self.pixmap)
 
         # 리스트 불러오기
-        path = './test'
+        path = './result'
 
         fileList = os.listdir(path)
 
@@ -396,9 +396,6 @@ class MyApp(QWidget):
         self.listwidget = QListWidget(self)
         self.listwidget.setSelectionMode(QAbstractItemView.ExtendedSelection)
 
-        # 확장자명 제거해서 리스트에 추가
-        for f in fileList:
-            self.listwidget.addItem(f.split(".")[0])
 
         # 리스트 클릭 이벤트
         self.listwidget.itemClicked.connect(self.chkItemClicked2)
@@ -648,10 +645,40 @@ class MyApp(QWidget):
     # 리스트 클릭시 이미지 변경
     def chkItemClicked2(self):
         # print(self.listwidgetLearning.currentItem().text())
-        self.pixmap = QPixmap('./test/' + self.listwidget.currentItem().text())
+        self.pixmap = QPixmap(self.test_model_path + 'input/' + self.listwidget.currentItem().text())
 
         self.pixmap = self.pixmap.scaled(700, 700)
         self.lbl_img.setPixmap(self.pixmap)
+
+
+        a = self.test_input_fileList[self.listwidget.currentRow()]
+        b = self.test_label_fileList[self.listwidget.currentRow()]
+        c = self.test_output_fileList[self.listwidget.currentRow()]
+
+        print(a,b,c)
+
+        ################################################################################3
+        # self.pixmap = QPixmap('./test/' + self.listwidgetLearning.currentItem().text())
+        #
+        # self.pixmap = self.pixmap.scaled(450, 500)
+        # self.lbl_img.setPixmap(self.pixmap)
+        #
+        # self.pixmap2 = self.pixmap.scaled(200, 200)
+        # self.lbl_img2.setPixmap(self.pixmap2)
+        #
+        # s = self.listwidgetLearning.currentItem().text().split(".")
+        # # print(s[0])
+        # self.pixmap3 = QPixmap('./mask/' + s[0] + ".png")
+        # self.pixmap3 = self.pixmap3.scaled(200, 200)
+        # self.lbl_img3.setPixmap(self.pixmap3)
+        #
+        # self.pixmap4 = QPixmap('./mask/' + s[0] + ".png")
+        # self.lbl_img4.setPixmap(self.pixmap4)
+        # self.pixmap4 = self.pixmap4.scaled(450, 500)
+        # self.lbl_img4.setPixmap(self.pixmap4)
+        # self.lbl_img4.setGeometry(324, 10, 450, 500)
+
+
 
     def clickButton(self):
         QCoreApplication.instance().quit
@@ -663,7 +690,7 @@ class MyApp(QWidget):
         return text
 
     def selec_model(self):
-        path = self.test_model_arr[self.cb.currentIndex()-1]
+        path = self.test_model_arr[self.cb.currentIndex()]
         res = path.split('\\')[-1]
         res1 = path.split('\\')[2]
         path1 = './checkpoint/' + res1 + '/' + res
@@ -678,11 +705,58 @@ class MyApp(QWidget):
         self.learning_widget.setText(str(learn_value))
         self.batch_widget.setText(str(batch_value))
 
-        print(self.test_model_path + 'input')
-        fileList = os.listdir(self.test_model_path + 'input')
+        self.test_input_fileList = []
+        self.test_label_fileList = []
+        self.test_output_fileList = []
 
-        for f in fileList:
-            self.listwidgetLearning1.addItem(f)
+        if os.path.exists(self.test_model_path + 'input'):
+            input_fileList = os.listdir(self.test_model_path + 'input')
+            self.listwidget.clear()
+            for f in input_fileList:
+                self.listwidget.addItem(f)
+                self.test_input_fileList.append(f)
+
+        if os.path.exists(self.test_model_path + 'label'):
+            label_fileList = os.listdir(self.test_model_path + 'label')
+            for f in label_fileList:
+                self.test_label_fileList.append(f)
+
+        if os.path.exists(self.test_model_path + 'output'):
+            output_fileList = os.listdir(self.test_model_path + 'output')
+            for f in output_fileList:
+                self.test_output_fileList.append(f)
+
+
+
+        else:
+            self.listwidget.clear()
+            self.notest = QDialog()
+
+            label0 = QLabel('테스트가 아직 진행되지 않았습니다.', self)
+            label0.setAlignment(Qt.AlignCenter)
+            font0 = label0.font()
+            font0.setPointSize(30)
+            font0.setBold(True)
+            label0.setFont(font0)
+
+            h2box = QHBoxLayout()
+            h2box.addStretch(1)
+            h2box.addWidget(label0)
+            h2box.addStretch(1)
+
+            vbox = QVBoxLayout()
+            vbox.addStretch(1)
+            vbox.addLayout(h2box)
+            vbox.addStretch(1)
+            vbox.addStretch(1)
+
+            self.notest.setLayout(vbox)
+
+            self.notest.setWindowTitle('test')
+            self.notest.setWindowModality(Qt.ApplicationModal)
+            self.notest.setFixedSize(600, 400)
+            self.notest.show()
+            self.reset()
 
 
 
