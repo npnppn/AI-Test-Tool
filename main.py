@@ -1,5 +1,7 @@
 # 학습하기 페이지
-import sys, os, glob
+import sys
+import os
+import glob
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -9,6 +11,7 @@ import webbrowser
 
 from data_read import *
 from train import *
+
 
 class MyApp(QWidget):
     #dialog = None
@@ -29,9 +32,40 @@ class MyApp(QWidget):
     # 메인페이지
     def initUI(self):
         pretreatmentButton = QPushButton('전처리하기')
+        pretreatmentButton.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        pretreatmentButton.setToolTip(
+            'datasets의 이미지를 변환시킵니다.')
+
         learningButton = QPushButton('학습하기')
+        learningButton.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        learningButton.setToolTip(
+            '모델을 학습시킵니다.')
+
         testButton = QPushButton('Test')
+        testButton.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        testButton.setToolTip(
+            '학습된 모델을 평가합니다.')
+
         testComButton = QPushButton('Test 비교')
+        testComButton.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        testComButton.setToolTip(
+            '서로 다른 모델을 비교합니다.')
 
         # 버튼 이벤트
         pretreatmentButton.clicked.connect(self.pretreatmentOpen)
@@ -39,7 +73,6 @@ class MyApp(QWidget):
         QApplication.processEvents()
         learningButton.clicked.connect(self.learningOpen)
         QApplication.processEvents()
-
 
         # 박스 레이아웃
         h2box = QVBoxLayout()
@@ -120,8 +153,8 @@ class MyApp(QWidget):
         self.cancel_pre()
         self.reset()
 
-
     # 학습 페이지
+
     def learningOpen(self):
         self.learning = QDialog()
         # 이미지 불러오기
@@ -200,7 +233,6 @@ class MyApp(QWidget):
         subImgBox.addWidget(self.lbl_img2, alignment=Qt.AlignHCenter)
         subImgBox.addWidget(self.lbl_img3, alignment=Qt.AlignHCenter)
 
-
         # 이미지 박스
         imgBox = QVBoxLayout()
         imgBox.addWidget(self.lbl_img, alignment=Qt.AlignHCenter)
@@ -218,7 +250,7 @@ class MyApp(QWidget):
         # 좌측 (리스트)
         listBox = QVBoxLayout()
         btn = QPushButton('뒤로')
-        #btn.clicked.connect(self.initUI)
+        # btn.clicked.connect(self.initUI)
         listBox.addWidget(btn)
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidgetLearning)
@@ -233,15 +265,44 @@ class MyApp(QWidget):
         groupbox2.setAlignment(5)
 
         # 결과
-        QToolTip.setFont(QFont('맑은고딕',20))  # Tooltip font 정의
 
         resultBox = QFormLayout()  # QFormLayout 생성
+
         self.learn_widget = QLineEdit()
+        self.learn_widget.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        self.learn_widget.setToolTip(
+            '한 번의 학습으로 얼마만큼 학습해야 할지를 의미합니다.')
+
         self.batch_widget = QLineEdit()
-        self.epoch_widget = QLineEdit()
+        self.batch_widget.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        self.batch_widget.setToolTip(
+            '전체 학습 데이터셋에서 몇 개의 데이터를 한 번에 학습할 것인지를 의미합니다.')
+
         self.model_widget = QLineEdit()
-        self.model_widget.setToolTip('모델의 이름을 정해라')
-        self.epoch_widget.setToolTip('Epoch는 뭐시기다')
+        self.model_widget.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        self.model_widget.setToolTip('저장할 모델의 이름을 입력해주세요.')
+
+        self.epoch_widget = QLineEdit()
+        self.epoch_widget.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        self.epoch_widget.setToolTip(
+            '1epoch란 전체 데이터셋에 대해 한 번의 학습을 완료한 상태를 의미합니다.')
+
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
 
         resultBox.addRow(label3)
@@ -253,10 +314,9 @@ class MyApp(QWidget):
         resultBox.addRow("Learning Rate ", self.learn_widget)
         resultBox.addRow(space_widget)
         resultBox.addRow("Batch Size ", self.batch_widget)
-        #resultBox.addRow(space_widget)
+        # resultBox.addRow(space_widget)
 
         startLearning = QPushButton('학습 시작', self)
-        startLearning.setToolTip('좀 되거라')
         testButton = QPushButton('Test')
 
         learning_font = startLearning.font()
@@ -280,7 +340,6 @@ class MyApp(QWidget):
         result_layout.addWidget(testButton)
         self.setLayout(result_layout)
         self.show()
-
 
         # 가로
         hbox = QHBoxLayout()
@@ -386,7 +445,7 @@ class MyApp(QWidget):
         label3.setFont(font3)
         label10.setFont(font10)
 
-        #버튼들
+        # 버튼들
         startTest = QPushButton('Test')
         test_font = startTest.font()
         test_font.setPointSize(30)
@@ -397,12 +456,11 @@ class MyApp(QWidget):
         #testComButton = QPushButton('Test 비교')
         buttonbox = QHBoxLayout()
         buttonbox.addWidget(startTest)
-        #buttonbox.addWidget(getModel)
-        #buttonbox.addWidget(testComButton)
+        # buttonbox.addWidget(getModel)
+        # buttonbox.addWidget(testComButton)
 
-        #버튼 기능
+        # 버튼 기능
         startTest.clicked.connect(self.loading2)
-
 
         # 이미지 박스
         imgBox = QHBoxLayout()
@@ -460,25 +518,68 @@ class MyApp(QWidget):
         groupbox_image.setAlignment(5)
 
         self.epoch_widget = QLineEdit()
+        self.epoch_widget.setReadOnly(True)
         self.epoch_widget.setPlaceholderText("epoch")
+        self.epoch_widget.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        self.epoch_widget.setToolTip(
+            '1epoch란 전체 데이터셋에 대해 한 번의 학습을 완료한 상태를 의미합니다.')
+
         self.loss_widget = QLineEdit()
+        self.loss_widget.setReadOnly(True)
         self.loss_widget.setPlaceholderText("loss")
-        self.accuracy_widget = QLineEdit()
-        self.accuracy_widget.setPlaceholderText("accuracy")
+        self.loss_widget.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        self.loss_widget.setToolTip('정답과 예측한 값 사이의 오차를 의미합니다.')
+
+        self.iou_widget = QLineEdit()
+        self.iou_widget.setReadOnly(True)
+        self.iou_widget.setPlaceholderText("iou")
+        self.iou_widget.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        self.iou_widget.setToolTip(
+            '실제 값과 예측 값이 얼마나 겹치는 지를 따져 잘 예측했는지 평가하는 지표입니다.')
+
         self.learning_widget = QLineEdit()
+        self.learning_widget.setReadOnly(True)
         self.learning_widget.setPlaceholderText("learning")
+        self.learning_widget.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        self.learning_widget.setToolTip('한 번의 학습으로 얼마만큼 학습해야 할지를 의미합니다.')
+
         self.batch_widget = QLineEdit()
+        self.batch_widget.setReadOnly(True)
         self.batch_widget.setPlaceholderText("batch")
+        self.batch_widget.setStyleSheet("""QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+                           }""")
+        self.batch_widget.setToolTip(
+            '전체 학습 데이터셋에서 몇 개의 데이터를 한 번에 학습할 것인지를 의미합니다.')
+
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
 
         resultBox = QFormLayout()
         resultBox.addRow(space_widget)
         resultBox.addRow("Loss Rate ", self.loss_widget)
         resultBox.addRow(space_widget)
-        resultBox.addRow("Accuracy ", self.accuracy_widget)
+        resultBox.addRow("IoU ", self.iou_widget)
         resultBox.addRow(space_widget)
 
-        #iou스코어는 학습부분? 모델부분? 결과부분?
+        # iou스코어는 학습부분? 모델부분? 결과부분?
         resultBox2 = QFormLayout()
         resultBox2.addRow("Epoch ", self.epoch_widget)
         resultBox2.addRow(space_widget)
@@ -521,7 +622,6 @@ class MyApp(QWidget):
         hbox.addLayout(result_layout)
         hbox.setStretchFactor(result_layout, 2)
 
-
         # hbox.addWidget(self.lbl_img4)
         # hbox.addStretch(1)              # 결과값 넣을 곳
 
@@ -542,13 +642,15 @@ class MyApp(QWidget):
         self.testOpen_Di.setWindowModality(Qt.NonModal)
         # self.dialog.setGeometry(350,100,1200,800)
         self.testOpen_Di.setFixedSize(1200, 800)
-        self.testOpen_Di.setStyleSheet("background-color: #0c4da2; color: white;")
+        self.testOpen_Di.setStyleSheet(
+            "background-color: #0c4da2; color: white;")
         self.testOpen_Di.show()
 
     # 리스트 클릭시 이미지 변경 (학습부분 )
     def chkItemClicked(self):
         # print(self.listwidget.currentItem().text())
-        self.pixmap = QPixmap('./test/' + self.listwidgetLearning.currentItem().text())
+        self.pixmap = QPixmap(
+            './test/' + self.listwidgetLearning.currentItem().text())
 
         self.pixmap = self.pixmap.scaled(450, 500)
         self.lbl_img.setPixmap(self.pixmap)
@@ -579,10 +681,11 @@ class MyApp(QWidget):
     def clickButton(self):
         QCoreApplication.instance().quit
 
-
     # 모델 콤보 박스 클릭시?
+
     def combobox_changed(self):
-        readFile = open('./AI/model3/pytorch-unet-master/learn_input_file.txt', 'r')
+        readFile = open(
+            './AI/model3/pytorch-unet-master/learn_input_file.txt', 'r')
         reads = readFile.readlines()
         readList = []
         for read in reads:
@@ -597,7 +700,7 @@ class MyApp(QWidget):
     def loading(self):
         self.train = QDialog()
 
-       #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
+       # train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         learn_value = self.learn_widget.text()
         batch_value = self.batch_widget.text()
         epoch_value = self.epoch_widget.text()
@@ -668,9 +771,6 @@ class MyApp(QWidget):
         # self.loading.setFixedSize(600, 400)
         # self.loading.show()
 
-
-
-
     def loading2(self):
         self.loading2 = QDialog
         # TEST
@@ -702,9 +802,7 @@ class MyApp(QWidget):
         self.loading2.setFixedSize(600, 400)
         self.loading2.show()
         self.reset()
-        #self.epoch_widget.setText(str(epoch))
-
-
+        # self.epoch_widget.setText(str(epoch))
 
         # 경로 변경해서 ai모델 있는 경로에 txt파일로 입력받은 값들을 저장하자
         # train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
@@ -751,6 +849,7 @@ class MyApp(QWidget):
         loop = QEventLoop()
         QTimer.singleShot(100, loop.quit)  # msec
         loop.exec_()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
