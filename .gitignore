@@ -5,5 +5,4 @@
 **/data_image1/
 **/data_image/
 **/datasets/
-
-
+**/__pycache__/
