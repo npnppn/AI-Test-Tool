@@ -98,8 +98,53 @@ class MyApp(QWidget):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
+    def pre_dataset_alert(self):
+        self.noimage = QDialog()
+
+        label0 = QLabel('datasets 폴더를 확인해주세요.', self)
+        label0.setAlignment(Qt.AlignCenter)
+        font0 = label0.font()
+        font0.setPointSize(30)
+        font0.setBold(True)
+        label0.setFont(font0)
+
+        h2box = QHBoxLayout()
+        h2box.addStretch(1)
+        h2box.addWidget(label0)
+        h2box.addStretch(1)
+
+        vbox = QVBoxLayout()
+        vbox.addStretch(1)
+        vbox.addLayout(h2box)
+        vbox.addStretch(1)
+        vbox.addStretch(1)
+
+        self.noimage.setLayout(vbox)
+
+        self.noimage.setWindowTitle('train')
+        self.noimage.setWindowModality(Qt.ApplicationModal)
+        self.noimage.setFixedSize(600, 400)
+        self.noimage.show()
+        self.reset()
+
     # 데이터 전처리
     def pretreatmentOpen(self):
+        path1 = './datasets/Imgs/'
+        path2 = './datasets/labels/'
+
+        if not os.path.exists(path1):
+            return self.pre_dataset_alert()
+        if not os.path.exists(path2):
+            return self.pre_dataset_alert()
+
+        if len(os.listdir(path1)) == 0:
+            return self.pre_dataset_alert()
+        if len(os.listdir(path2)) == 0:
+            return self.pre_dataset_alert()
+
+        if len(os.listdir(path1)) != len(os.listdir(path2)):
+            return self.pre_dataset_alert()
+
         self.pretreatmentOpen = QDialog()
         label0 = QLabel('전처리 중 ...', self)
         label0.setAlignment(Qt.AlignCenter)
@@ -690,12 +735,15 @@ class MyApp(QWidget):
         return text
 
     def selec_model(self):
+        if self.cb.currentIndex() == 0:
+            return
+
         path = self.test_model_arr[self.cb.currentIndex()]
         res = path.split('\\')[-1]
-        res1 = os.path.basename(path).replace(".pth", "")
+        res1 = path.split('\\')[2]
         path1 = './checkpoint/' + res1 + '/' + res
-
-        self.test_model_path  = './result/' + res1 + '/png/'
+        test_model_path_res1 = os.path.basename(path).replace(".pth", "")
+        self.test_model_path  = './result/' + test_model_path_res1 + '/png/'
 
         epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value = info_load(path1)
 
@@ -759,11 +807,72 @@ class MyApp(QWidget):
             self.reset()
 
 
+    def dataset_alert(self):
+        self.nodatasets = QDialog()
+
+        label0 = QLabel('전처리를 먼저 진행해 주세요.', self)
+        label0.setAlignment(Qt.AlignCenter)
+        font0 = label0.font()
+        font0.setPointSize(30)
+        font0.setBold(True)
+        label0.setFont(font0)
+
+        h2box = QHBoxLayout()
+        h2box.addStretch(1)
+        h2box.addWidget(label0)
+        h2box.addStretch(1)
+
+        vbox = QVBoxLayout()
+        vbox.addStretch(1)
+        vbox.addLayout(h2box)
+        vbox.addStretch(1)
+        vbox.addStretch(1)
+
+        self.nodatasets.setLayout(vbox)
+
+        self.nodatasets.setWindowTitle('train')
+        self.nodatasets.setWindowModality(Qt.ApplicationModal)
+        self.nodatasets.setFixedSize(600, 400)
+        self.nodatasets.show()
+        self.reset()
 
 
+    def train_alert(self):
+        self.novalue = QDialog()
+
+        label0 = QLabel('모든 값을 입력해주세요.', self)
+        label0.setAlignment(Qt.AlignCenter)
+        font0 = label0.font()
+        font0.setPointSize(30)
+        font0.setBold(True)
+        label0.setFont(font0)
+
+        h2box = QHBoxLayout()
+        h2box.addStretch(1)
+        h2box.addWidget(label0)
+        h2box.addStretch(1)
+
+        vbox = QVBoxLayout()
+        vbox.addStretch(1)
+        vbox.addLayout(h2box)
+        vbox.addStretch(1)
+        vbox.addStretch(1)
+
+        self.novalue.setLayout(vbox)
+
+        self.novalue.setWindowTitle('train')
+        self.novalue.setWindowModality(Qt.ApplicationModal)
+        self.novalue.setFixedSize(600, 400)
+        self.novalue.show()
+        self.reset()
 
     def loading(self):
-        self.train = QDialog()
+        path = './datasets/train/'
+        if not os.path.exists(path):
+            return self.dataset_alert()
+        if len(os.listdir(path)) == 0:
+            return self.dataset_alert()
+
 
        #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         learn_value = self.learn_widget.text()
@@ -772,6 +881,10 @@ class MyApp(QWidget):
         train_value = 'train'
         model_value = self.model_widget.text()
 
+        if learn_value == '' or batch_value == '' or epoch_value == '' or model_value == '':
+            return self.train_alert()
+
+        self.train = QDialog()
         url = 'http://localhost:6006/'
         webbrowser.open(url)
 
