@@ -74,7 +74,7 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
         os.system("start cmd /c tensorboard --logdir={}".format(log_dir))
 
     if mode == 'test':
-        result_dir = "./result/" + model_name
+        result_dir = "./result/" + model_name.replace(".pth", "")
         print("result dir: %s" % result_dir)
         print("test model %s" % model_name)
         # test 용 디렉토리 생성하기
