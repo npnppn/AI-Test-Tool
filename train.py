@@ -48,7 +48,6 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
     data_dir = "./datasets"  # 데이터셋 저장 디렉토리
     ckpt_dir = "./checkpoint/" + name
     log_dir = "./log/" + name  # tensorboard log 저장 디렉토리
-    result_dir = "./result/" + name
 
     # compare/test1&test2/
     compare_dir = "./compare/" + \
@@ -68,7 +67,6 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
     print("data dir: %s" % data_dir)
     print("ckpt dir: %s" % ckpt_dir)
     print("log dir: %s" % log_dir)
-    print("result dir: %s" % result_dir)
     print("mode: %s" % mode)
 
     # tensorboard 실행하기
@@ -76,6 +74,8 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
         os.system("start cmd /c tensorboard --logdir={}".format(log_dir))
 
     if mode == 'test':
+        result_dir = "./result/" + model_name
+        print("result dir: %s" % result_dir)
         print("test model %s" % model_name)
         # test 용 디렉토리 생성하기
         if not os.path.exists(result_dir):
@@ -86,12 +86,10 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
             os.makedirs(os.path.join(result_dir, 'numpy/input'))
             os.makedirs(os.path.join(result_dir, 'numpy/output'))
 
-            
     elif mode == 'compare':
         print("compare model1 %s" % model1_name)
         print("compare model2 %s" % model2_name)
         print("compare dir %s" % compare_dir)
-
 
     # compare 용 디렉토리 생성하기
     if mode == 'compare':
@@ -388,7 +386,7 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                       (batch, num_batch_test, np.mean(loss_arr2), iou2, acc2))
 
                 for j in range(label.shape[0]):
-                    id = num_batch_test * (batch - 1) + j
+                    id = batch
 
                     plt.imsave(os.path.join(compare_dir, 'png/label', 'label_%04d.png' %
                                id), label[j].squeeze(), cmap='gray')
