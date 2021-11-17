@@ -692,7 +692,7 @@ class MyApp(QWidget):
     def selec_model(self):
         path = self.test_model_arr[self.cb.currentIndex()]
         res = path.split('\\')[-1]
-        res1 = path.split('\\')[2]
+        res1 = os.path.basename(path).replace(".pth", "")
         path1 = './checkpoint/' + res1 + '/' + res
 
         self.test_model_path  = './result/' + res1 + '/png/'
@@ -813,7 +813,7 @@ class MyApp(QWidget):
         res = path.split('\\')[-1]
         res1 = path.split('\\')[2]
         path1 = './checkpoint/' + res1 + '/' + res
-        epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value, = info_load(path1)
+        epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value, = info_load(path)
 
         label0 = QLabel('테스트 중 ...', self)
         label0.setAlignment(Qt.AlignCenter)

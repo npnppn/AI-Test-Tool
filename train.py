@@ -307,7 +307,7 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                       (batch, num_batch_test, np.mean(loss_arr), iou, acc))
 
                 for j in range(label.shape[0]):
-                    id = num_batch_test * (batch - 1) + j
+                    id = batch
 
                     plt.imsave(os.path.join(result_dir, 'png/label', 'label_%04d.png' %
                                id), label[j].squeeze(), cmap='gray')
