@@ -1,4 +1,4 @@
-## 라이브러리 추가하기
+# 라이브러리 추가하기
 import argparse
 from iou import *
 import os
@@ -16,8 +16,11 @@ from torchvision import transforms, datasets
 import gc
 
 
+def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train', model2=''):
 
-def train(lr, batch_size, num_epoch, mode, name, model='train'):
+    # train lr, batch_size, num_epoch,mode = 'test', name
+    # test  lr, batch_size, num_epoch,mode='test',name, model1 = 해당 모델 경로
+    # compare batch_size,mode='compare',model1 = 해당 모델 경로, model2 = 해당 모델 경로
 
     gc.collect()
     torch.cuda.empty_cache()
@@ -42,16 +45,19 @@ def train(lr, batch_size, num_epoch, mode, name, model='train'):
     train_continue = "off"
     name = name
 
-    data_dir = "./datasets" # 데이터셋 저장 디렉토리
+    data_dir = "./datasets"  # 데이터셋 저장 디렉토리
     ckpt_dir = "./checkpoint/" + name
     log_dir = "./log/" + name  # tensorboard log 저장 디렉토리
     result_dir = "./result/" + name
-    compare_dir = "./compare/" + name
 
-    model_name = model
-    # model1_name = args.model1
-    # model2_name = args.model2
+    # compare/test1&test2/
+    compare_dir = "./compare/" + \
+        os.path.basename(model1).replace(".pth", "") + "&" + \
+        os.path.basename(model2).replace(".pth", "")
 
+    model_name = os.path.basename(model1)
+    model1_name = model1
+    model2_name = model2
 
     device = torch.device('cuda' if torch.cuda.is_available()
                           else 'cpu')  # gpu 혹은 cpu에서 동작할 지 결정해줌
@@ -63,37 +69,41 @@ def train(lr, batch_size, num_epoch, mode, name, model='train'):
     print("ckpt dir: %s" % ckpt_dir)
     print("log dir: %s" % log_dir)
     print("result dir: %s" % result_dir)
-    print("compare dir: %s" % compare_dir)
     print("mode: %s" % mode)
 
     # tensorboard 실행하기
-    os.system("start cmd /c tensorboard --logdir={}".format(log_dir))
+    if mode == 'train':
+        os.system("start cmd /c tensorboard --logdir={}".format(log_dir))
 
     if mode == 'test':
         print("test model %s" % model_name)
+        # test 용 디렉토리 생성하기
+        if not os.path.exists(result_dir):
+            os.makedirs(os.path.join(result_dir, 'png/label'))
+            os.makedirs(os.path.join(result_dir, 'png/input'))
+            os.makedirs(os.path.join(result_dir, 'png/output'))
+            os.makedirs(os.path.join(result_dir, 'numpy/label'))
+            os.makedirs(os.path.join(result_dir, 'numpy/input'))
+            os.makedirs(os.path.join(result_dir, 'numpy/output'))
+
+            
     elif mode == 'compare':
         print("compare model1 %s" % model1_name)
         print("compare model2 %s" % model2_name)
+        print("compare dir %s" % compare_dir)
 
-    # test 용 디렉토리 생성하기
-    if not os.path.exists(result_dir):
-        os.makedirs(os.path.join(result_dir, 'png/label'))
-        os.makedirs(os.path.join(result_dir, 'png/input'))
-        os.makedirs(os.path.join(result_dir, 'png/output'))
-        os.makedirs(os.path.join(result_dir, 'numpy/label'))
-        os.makedirs(os.path.join(result_dir, 'numpy/input'))
-        os.makedirs(os.path.join(result_dir, 'numpy/output'))
 
     # compare 용 디렉토리 생성하기
-    if not os.path.exists(compare_dir):
-        os.makedirs(os.path.join(compare_dir, 'png/label'))
-        os.makedirs(os.path.join(compare_dir, 'png/input'))
-        os.makedirs(os.path.join(compare_dir, 'png/output1'))
-        os.makedirs(os.path.join(compare_dir, 'png/output2'))
-        os.makedirs(os.path.join(compare_dir, 'numpy/label'))
-        os.makedirs(os.path.join(compare_dir, 'numpy/input'))
-        os.makedirs(os.path.join(compare_dir, 'numpy/output1'))
-        os.makedirs(os.path.join(compare_dir, 'numpy/output2'))
+    if mode == 'compare':
+        if not os.path.exists(compare_dir):
+            os.makedirs(os.path.join(compare_dir, 'png/label'))
+            os.makedirs(os.path.join(compare_dir, 'png/input'))
+            os.makedirs(os.path.join(compare_dir, 'png/output1'))
+            os.makedirs(os.path.join(compare_dir, 'png/output2'))
+            os.makedirs(os.path.join(compare_dir, 'numpy/label'))
+            os.makedirs(os.path.join(compare_dir, 'numpy/input'))
+            os.makedirs(os.path.join(compare_dir, 'numpy/output1'))
+            os.makedirs(os.path.join(compare_dir, 'numpy/output2'))
 
     # 네트워크 학습하기
     if mode == 'train':
@@ -144,11 +154,11 @@ def train(lr, batch_size, num_epoch, mode, name, model='train'):
 
     # 그밖에 부수적인 functions 설정하기
 
+    def fn_tonumpy(x): return x.to(
+        'cpu').detach().numpy().transpose(0, 2, 3, 1)
 
-    def fn_tonumpy(x): return x.to('cpu').detach().numpy().transpose(0, 2, 3, 1)
     def fn_denorm(x, mean, std): return (x * std) + mean
     def fn_class(x): return 1.0 * (x > 0.5)
-
 
     # Tensorboard 를 사용하기 위한 SummaryWriter 설정
     writer_train = SummaryWriter(log_dir=os.path.join(log_dir, 'train'))
@@ -161,7 +171,8 @@ def train(lr, batch_size, num_epoch, mode, name, model='train'):
     if mode == 'train':
         best_loss = 100
         if train_continue == "on":
-            net, optim, st_epoch = load(ckpt_dir=ckpt_dir, net=net, optim=optim)
+            net, optim, st_epoch = load(
+                ckpt_dir=ckpt_dir, net=net, optim=optim)
 
         for epoch in range(st_epoch + 1, num_epoch + 1):
             net.train()
@@ -240,7 +251,7 @@ def train(lr, batch_size, num_epoch, mode, name, model='train'):
                         best_loss = np.mean(loss_arr)
                         # SAVE
                         best_save(ckpt_dir=ckpt_dir, net=net,
-                                  optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr), acc=acc)
+                                  optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr), acc=acc, lr=lr, batch=batch_size)
 
                     writer_val.add_image(
                         'label', label, num_batch_val * (epoch - 1) + batch, dataformats='NHWC')
@@ -254,7 +265,7 @@ def train(lr, batch_size, num_epoch, mode, name, model='train'):
 
             if epoch == num_epoch:
                 save(ckpt_dir=ckpt_dir, net=net,
-                     optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr), acc=acc)
+                     optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr), acc=acc, lr=lr, batch=batch_size)
 
         writer_train.close()
         writer_val.close()
@@ -317,11 +328,11 @@ def train(lr, batch_size, num_epoch, mode, name, model='train'):
 
     # COMPARE MODE
     else:
-        net1, optim1, st_epoch1 = load(
-            ckpt_dir=ckpt_dir, net=net1, optim=optim, name=model1_name)
+        net1, optim1, st_epoch1 = load_compare(
+            net=net1, optim=optim, path=model1_name)
 
-        net2, optim2, st_epoch2 = load(
-            ckpt_dir=ckpt_dir, net=net2, optim=optim, name=model2_name)
+        net2, optim2, st_epoch2 = load_compare(
+            net=net2, optim=optim, path=model2_name)
 
         with torch.no_grad():
             net1.eval()
@@ -401,4 +412,3 @@ def train(lr, batch_size, num_epoch, mode, name, model='train'):
               (batch, num_batch_test, np.mean(loss_arr1), np.mean(iou_arr1), np.mean(acc_arr1)))
         print("AVERAGE TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f| ACC %.4f" %
               (batch, num_batch_test, np.mean(loss_arr2), np.mean(iou_arr2), np.mean(acc_arr2)))
-
