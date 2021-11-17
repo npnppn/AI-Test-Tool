@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="[ADD] Test 이미지 겹치기+모델비교 진행중">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,28 +16,28 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="17" />
-          <entry key="py" value="8361" />
-          <entry key="txt" value="445" />
+          <entry key="py" value="9305" />
+          <entry key="txt" value="630" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="462" />
-          <entry key="Python" value="8361" />
+          <entry key="PLAIN_TEXT" value="647" />
+          <entry key="Python" value="9305" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="26" />
+          <entry key="project.closed" value="27" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.4" value="7" />
+          <entry key="project.open.time.4" value="8" />
           <entry key="project.open.time.5" value="5" />
           <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.7" value="5" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="26" />
+          <entry key="project.opened" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -71,8 +71,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="175" column="17" lean-forward="true" selection-start-line="175" selection-start-column="17" selection-end-line="175" selection-end-column="17" />
+            <state relative-caret-position="114">
+              <caret line="865" column="50" lean-forward="true" selection-start-line="865" selection-start-column="50" selection-end-line="865" selection-end-column="50" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -102,15 +102,6 @@
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -199,6 +190,8 @@
       <find>lbl_img22</find>
       <find>lbl_img</find>
       <find>lbl_img5</find>
+      <find>비교</find>
+      <find>log</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -258,16 +251,16 @@
         <option value="$PROJECT_DIR$/util.py" />
         <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/zzz.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1048" />
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="1939" />
+    <option name="height" value="1049" />
   </component>
   <component name="ProjectId" id="20U5JKW11mfHtxoSz7xR8gnwnbo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -293,11 +286,6 @@
             <path>
               <item name="PrjLast" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="PrjLast" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="datasets" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -600,7 +588,21 @@
       <option name="project" value="LOCAL" />
       <updated>1637146061996</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="[ADD] gitignore 추가">
+      <created>1637146252959</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1637146252959</updated>
+    </task>
+    <task id="LOCAL-00022" summary="[ADD] Test Mode 이미지 겹치기 완성">
+      <created>1637163041139</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1637163041139</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView">
@@ -616,19 +618,19 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16589557" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16523464" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7382683" weight="0.10085227" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8777264" weight="0.32670453" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.73298085" visible="true" weight="0.15198864" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.87442166" weight="0.3252841" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4976867" weight="0.32954547" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4818242" visible="true" weight="0.3224432" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.48116326" weight="0.11647727" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.48116326" weight="0.3858156" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5181758" side_tool="true" visible="true" weight="0.3224432" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.26701915" side_tool="true" visible="true" weight="0.15198864" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4976867" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -656,7 +658,13 @@
     <MESSAGE value="[ADD] 학습하기까지 모든 기능 및 디자인 완료" />
     <MESSAGE value="[ADD] 학습하기까지 모든 기능 및 디자인 완료, 테스트 모드 수정중" />
     <MESSAGE value="[ADD] Test 이미지 겹치기+모델비교 진행중" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADD] Test 이미지 겹치기+모델비교 진행중" />
+    <MESSAGE value="[ADD] gitignore 추가" />
+    <MESSAGE value="[ADD] 테스트mode 이미지 겹치기 완성" />
+    <MESSAGE value="[ADD] test모드 이미지 겹치기 완성" />
+    <MESSAGE value="[ADD] Test mode 이미지 겹치기 완성" />
+    <MESSAGE value="[ADD] test mode에서 이미지 겹치기 완성" />
+    <MESSAGE value="[ADD] Test Mode 이미지 겹치기 완성" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] Test Mode 이미지 겹치기 완성" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -772,6 +780,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore" />
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="865" column="50" lean-forward="true" selection-start-line="865" selection-start-column="50" selection-end-line="865" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/zzz.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -827,23 +846,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/exp0_num_743.jpg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="175" column="17" lean-forward="true" selection-start-line="175" selection-start-column="17" selection-end-line="175" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
   </component>
 </project>
