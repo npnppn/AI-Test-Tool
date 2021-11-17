@@ -809,8 +809,11 @@ class MyApp(QWidget):
 
     def loading2(self):
         self.test = QDialog()
-        path = './checkpoint/' + self.cb.currentText().split('_')[0] + '/' + self.cb.currentText()
-        epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value, = info_load(path)
+        path = self.test_model_arr[self.cb.currentIndex()]
+        res = path.split('\\')[-1]
+        res1 = path.split('\\')[2]
+        path1 = './checkpoint/' + res1 + '/' + res
+        epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value, = info_load(path1)
 
         label0 = QLabel('테스트 중 ...', self)
         label0.setAlignment(Qt.AlignCenter)
