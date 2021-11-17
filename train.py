@@ -17,6 +17,7 @@ import gc
 
 
 def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train', model2=''):
+
     # train lr, batch_size, num_epoch,mode = 'test', name
     # test  lr, batch_size, num_epoch,mode='test',name, model1 = 해당 모델 경로
     # compare batch_size,mode='compare',model1 = 해당 모델 경로, model2 = 해당 모델 경로
@@ -47,12 +48,11 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
     data_dir = "./datasets"  # 데이터셋 저장 디렉토리
     ckpt_dir = "./checkpoint/" + name
     log_dir = "./log/" + name  # tensorboard log 저장 디렉토리
-    result_dir = "./result/" + name
 
     # compare/test1&test2/
     compare_dir = "./compare/" + \
-                  os.path.basename(model1).replace(".pth", "") + "&" + \
-                  os.path.basename(model2).replace(".pth", "")
+        os.path.basename(model1).replace(".pth", "") + "&" + \
+        os.path.basename(model2).replace(".pth", "")
 
     model_name = os.path.basename(model1)
     model1_name = model1
@@ -67,7 +67,6 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
     print("data dir: %s" % data_dir)
     print("ckpt dir: %s" % ckpt_dir)
     print("log dir: %s" % log_dir)
-    print("result dir: %s" % result_dir)
     print("mode: %s" % mode)
 
     # tensorboard 실행하기
@@ -75,6 +74,8 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
         os.system("start cmd /c tensorboard --logdir={}".format(log_dir))
 
     if mode == 'test':
+        result_dir = "./result/" + model_name.replace(".pth", "")
+        print("result dir: %s" % result_dir)
         print("test model %s" % model_name)
         # test 용 디렉토리 생성하기
         if not os.path.exists(result_dir):
@@ -84,7 +85,6 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
             os.makedirs(os.path.join(result_dir, 'numpy/label'))
             os.makedirs(os.path.join(result_dir, 'numpy/input'))
             os.makedirs(os.path.join(result_dir, 'numpy/output'))
-
 
     elif mode == 'compare':
         print("compare model1 %s" % model1_name)
@@ -152,15 +152,11 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
 
     # 그밖에 부수적인 functions 설정하기
 
-    def fn_tonumpy(x):
-        return x.to(
-            'cpu').detach().numpy().transpose(0, 2, 3, 1)
+    def fn_tonumpy(x): return x.to(
+        'cpu').detach().numpy().transpose(0, 2, 3, 1)
 
-    def fn_denorm(x, mean, std):
-        return (x * std) + mean
-
-    def fn_class(x):
-        return 1.0 * (x > 0.5)
+    def fn_denorm(x, mean, std): return (x * std) + mean
+    def fn_class(x): return 1.0 * (x > 0.5)
 
     # Tensorboard 를 사용하기 위한 SummaryWriter 설정
     writer_train = SummaryWriter(log_dir=os.path.join(log_dir, 'train'))
@@ -253,8 +249,7 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                         best_loss = np.mean(loss_arr)
                         # SAVE
                         best_save(ckpt_dir=ckpt_dir, net=net,
-                                  optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr),
-                                  acc=acc, lr=lr, batch=batch_size)
+                                  optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr), acc=acc, lr=lr, batch=batch_size)
 
                     writer_val.add_image(
                         'label', label, num_batch_val * (epoch - 1) + batch, dataformats='NHWC')
@@ -268,8 +263,7 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
 
             if epoch == num_epoch:
                 save(ckpt_dir=ckpt_dir, net=net,
-                     optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr), acc=acc, lr=lr,
-                     batch=batch_size)
+                     optim=optim, epoch=epoch, name=name, loss=np.mean(loss_arr), iou=np.mean(iou_arr), acc=acc, lr=lr, batch=batch_size)
 
         writer_train.close()
         writer_val.close()
@@ -311,21 +305,21 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                       (batch, num_batch_test, np.mean(loss_arr), iou, acc))
 
                 for j in range(label.shape[0]):
-                    id = num_batch_test * (batch - 1) + j
+                    id = batch
 
                     plt.imsave(os.path.join(result_dir, 'png/label', 'label_%04d.png' %
-                                            id), label[j].squeeze(), cmap='gray')
+                               id), label[j].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(result_dir, 'png/input', 'input_%04d.png' %
-                                            id), input[j].squeeze(), cmap='gray')
+                               id), input[j].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
-                                            id), output[j].squeeze(), cmap='gray')
+                               id), output[j].squeeze(), cmap='gray')
 
                     np.save(os.path.join(result_dir, 'numpy/label',
-                                         'label_%04d.npy' % id), label[j].squeeze())
+                            'label_%04d.npy' % id), label[j].squeeze())
                     np.save(os.path.join(result_dir, 'numpy/input',
-                                         'input_%04d.npy' % id), input[j].squeeze())
+                            'input_%04d.npy' % id), input[j].squeeze())
                     np.save(os.path.join(result_dir, 'numpy/output',
-                                         'output_%04d.npy' % id), output[j].squeeze())
+                            'output_%04d.npy' % id), output[j].squeeze())
 
         print("AVERAGE TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
               (batch, num_batch_test, np.mean(loss_arr), np.mean(iou_arr), np.mean(acc_arr)))
@@ -392,25 +386,25 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                       (batch, num_batch_test, np.mean(loss_arr2), iou2, acc2))
 
                 for j in range(label.shape[0]):
-                    id = num_batch_test * (batch - 1) + j
+                    id = batch
 
                     plt.imsave(os.path.join(compare_dir, 'png/label', 'label_%04d.png' %
-                                            id), label[j].squeeze(), cmap='gray')
+                               id), label[j].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(compare_dir, 'png/input', 'input_%04d.png' %
-                                            id), input[j].squeeze(), cmap='gray')
+                               id), input[j].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
-                                            id), output1[j].squeeze(), cmap='gray')
+                               id), output1[j].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
-                                            id), output2[j].squeeze(), cmap='gray')
+                               id), output2[j].squeeze(), cmap='gray')
 
                     np.save(os.path.join(compare_dir, 'numpy/label',
-                                         'label_%04d.npy' % id), label[j].squeeze())
+                            'label_%04d.npy' % id), label[j].squeeze())
                     np.save(os.path.join(compare_dir, 'numpy/input',
-                                         'input_%04d.npy' % id), input[j].squeeze())
+                            'input_%04d.npy' % id), input[j].squeeze())
                     np.save(os.path.join(compare_dir, 'numpy/output1',
-                                         'output1_%04d.npy' % id), output1[j].squeeze())
+                            'output1_%04d.npy' % id), output1[j].squeeze())
                     np.save(os.path.join(compare_dir, 'numpy/output2',
-                                         'output2_%04d.npy' % id), output2[j].squeeze())
+                            'output2_%04d.npy' % id), output2[j].squeeze())
 
         print("AVERAGE TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
               (batch, num_batch_test, np.mean(loss_arr1), np.mean(iou_arr1), np.mean(acc_arr1)))

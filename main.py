@@ -3,11 +3,13 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import webbrowser
+
 from data_read import *
 from train import *
 from util import *
 
 class MyApp(QWidget):
+
     def __init__(self):
         super().__init__()
         self.initUI()
@@ -115,6 +117,7 @@ class MyApp(QWidget):
         vbox.addStretch(1)
 
         self.setLayout(vbox)
+
         self.setWindowTitle('AI 도우미')
         self.setFixedSize(800, 600)
         self.center()
@@ -128,8 +131,53 @@ class MyApp(QWidget):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
+    def pre_dataset_alert(self):
+        self.noimage = QDialog()
+
+        label0 = QLabel('datasets 폴더를 확인해주세요.', self)
+        label0.setAlignment(Qt.AlignCenter)
+        font0 = label0.font()
+        font0.setPointSize(30)
+        font0.setBold(True)
+        label0.setFont(font0)
+
+        h2box = QHBoxLayout()
+        h2box.addStretch(1)
+        h2box.addWidget(label0)
+        h2box.addStretch(1)
+
+        vbox = QVBoxLayout()
+        vbox.addStretch(1)
+        vbox.addLayout(h2box)
+        vbox.addStretch(1)
+        vbox.addStretch(1)
+
+        self.noimage.setLayout(vbox)
+
+        self.noimage.setWindowTitle('train')
+        self.noimage.setWindowModality(Qt.ApplicationModal)
+        self.noimage.setFixedSize(600, 400)
+        self.noimage.show()
+        self.reset()
+
     # 데이터 전처리
     def pretreatmentOpen(self):
+        path1 = './datasets/Imgs/'
+        path2 = './datasets/labels/'
+
+        if not os.path.exists(path1):
+            return self.pre_dataset_alert()
+        if not os.path.exists(path2):
+            return self.pre_dataset_alert()
+
+        if len(os.listdir(path1)) == 0:
+            return self.pre_dataset_alert()
+        if len(os.listdir(path2)) == 0:
+            return self.pre_dataset_alert()
+
+        if len(os.listdir(path1)) != len(os.listdir(path2)):
+            return self.pre_dataset_alert()
+
         self.pretreatmentOpen = QDialog()
         label0 = QLabel('전처리 중 ...', self)
         label0.setAlignment(Qt.AlignCenter)
@@ -150,15 +198,19 @@ class MyApp(QWidget):
         vbox.addStretch(1)
 
         self.pretreatmentOpen.setLayout(vbox)
+
         self.pretreatmentOpen.setWindowTitle('Loading')
         self.pretreatmentOpen.setWindowModality(Qt.ApplicationModal)
         self.pretreatmentOpen.setFixedSize(600, 400)
         self.pretreatmentOpen.show()
         self.reset()
+
         data_read()
         self.learningOpen()
+
         self.cancel_pre()
         self.reset()
+
 
     # 학습 페이지
     def learningOpen(self):
@@ -174,6 +226,7 @@ class MyApp(QWidget):
         # 중간에 큰 그림 나타내는 부분
         self.lbl_img = QLabel()
         self.lbl_img.setPixmap(self.pixmap)
+
         self.pixmap = self.pixmap.scaled(450, 500)
         self.lbl_img.setPixmap(self.pixmap)
 
@@ -184,12 +237,12 @@ class MyApp(QWidget):
         self.pixmap2 = self.pixmap.scaled(200, 200)
         self.lbl_img2.setPixmap(self.pixmap2)
 
-        # 마스킹 맨 처음 이미지 보여주기 (그래야 화면에 바로 나오니까)
+         # 마스킹 맨 처음 이미지 보여주기 (그래야 화면에 바로 나오니까)
         mask_list = os.listdir('datasets/labels')
-        msk_list = []
+        self.msk_list = []
         for i in mask_list:
-            msk_list.append(i)
-        first_msk_path = r"./datasets/labels/" + msk_list[0]
+            self.msk_list.append(i)
+        first_msk_path = r"./datasets/labels/" + self.msk_list[0]
         self.pixmap3 = QPixmap(first_msk_path)
 
         # 마스킹 사진
@@ -198,28 +251,21 @@ class MyApp(QWidget):
         self.pixmap3 = self.pixmap3.scaled(200, 200)
         self.lbl_img3.setPixmap(self.pixmap3)
 
-        # 투명도 주는 부분(겹치게 하기)
-        self.pixmap4 = QPixmap(first_msk_path)
-        self.lbl_img4 = QLabel(self.learning)
-        self.lbl_img4.setPixmap(self.pixmap4)
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
-        opacity_effect.setOpacity(0.2)
-        self.lbl_img4.setGraphicsEffect(opacity_effect)
-        self.pixmap4 = self.pixmap4.scaled(450, 500)
-        self.lbl_img4.setPixmap(self.pixmap4)
-        self.lbl_img4.setAlignment(Qt.AlignCenter)
-        self.lbl_img4.setGeometry(324, 10, 450, 500)
 
-        # 로딩중에 화면 흐릿하게 보이는 부분인듯. 영향 없는 코드!
-        # self.pixmap5 = QPixmap('./img/dark.png')
-        # self.lbl_img5 = QLabel(self.learning)
-        # self.lbl_img5.setPixmap(self.pixmap5)
-        # opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+
+
+
+        # 투명도 주는 부분(겹치게 하기)
+        # self.pixmap4 = QPixmap(first_msk_path)
+        # self.lbl_img4 = QLabel(self.learning)
+        # self.lbl_img4.setPixmap(self.pixmap4)
+        # opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
         # opacity_effect.setOpacity(0.5)
-        # self.lbl_img5.setGraphicsEffect(opacity_effect)
-        # self.pixmap5 = self.pixmap5.scaled(1200, 800)
-        # self.lbl_img5.setPixmap(self.pixmap5)
-        # self.lbl_img5.setGeometry(0, 0, 0, 0)
+        # self.lbl_img4.setGraphicsEffect(opacity_effect)
+        # self.pixmap4 = self.pixmap4.scaled(450, 500)
+        # self.lbl_img4.setPixmap(self.pixmap4)
+        # self.lbl_img4.setAlignment(Qt.AlignCenter)
+        # self.lbl_img4.setGeometry(324, 10, 450, 500)
 
         # 이미지 리스트 불러오기
         path = './datasets/Imgs'
@@ -227,8 +273,11 @@ class MyApp(QWidget):
 
         # QListWidget 추가
         self.listwidgetLearning = QListWidget(self)
+
         for f in fileList:
             self.listwidgetLearning.addItem(f.split(".")[0])
+
+        # 리스트 클릭 이벤트
         self.listwidgetLearning.itemClicked.connect(self.chkItemClicked)
 
         # 폰트 및 글자
@@ -260,6 +309,7 @@ class MyApp(QWidget):
         label0.setFont(font0)
         label3.setFont(font3)
         label10.setFont(font10)
+
         label1.setFont(font1)
         label2.setFont(font2)
 
@@ -268,6 +318,7 @@ class MyApp(QWidget):
         subImgBox = QHBoxLayout()
         subImgBox.addWidget(self.lbl_img2, alignment=Qt.AlignHCenter)
         subImgBox.addWidget(self.lbl_img3, alignment=Qt.AlignHCenter)
+
 
         # 이미지 박스
         imgBox = QVBoxLayout()
@@ -278,7 +329,6 @@ class MyApp(QWidget):
         imgName = QHBoxLayout()
         imgName.addWidget(label1)
         imgName.addWidget(label2)
-
         # 중간
         vbox = QVBoxLayout()
         vbox.addLayout(imgBox)
@@ -286,20 +336,20 @@ class MyApp(QWidget):
 
         # 좌측 (리스트)
         listBox = QVBoxLayout()
-        #btn = QPushButton('뒤로')
-        #listBox.addWidget(btn)
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidgetLearning)
 
-        # 결과값 화면 보여주는 공간 만들기
+        # 결과값 화면 보여주는 공간
         result_layout = QVBoxLayout()
 
         groupbox1 = QGroupBox("학습 정보")
         groupbox1.setAlignment(5)
+
         groupbox2 = QGroupBox("")
         groupbox2.setAlignment(5)
 
-        # 결과 정보들 틀 만들기
+        # 결과
+
         resultBox = QFormLayout()  # QFormLayout 생성
         self.learn_widget = QLineEdit()
         self.learn_widget.setStyleSheet("""QToolTip { 
@@ -337,6 +387,7 @@ class MyApp(QWidget):
             '1epoch란 전체 데이터셋에 대해 한 번의 학습을 완료한 상태를 의미합니다.')
 
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
+
         resultBox.addRow(label3)
         resultBox.addRow(space_widget)
         resultBox.addRow("모델 이름 ", self.model_widget)
@@ -347,15 +398,17 @@ class MyApp(QWidget):
         resultBox.addRow(space_widget)
         resultBox.addRow("Batch Size ", self.batch_widget)
 
-        #버튼들 생성 및 꾸미기
-        startLearning = QPushButton('학습 시작')
+        startLearning = QPushButton('학습 시작', self)
         testButton = QPushButton('Test')
+
         learning_font = startLearning.font()
         test_font = testButton.font()
+
         learning_font.setPointSize(30)
         startLearning.setFont(learning_font)
         test_font.setPointSize(30)
         testButton.setFont(test_font)
+
         startLearning.setMaximumHeight(200)
         testButton.setMaximumHeight(200)
 
@@ -363,13 +416,13 @@ class MyApp(QWidget):
         testButton.clicked.connect(self.testOpen)
         startLearning.clicked.connect(self.loading)
 
-        # 정보 나타내는 공간
         groupbox1.setLayout(resultBox)
         result_layout.addWidget(groupbox1)
         result_layout.addWidget(startLearning)
         result_layout.addWidget(testButton)
         self.setLayout(result_layout)
         self.show()
+
 
         # 가로
         hbox = QHBoxLayout()
@@ -380,13 +433,49 @@ class MyApp(QWidget):
         hbox.setStretchFactor(vbox, 6)
         hbox.addLayout(result_layout)
 
-        # 창 설정
         self.learning.setLayout(hbox)
+
+        self.pixmap4 = QPixmap('./datasets/labels/label_000.png')
+        self.lbl_img4 = QLabel(self.learning)
+        self.lbl_img4.setPixmap(self.pixmap4)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
+        opacity_effect.setOpacity(0.2)
+        self.lbl_img4.setGraphicsEffect(opacity_effect)
+        self.pixmap4 = self.pixmap4.scaled(450, 500)
+        self.lbl_img4.setPixmap(self.pixmap4)
+        self.lbl_img4.setAlignment(Qt.AlignCenter)
+        self.lbl_img4.setGeometry(324, 10, 450, 500)
+        self.pixmap5 = QPixmap('./img/dark.png')
+        self.lbl_img5 = QLabel(self.learning)
+        self.lbl_img5.setPixmap(self.pixmap5)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img5.setGraphicsEffect(opacity_effect)
+        self.pixmap5 = self.pixmap5.scaled(1200, 800)
+        self.lbl_img5.setPixmap(self.pixmap5)
+        self.lbl_img5.setGeometry(0, 0, 0, 0)
+
+        #self.loading = QDialog()
+
+        # QDialog 세팅
         self.learning.setWindowTitle('Learning')
         self.learning.setWindowModality(Qt.NonModal)
         self.learning.setFixedSize(1200, 800)
         self.learning.setStyleSheet("background-color: #0c4da2; color: white;")
         self.learning.show()
+
+    # 파일 열기 기능. 나중에 이 목록을 가져와서 리스트로 쭈욱 나열하면 될 듯
+    def pushButtonClicked(self):
+        fname = QFileDialog.getOpenFileName(self, 'Open file')
+        imagePath = fname[0]
+        self.pixmap = QPixmap(imagePath)
+        self.pixmap = self.pixmap.scaled(700, 700)
+        self.lbl_imgLearning.setPixmap(self.pixmap)
+
+        # 리스트에 파일이름만 저장하려고
+        image_name = fname[0]
+        self.label.setText(image_name)
+        self.listwidgetLearning.addItem(image_name.split("/")[-1])
 
     # 테스트 페이지
     def testOpen(self):
@@ -415,23 +504,18 @@ class MyApp(QWidget):
         self.pixmap33 = self.pixmap33.scaled(700, 700)
         self.lbl_img33.setPixmap(self.pixmap33)
 
-        self.lbl_img22.move(300,400)
-        self.lbl_img33.move(200,500)
         self.lbl_img11.setGeometry(324, 10, 450, 500)
         self.lbl_img22.setGeometry(324, 10, 450, 500)
         self.lbl_img33.setGeometry(324, 10, 450, 500)
-        self.lbl_img22.show()
-
-        # 리스트 불러오기
-        path = './result'
-        fileList = os.listdir(path)
 
         # QListWidget 추가
         self.listwidget = QListWidget(self)
         self.listwidget.setSelectionMode(QAbstractItemView.ExtendedSelection)
 
+
         # 리스트 클릭 이벤트
         self.listwidget.itemClicked.connect(self.chkItemClicked2)
+
 
         # 아웃풋 이미지 주소
         self.test_model_path = ''
@@ -468,15 +552,13 @@ class MyApp(QWidget):
         buttonbox = QHBoxLayout()
         buttonbox.addWidget(startTest)
 
+
         #버튼 기능
         startTest.clicked.connect(self.loading2)
 
         # 이미지 박스
         imgBox = QHBoxLayout()
-        imgBox.addStretch(3)
         imgBox.addWidget(self.lbl_img11)
-        #imgBox.addWidget(self.lbl_img22)
-        #imgBox.addWidget(self.lbl_img33)
 
         # 중간
         vbox = QVBoxLayout()
@@ -489,6 +571,7 @@ class MyApp(QWidget):
         self.cb.addItem("ㅡㅡㅡㅡ모델을 선택하세요ㅡㅡㅡㅡ")
         self.cb.setPlaceholderText("---모델을 선택하세요---")
         self.cb.setCurrentIndex(0)
+
 
         # 모델들 하위 경로 가져오기
         targetPattern = r"./" + "*/**/*.pth"
@@ -504,9 +587,6 @@ class MyApp(QWidget):
 
         # 좌측 (리스트)
         listBox = QVBoxLayout()
-        #btn = QPushButton('뒤로')
-        #btn.clicked.connect(self.clickButton)
-        #listBox.addWidget(btn)
         listBox.addWidget(label0)
         listBox.addWidget(self.listwidget)
 
@@ -585,6 +665,7 @@ class MyApp(QWidget):
         resultBox.addRow("IoU ", self.iou_widget)
         resultBox.addRow(space_widget)
 
+        #iou스코어는 학습부분? 모델부분? 결과부분?
         resultBox2 = QFormLayout()
         resultBox2.addRow("Epoch ", self.epoch_widget)
         resultBox2.addRow(space_widget)
@@ -594,11 +675,12 @@ class MyApp(QWidget):
         resultBox2.addRow(space_widget)
 
         resultBox3 = QHBoxLayout()
-        btn1 = QPushButton()
-        btn1.setText('원본')
+        model_log_btn = QPushButton()
+        model_log_btn.setText('원본')
+        model_log_btn.clicked.connect(self.open_log)
         btn2 = QPushButton()
         btn2.setText('결과')
-        resultBox3.addWidget(btn1)
+        resultBox3.addWidget(model_log_btn)
         resultBox3.addWidget(btn2)
 
         groupbox_model.setLayout(resultBox)
@@ -627,6 +709,7 @@ class MyApp(QWidget):
         hbox.addLayout(result_layout)
         hbox.setStretchFactor(result_layout, 2)
 
+
         # hbox.addWidget(self.lbl_img4)
         # hbox.addStretch(1)              # 결과값 넣을 곳
 
@@ -650,43 +733,55 @@ class MyApp(QWidget):
         self.testOpen_Di.setStyleSheet("background-color: #0c4da2; color: white;")
         self.testOpen_Di.show()
 
-    # 리스트 클릭시 이미지 변경 (학습부분)
+    def open_log(self):
+        if self.cb.currentIndex() == 0:
+            return
+        path = self.test_model_arr[self.cb.currentIndex()]
+        res = path.split('\\')[2]
+        path1 = './log/' + res
+        print(res)
+        print(path1)
+        os.system("start cmd /c tensorboard --logdir={}".format(path1))
+
+        url = 'http://localhost:6006/'
+        webbrowser.open(url)
+
+
+    # 리스트 클릭시 이미지 변경 (학습부분 )
     def chkItemClicked(self):
         # print(self.listwidget.currentItem().text())
-        self.pixmap = QPixmap('./datasets/imgs/' + self.listwidgetLearning.currentItem().text())
+        self.pixmap = QPixmap('./datasets/Imgs/' + self.listwidgetLearning.currentItem().text())
+
         self.pixmap = self.pixmap.scaled(450, 500)
         self.lbl_img.setPixmap(self.pixmap)
 
         self.pixmap2 = self.pixmap.scaled(200, 200)
         self.lbl_img2.setPixmap(self.pixmap2)
+
         s = self.listwidgetLearning.currentItem().text().split(".")
         # print(s[0])
-        self.pixmap3 = QPixmap('./datasets/labels/' + s[0] + ".png")
+        self.pixmap3 = QPixmap('./datasets/labels/' + self.msk_list[self.listwidgetLearning.currentRow()])
         self.pixmap3 = self.pixmap3.scaled(200, 200)
         self.lbl_img3.setPixmap(self.pixmap3)
 
-        self.pixmap4 = QPixmap('./datasets/labels/' + s[0] + ".png")
+        self.pixmap4 = QPixmap('./datasets/labels/' + self.msk_list[self.listwidgetLearning.currentRow()])
         self.lbl_img4.setPixmap(self.pixmap4)
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
         self.lbl_img4.setGeometry(324, 10, 450, 500)
-        self.show()
 
-    # 리스트 클릭시 이미지 변경 (테스트 부분)
+    # 리스트 클릭시 이미지 변경
     def chkItemClicked2(self):
         # print(self.listwidgetLearning.currentItem().text())
         self.pixmap = QPixmap(self.test_model_path + 'input/' + self.listwidget.currentItem().text())
+
         self.pixmap = self.pixmap.scaled(700, 700)
         self.lbl_img11.setPixmap(self.pixmap)
+
 
         a = self.test_input_fileList[self.listwidget.currentRow()]
         b = self.test_label_fileList[self.listwidget.currentRow()]
         c = self.test_output_fileList[self.listwidget.currentRow()]
-
-        print(a,b,c)
-        #a원본으로 , b c 겹쳐서 올릴 때 색깔 좀 바꿔서
-        #self.lbl_img1 = QLabel()
-
 
         #원본
         self.pixmap11 = QPixmap(self.test_model_path + 'input/' + a)
@@ -718,35 +813,11 @@ class MyApp(QWidget):
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img11)
         opacity_effect.setOpacity(0.5)
         self.lbl_img11.setGraphicsEffect(opacity_effect)
-        self.show()
 
-        # layout = QVBoxLayout()
-        # layout.addWidget(self.lbl_img1)
-        # layout.addWidget(self.lbl_img2)
-        # layout.addWidget(self.lbl_img3)
-        #self.testOpen_Di.setLayout(layout)
-        #self.testOpen_Di.setGeometry(324, 30, 800, 600)
 
-        ################################################################################3
-        # self.pixmap = QPixmap('./test/' + self.listwidgetLearning.currentItem().text())
-        #
-        # self.pixmap = self.pixmap.scaled(450, 500)
-        # self.lbl_img.setPixmap(self.pixmap)
-        #
-        # self.pixmap2 = self.pixmap.scaled(200, 200)
-        # self.lbl_img2.setPixmap(self.pixmap2)
-        #
-        # s = self.listwidgetLearning.currentItem().text().split(".")
-        # # print(s[0])
-        # self.pixmap3 = QPixmap('./mask/' + s[0] + ".png")
-        # self.pixmap3 = self.pixmap3.scaled(200, 200)
-        # self.lbl_img3.setPixmap(self.pixmap3)
-        #
-        # self.pixmap4 = QPixmap('./mask/' + s[0] + ".png")
-        # self.lbl_img4.setPixmap(self.pixmap4)
-        # self.pixmap4 = self.pixmap4.scaled(450, 500)
-        # self.lbl_img4.setPixmap(self.pixmap4)
-        # self.lbl_img4.setGeometry(324, 10, 450, 500)
+    def clickButton(self):
+        QCoreApplication.instance().quit
+
 
     # 모델 콤보 박스 클릭시?
     def combobox_changed(self):
@@ -754,11 +825,15 @@ class MyApp(QWidget):
         return text
 
     def selec_model(self):
+        if self.cb.currentIndex() == 0:
+            return
+
         path = self.test_model_arr[self.cb.currentIndex()]
         res = path.split('\\')[-1]
         res1 = path.split('\\')[2]
         path1 = './checkpoint/' + res1 + '/' + res
-        self.test_model_path  = './result/' + res1 + '/png/'
+        test_model_path_res1 = os.path.basename(path).replace(".pth", "")
+        self.test_model_path  = './result/' + test_model_path_res1 + '/png/'
 
         epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value = info_load(path1)
 
@@ -788,6 +863,8 @@ class MyApp(QWidget):
             output_fileList = os.listdir(self.test_model_path + 'output')
             for f in output_fileList:
                 self.test_output_fileList.append(f)
+
+
 
         else:
             self.listwidget.clear()
@@ -819,83 +896,85 @@ class MyApp(QWidget):
             self.notest.show()
             self.reset()
 
-    def selec_model22(self):
-        path = self.test_model_arr[self.cb.currentIndex()]
-        res = path.split('\\')[-1]
-        res1 = path.split('\\')[2]
-        path1 = './checkpoint/' + res1 + '/' + res
-        self.test_model_path  = './result/' + res1 + '/png/'
 
-        epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value = info_load(path1)
+    def dataset_alert(self):
+        self.nodatasets = QDialog()
 
-        self.epoch_widget.setText(str(epoch_value))
-        self.loss_widget.setText(str(loss_value))
-        self.iou_widget.setText(str(iou_value))
-        self.learning_widget.setText(str(learn_value))
-        self.batch_widget.setText(str(batch_value))
+        label0 = QLabel('전처리를 먼저 진행해 주세요.', self)
+        label0.setAlignment(Qt.AlignCenter)
+        font0 = label0.font()
+        font0.setPointSize(30)
+        font0.setBold(True)
+        label0.setFont(font0)
 
-        self.test_input_fileList = []
-        self.test_label_fileList = []
-        self.test_output_fileList = []
+        h2box = QHBoxLayout()
+        h2box.addStretch(1)
+        h2box.addWidget(label0)
+        h2box.addStretch(1)
 
-        if os.path.exists(self.test_model_path + 'input'):
-            input_fileList = os.listdir(self.test_model_path + 'input')
-            self.listwidget.clear()
-            for f in input_fileList:
-                self.listwidget.addItem(f)
-                self.test_input_fileList.append(f)
+        vbox = QVBoxLayout()
+        vbox.addStretch(1)
+        vbox.addLayout(h2box)
+        vbox.addStretch(1)
+        vbox.addStretch(1)
 
-        if os.path.exists(self.test_model_path + 'label'):
-            label_fileList = os.listdir(self.test_model_path + 'label')
-            for f in label_fileList:
-                self.test_label_fileList.append(f)
+        self.nodatasets.setLayout(vbox)
 
-        if os.path.exists(self.test_model_path + 'output'):
-            output_fileList = os.listdir(self.test_model_path + 'output')
-            for f in output_fileList:
-                self.test_output_fileList.append(f)
+        self.nodatasets.setWindowTitle('train')
+        self.nodatasets.setWindowModality(Qt.ApplicationModal)
+        self.nodatasets.setFixedSize(600, 400)
+        self.nodatasets.show()
+        self.reset()
 
-        else:
-            self.listwidget.clear()
-            self.notest = QDialog()
 
-            label0 = QLabel('테스트가 아직 진행되지 않았습니다.', self)
-            label0.setAlignment(Qt.AlignCenter)
-            font0 = label0.font()
-            font0.setPointSize(30)
-            font0.setBold(True)
-            label0.setFont(font0)
+    def train_alert(self):
+        self.novalue = QDialog()
 
-            h2box = QHBoxLayout()
-            h2box.addStretch(1)
-            h2box.addWidget(label0)
-            h2box.addStretch(1)
+        label0 = QLabel('모든 값을 입력해주세요.', self)
+        label0.setAlignment(Qt.AlignCenter)
+        font0 = label0.font()
+        font0.setPointSize(30)
+        font0.setBold(True)
+        label0.setFont(font0)
 
-            vbox = QVBoxLayout()
-            vbox.addStretch(1)
-            vbox.addLayout(h2box)
-            vbox.addStretch(1)
-            vbox.addStretch(1)
+        h2box = QHBoxLayout()
+        h2box.addStretch(1)
+        h2box.addWidget(label0)
+        h2box.addStretch(1)
 
-            self.notest.setLayout(vbox)
+        vbox = QVBoxLayout()
+        vbox.addStretch(1)
+        vbox.addLayout(h2box)
+        vbox.addStretch(1)
+        vbox.addStretch(1)
 
-            self.notest.setWindowTitle('test')
-            self.notest.setWindowModality(Qt.ApplicationModal)
-            self.notest.setFixedSize(600, 400)
-            self.notest.show()
-            self.reset()
+        self.novalue.setLayout(vbox)
 
-    # 학습하기 버튼 눌렀을 때
+        self.novalue.setWindowTitle('train')
+        self.novalue.setWindowModality(Qt.ApplicationModal)
+        self.novalue.setFixedSize(600, 400)
+        self.novalue.show()
+        self.reset()
+
     def loading(self):
-        self.train = QDialog()
+        path = './datasets/train/'
+        if not os.path.exists(path):
+            return self.dataset_alert()
+        if len(os.listdir(path)) == 0:
+            return self.dataset_alert()
 
-        #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
+
+       #train으로 전달할 입력 데이터들 (입력받은 텍스트 값들)
         learn_value = self.learn_widget.text()
         batch_value = self.batch_widget.text()
         epoch_value = self.epoch_widget.text()
         train_value = 'train'
         model_value = self.model_widget.text()
 
+        if learn_value == '' or batch_value == '' or epoch_value == '' or model_value == '':
+            return self.train_alert()
+
+        self.train = QDialog()
         url = 'http://localhost:6006/'
         webbrowser.open(url)
 
@@ -918,24 +997,26 @@ class MyApp(QWidget):
         vbox.addStretch(1)
 
         self.train.setLayout(vbox)
+
         self.train.setWindowTitle('train')
         self.train.setWindowModality(Qt.ApplicationModal)
         self.train.setFixedSize(600, 400)
         self.train.show()
         self.reset()
+
         train(learn_value, batch_value, epoch_value, train_value, model_value)
+
         self.cancel()
         self.reset()
+       
 
-    # 테스트 눌렀을 때
     def loading2(self):
         self.test = QDialog()
         path = self.test_model_arr[self.cb.currentIndex()]
         res = path.split('\\')[-1]
         res1 = path.split('\\')[2]
         path1 = './checkpoint/' + res1 + '/' + res
-        epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value, = info_load(path1)
-
+        epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value, = info_load(path)
 
         label0 = QLabel('테스트 중 ...', self)
         label0.setAlignment(Qt.AlignCenter)
@@ -956,6 +1037,7 @@ class MyApp(QWidget):
         vbox.addStretch(1)
 
         self.test.setLayout(vbox)
+
         self.test.setWindowTitle('test')
         self.test.setWindowModality(Qt.ApplicationModal)
         self.test.setFixedSize(600, 400)
@@ -965,57 +1047,6 @@ class MyApp(QWidget):
         train(learn_value, batch_value, epoch_value, 'test', model_value, path)
 
         self.cancel2()
-
-
-        # 여기에 이제 테스트 결과 이미지들 겹쳐서 보여주면 되겠군 ---> (아직 모델 눌렀을 떄 뭐 안나와서 코드 뼈대만 적어놓은상태!)
-        # 마스킹 맨 처음 이미지 보여주기 (그래야 화면에 바로 나오니까)
-        # mask_list = os.listdir('datasets/labels')
-        # msk_list = []
-        # for i in mask_list:
-        #     msk_list.append(i)
-        # first_msk_path = r"./datasets/labels/" + msk_list[0]
-        # self.pixmap4 = QPixmap(first_msk_path)
-        # self.lbl_img4 = QLabel(self.learning)
-        # self.lbl_img4.setPixmap(self.pixmap4)
-        # opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
-        # opacity_effect.setOpacity(0.2)
-        # self.lbl_img4.setGraphicsEffect(opacity_effect)
-        # self.pixmap4 = self.pixmap4.scaled(450, 500)
-        # self.lbl_img4.setPixmap(self.pixmap4)
-        # self.lbl_img4.setAlignment(Qt.AlignCenter)
-        # self.lbl_img4.setGeometry(324, 10, 450, 500)
-        self.reset()
-
-    # 데이터 전처리
-    def pretreatmentOpen(self):
-        self.pretreatmentOpen = QDialog()
-        label0 = QLabel('전처리 중 ...', self)
-        label0.setAlignment(Qt.AlignCenter)
-        font0 = label0.font()
-        font0.setPointSize(30)
-        font0.setBold(True)
-        label0.setFont(font0)
-
-        h2box = QHBoxLayout()
-        h2box.addStretch(1)
-        h2box.addWidget(label0)
-        h2box.addStretch(1)
-
-        vbox = QVBoxLayout()
-        vbox.addStretch(1)
-        vbox.addLayout(h2box)
-        vbox.addStretch(1)
-        vbox.addStretch(1)
-
-        self.pretreatmentOpen.setLayout(vbox)
-        self.pretreatmentOpen.setWindowTitle('Loading')
-        self.pretreatmentOpen.setWindowModality(Qt.ApplicationModal)
-        self.pretreatmentOpen.setFixedSize(600, 400)
-        self.pretreatmentOpen.show()
-        self.reset()
-        data_read()
-        self.learningOpen()
-        self.cancel_pre()
         self.reset()
 
     # 데이터 전처리
@@ -1028,10 +1059,10 @@ class MyApp(QWidget):
             test_list.append(i)
         first_img_path = r"./test/" + test_list[0]
         self.pixmap = QPixmap(first_img_path)
-        self.lbl_img = QLabel()
-        self.lbl_img.setPixmap(self.pixmap)
+        self.lbl_img1 = QLabel()
+        self.lbl_img1.setPixmap(self.pixmap)
         self.pixmap = self.pixmap.scaled(700, 700)
-        self.lbl_img.setPixmap(self.pixmap)
+        self.lbl_img1.setPixmap(self.pixmap)
         # 리스트 불러오기
         path = './result'
         fileList = os.listdir(path)
@@ -1098,7 +1129,7 @@ class MyApp(QWidget):
 
         # 이미지 박스
         imgBox = QHBoxLayout()
-        imgBox.addWidget(self.lbl_img)
+        imgBox.addWidget(self.lbl_img1)
 
         # 중간
         vbox = QVBoxLayout()
@@ -1284,9 +1315,10 @@ class MyApp(QWidget):
 
     def cancel(self):
         self.train.hide()
-
+        
     def cancel2(self):
         self.test.hide()
+
 
     def cancel_pre(self):
         self.pretreatmentOpen.hide()
@@ -1299,4 +1331,5 @@ class MyApp(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyApp()
+
     sys.exit(app.exec_())
