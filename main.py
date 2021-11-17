@@ -349,21 +349,7 @@ class MyApp(QWidget):
 
         #버튼들 생성 및 꾸미기
         startLearning = QPushButton('학습 시작')
-        startLearning.setStyleSheet("""QPushButton { 
-                                   color: white;
-                                   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955,
-                                   stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255));
-                                   border-radius: 20px;
-                                   }""")
-
         testButton = QPushButton('Test')
-        testButton.setStyleSheet("""QPushButton { 
-                                   color: white;
-                                   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955,
-                                   stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255));
-                                   border-radius: 20px;
-                                   }""")
-
         learning_font = startLearning.font()
         test_font = testButton.font()
         learning_font.setPointSize(30)
@@ -429,9 +415,12 @@ class MyApp(QWidget):
         self.pixmap33 = self.pixmap33.scaled(700, 700)
         self.lbl_img33.setPixmap(self.pixmap33)
 
+        self.lbl_img22.move(300,400)
+        self.lbl_img33.move(200,500)
         self.lbl_img11.setGeometry(324, 10, 450, 500)
         self.lbl_img22.setGeometry(324, 10, 450, 500)
         self.lbl_img33.setGeometry(324, 10, 450, 500)
+        self.lbl_img22.show()
 
         # 리스트 불러오기
         path = './result'
@@ -471,12 +460,6 @@ class MyApp(QWidget):
 
         #버튼들
         startTest = QPushButton('Test')
-        startTest.setStyleSheet("""QPushButton { 
-                                   color: white;
-                                   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.857143, y2:0.857955,
-                                   stop:0 rgba(10, 242, 251, 255), stop:1 rgba(224, 6, 159, 255));
-                                   border-radius: 20px;
-                                   }""")
         test_font = startTest.font()
         test_font.setPointSize(30)
         startTest.setFont(test_font)
@@ -490,6 +473,7 @@ class MyApp(QWidget):
 
         # 이미지 박스
         imgBox = QHBoxLayout()
+        imgBox.addStretch(3)
         imgBox.addWidget(self.lbl_img11)
         #imgBox.addWidget(self.lbl_img22)
         #imgBox.addWidget(self.lbl_img33)
@@ -686,6 +670,7 @@ class MyApp(QWidget):
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
         self.lbl_img4.setGeometry(324, 10, 450, 500)
+        self.show()
 
     # 리스트 클릭시 이미지 변경 (테스트 부분)
     def chkItemClicked2(self):
@@ -733,6 +718,7 @@ class MyApp(QWidget):
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img11)
         opacity_effect.setOpacity(0.5)
         self.lbl_img11.setGraphicsEffect(opacity_effect)
+        self.show()
 
         # layout = QVBoxLayout()
         # layout.addWidget(self.lbl_img1)

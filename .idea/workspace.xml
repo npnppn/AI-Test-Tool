@@ -4,8 +4,6 @@
     <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/util.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,28 +15,28 @@
     <session id="-1238070455">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="8146" />
-          <entry key="txt" value="421" />
+          <entry key="py" value="8361" />
+          <entry key="txt" value="445" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="421" />
-          <entry key="Python" value="8146" />
+          <entry key="PLAIN_TEXT" value="445" />
+          <entry key="Python" value="8361" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="24" />
+          <entry key="project.closed" value="26" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.4" value="6" />
-          <entry key="project.open.time.5" value="4" />
+          <entry key="project.open.time.4" value="7" />
+          <entry key="project.open.time.5" value="5" />
           <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.7" value="5" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="24" />
+          <entry key="project.opened" value="26" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -72,8 +70,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1102">
-              <caret line="1147" lean-forward="true" selection-start-line="1147" selection-end-line="1147" />
+            <state relative-caret-position="-513">
+              <caret line="144" lean-forward="true" selection-start-line="144" selection-end-line="144" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -89,7 +87,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/site-packages/torch/serialization.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
+            <state relative-caret-position="2299">
               <caret line="139" column="44" selection-start-line="139" selection-start-column="44" selection-end-line="139" selection-end-column="44" />
             </state>
           </provider>
@@ -191,7 +189,6 @@
       <find>data_dir</find>
       <find>뒤로</find>
       <find>pushButtonClicked</find>
-      <find>lbl_img5</find>
       <find>lbl_img4</find>
       <find>clickButton</find>
       <find>reset</find>
@@ -200,6 +197,7 @@
       <find>lbl_img2</find>
       <find>lbl_img22</find>
       <find>lbl_img</find>
+      <find>lbl_img5</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -265,9 +263,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="58" />
-    <option name="width" value="1870" />
-    <option name="height" value="970" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectId" id="20U5JKW11mfHtxoSz7xR8gnwnbo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -586,7 +585,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637095099710</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="[ADD] Test 이미지 겹치기+모델비교 진행중">
+      <created>1637134436644</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1637134436644</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TodoView">
@@ -602,19 +608,19 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25313947" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16589557" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.7409121" visible="true" weight="0.25852272" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8797092" weight="0.328125" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.7382683" visible="true" weight="0.10085227" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8777264" weight="0.32670453" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4976867" weight="0.32954547" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.483807" weight="0.32386363" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.48248512" weight="0.32340425" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.48116326" weight="0.3858156" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.2590879" side_tool="true" visible="true" weight="0.25852272" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.26173165" side_tool="true" visible="true" weight="0.10085227" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4976867" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -641,7 +647,8 @@
     <MESSAGE value="[ADD] 메인화면 UI 꾸미기" />
     <MESSAGE value="[ADD] 학습하기까지 모든 기능 및 디자인 완료" />
     <MESSAGE value="[ADD] 학습하기까지 모든 기능 및 디자인 완료, 테스트 모드 수정중" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADD] 학습하기까지 모든 기능 및 디자인 완료, 테스트 모드 수정중" />
+    <MESSAGE value="[ADD] Test 이미지 겹치기+모델비교 진행중" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] Test 이미지 겹치기+모델비교 진행중" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -747,9 +754,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -757,9 +761,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4427">
           <caret line="247" selection-start-line="247" selection-end-line="247" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-513">
+          <caret line="144" lean-forward="true" selection-start-line="144" selection-end-line="144" />
           <folding>
-            <element signature="e#13#28#0" expanded="true" />
+            <element signature="e#0#20#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/zzz.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/site-packages/torch/serialization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2299">
+          <caret line="139" column="44" selection-start-line="139" selection-start-column="44" selection-end-line="139" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -815,26 +836,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/exp0_num_743.jpg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/site-packages/torch/serialization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="139" column="44" selection-start-line="139" selection-start-column="44" selection-end-line="139" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/zzz.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1102">
-          <caret line="1147" lean-forward="true" selection-start-line="1147" selection-end-line="1147" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
   </component>
 </project>
