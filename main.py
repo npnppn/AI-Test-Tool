@@ -459,18 +459,18 @@ class MyApp(QWidget):
     def testOpen(self):
         self.testOpen_Di = QDialog()
         # 맨 처음 이미지 불러오기
-        self.pixmap11 = QPixmap('./img/test.png')
+        self.pixmap11 = QPixmap()
         self.lbl_img11 = QLabel()
         self.lbl_img11.setPixmap(self.pixmap11)
         self.pixmap11 = self.pixmap11.scaled(700, 700)
 
-        self.pixmap22 = QPixmap('./img/test.png')
+        self.pixmap22 = QPixmap()
         self.lbl_img22 = QLabel()
         self.lbl_img22.setPixmap(self.pixmap22)
         self.pixmap22 = self.pixmap22.scaled(700, 700)
         self.lbl_img22.setPixmap(self.pixmap22)
 
-        self.pixmap33 = QPixmap('./img/test.png')
+        self.pixmap33 = QPixmap()
         self.lbl_img33 = QLabel()
         self.lbl_img33.setPixmap(self.pixmap33)
         self.pixmap33 = self.pixmap33.scaled(700, 700)
@@ -528,8 +528,6 @@ class MyApp(QWidget):
         # 이미지 박스
         imgBox = QHBoxLayout()
         imgBox.addWidget(self.lbl_img11)
-        imgBox.addWidget(self.lbl_img22)
-        imgBox.addWidget(self.lbl_img33)
 
         # 중간
         vbox = QVBoxLayout()
@@ -674,17 +672,30 @@ class MyApp(QWidget):
 
         self.testOpen_Di.setLayout(hbox)
 
-        self.pixmap55 = QPixmap('./img/dark.png')
+        # 마스크 부분 겹칠 거
+        self.pixmap55 = QPixmap()
         self.lbl_img55 = QLabel(self.testOpen_Di)
         self.lbl_img55.setPixmap(self.pixmap55)
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img55)
-        opacity_effect.setOpacity(0.5)
+        opacity_effect.setOpacity(0.2)
         self.lbl_img55.setGraphicsEffect(opacity_effect)
-        self.pixmap55 = self.pixmap55.scaled(1200, 800)
+        self.pixmap55 = self.pixmap55.scaled(700, 700)
         self.lbl_img55.setPixmap(self.pixmap55)
-        self.lbl_img55.setGeometry(0, 0, 0, 0)
+        self.lbl_img55.setAlignment(Qt.AlignCenter)
+        self.lbl_img55.setGeometry(200, 48, 700, 700)
 
-        # QDialog 세팅
+        self.pixmap66 = QPixmap()
+        self.lbl_img66 = QLabel(self.testOpen_Di)
+        self.lbl_img66.setPixmap(self.pixmap66)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img66)
+        opacity_effect.setOpacity(0.2)
+        self.lbl_img66.setGraphicsEffect(opacity_effect)
+        self.pixmap66 = self.pixmap66.scaled(700, 700)
+        self.lbl_img66.setPixmap(self.pixmap66)
+        self.lbl_img66.setAlignment(Qt.AlignCenter)
+        self.lbl_img66.setGeometry(200, 48, 700, 700)
+
+        # 결과 겹칠 거
         self.testOpen_Di.setWindowTitle('Test')
         self.testOpen_Di.setWindowModality(Qt.NonModal)
         # self.dialog.setGeometry(350,100,1200,800)
@@ -774,10 +785,23 @@ class MyApp(QWidget):
         self.lbl_img22.setGeometry(324, 10, 700, 700)
         self.lbl_img33.setGeometry(324, 10, 700, 700)
 
-        #검은색 부분
-        self.pixmap55 = QPixmap(self.test_model_path + 'label/' + b)
+        #겹칠 부분
+        self.pixmap55 = self.pixmap22
+        self.lbl_img55.setPixmap(self.pixmap55)
         self.pixmap55 = self.pixmap55.scaled(700, 700)
         self.lbl_img55.setPixmap(self.pixmap55)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img55)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img55.setGraphicsEffect(opacity_effect)
+
+        self.pixmap66 = self.pixmap33
+        self.lbl_img66.setPixmap(self.pixmap66)
+        self.pixmap66 = self.pixmap66.scaled(700, 700)
+        self.lbl_img66.setPixmap(self.pixmap66)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img66)
+        opacity_effect.setOpacity(0.3)
+        self.lbl_img66.setGraphicsEffect(opacity_effect)
+
 
     def chkItemClicked3(self):
         # print(self.listwidgetLearning.currentItem().text())
