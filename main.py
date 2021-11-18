@@ -432,7 +432,7 @@ class MyApp(QWidget):
         self.lbl_img4 = QLabel(self.learning)
         self.lbl_img4.setPixmap(self.pixmap4)
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
-        opacity_effect.setOpacity(0.2)
+        opacity_effect.setOpacity(0.5)
         self.lbl_img4.setGraphicsEffect(opacity_effect)
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
@@ -510,6 +510,13 @@ class MyApp(QWidget):
         font3.setBold(True)
         label3.setFont(font3)
         label10.setFont(font10)
+
+        self.label4 = QLabel('*빨강 : output, 흰색 : 기존 label')
+        self.font4 = self.label4.font()
+        self.font4.setPointSize(8)
+        self.font4.setBold(True)
+        self.label4.setFont(self.font4)
+        self.label4.setVisible(False)
 
         # 버튼들
         startTest = QPushButton('Test')
@@ -652,6 +659,7 @@ class MyApp(QWidget):
         result_layout.addWidget(QLabel("\n"))
         result_layout.addWidget(groupbox_model)
         result_layout.addWidget(groupbox_learn)
+        result_layout.addWidget(self.label4)
         result_layout.addWidget(label3)
         result_layout.addWidget(startTest)
         result_layout.addWidget(logCheck)
@@ -753,6 +761,7 @@ class MyApp(QWidget):
 
     # 리스트 클릭시 이미지 변경 (테스트)
     def chkItemClicked2(self):
+        self.label4.setVisible(True)
         # print(self.listwidgetLearning.currentItem().text())
         self.pixmap11 = QPixmap(self.test_model_path +
                                 'input/' + self.listwidget.currentItem().text())
@@ -814,6 +823,7 @@ class MyApp(QWidget):
         self.lbl_img66.setStyleSheet('background: transparent')
 
     def chkItemClicked3(self):
+        self.label5.setVisible(True)
         # print(self.listwidgetLearning.currentItem().text())
         self.pixmap111 = QPixmap(
             self.compare_model_path + 'input/' + self.compare_listwidget.currentItem().text())
@@ -1415,6 +1425,13 @@ class MyApp(QWidget):
         label3.setFont(font3)
         label10.setFont(font10)
 
+        self.label5 = QLabel('*빨강:output1, 파랑:output2, 하양:기존 label')
+        self.font5 = self.label5.font()
+        self.font5.setPointSize(8)
+        self.font5.setBold(True)
+        self.label5.setFont(self.font5)
+        self.label5.setVisible(False)
+
         # 버튼들
         startTest = QPushButton('모델 비교')
         # startTest.setStyleSheet("""QPushButton {
@@ -1424,9 +1441,9 @@ class MyApp(QWidget):
         #                                    border-radius: 20px;
         #                                    }""")
         test_font = startTest.font()
-        test_font.setPointSize(30)
+        test_font.setPointSize(25)
         startTest.setFont(test_font)
-        startTest.setMaximumHeight(200)
+        startTest.setMaximumHeight(60)
 
         buttonbox = QHBoxLayout()
         buttonbox.addWidget(startTest)
@@ -1572,6 +1589,7 @@ class MyApp(QWidget):
         result_layout.addWidget(self.compare_cb2)
         result_layout.addWidget(QLabel("\n"))
         result_layout.addWidget(groupbox_model2)
+        result_layout.addWidget(self.label5)
 
         self.setLayout(result_layout)
         self.show()
