@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="">
+    <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="[ADD] Test Mode 이미지 겹쳐보이게 하기 완성">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -16,28 +16,28 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="17" />
-          <entry key="py" value="10028" />
-          <entry key="txt" value="706" />
+          <entry key="py" value="10283" />
+          <entry key="txt" value="738" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="723" />
-          <entry key="Python" value="10028" />
+          <entry key="PLAIN_TEXT" value="755" />
+          <entry key="Python" value="10283" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="29" />
+          <entry key="project.closed" value="30" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="9" />
           <entry key="project.open.time.5" value="5" />
-          <entry key="project.open.time.6" value="2" />
+          <entry key="project.open.time.6" value="3" />
           <entry key="project.open.time.7" value="5" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="3" />
-          <entry key="project.opened" value="29" />
+          <entry key="project.opened" value="30" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -71,8 +71,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="457" column="13" lean-forward="true" selection-start-line="457" selection-start-column="13" selection-end-line="457" selection-end-column="13" />
+            <state relative-caret-position="57">
+              <caret line="786" lean-forward="true" selection-start-line="786" selection-end-line="786" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -617,7 +617,21 @@
       <option name="project" value="LOCAL" />
       <updated>1637175519493</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="[ADD] 학습 Mode 이미지 겹쳐보이게 하기 완성">
+      <created>1637202935106</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1637202935106</updated>
+    </task>
+    <task id="LOCAL-00026" summary="[ADD] Test Mode 이미지 겹쳐보이게 하기 완성">
+      <created>1637204952480</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1637204952480</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TodoView">
@@ -638,14 +652,14 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.7276933" visible="true" weight="0.2755682" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.7257105" visible="true" weight="0.2755682" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.871117" weight="0.3252841" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4976867" weight="0.32954547" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4785195" weight="0.11631206" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4805023" weight="0.13636364" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.27230668" side_tool="true" visible="true" weight="0.2755682" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4765367" weight="0.114893615" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.47984138" weight="0.2840909" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.2742895" side_tool="true" visible="true" weight="0.2755682" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4976867" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -656,8 +670,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[MODIFY] : 배경색 추가" />
-    <MESSAGE value="[ADD] : 파일 브라우징 기능 추가" />
     <MESSAGE value="[MERGE] 재민님 코드 가져오기" />
     <MESSAGE value="[ADD] test하기 눌렀을 때 창 꺼지는 문제 해결(경로 문제)" />
     <MESSAGE value="[ADD] test화면 좌측+중앙 UI 변경, 이미지 리스트 다중선택" />
@@ -681,7 +693,9 @@
     <MESSAGE value="[ADD] Test Mode 이미지 겹치기 완성" />
     <MESSAGE value="[ADD] Test Mode UI재구성 &amp; 로그버튼 연결" />
     <MESSAGE value="[ADD] test 비교하기 마무리단계 (1010 line 수정 필요)" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ADD] test 비교하기 마무리단계 (1010 line 수정 필요)" />
+    <MESSAGE value="[ADD] 학습 Mode 이미지 겹쳐보이게 하기 완성" />
+    <MESSAGE value="[ADD] Test Mode 이미지 겹쳐보이게 하기 완성" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] Test Mode 이미지 겹쳐보이게 하기 완성" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -800,8 +814,8 @@
     <entry file="file://$PROJECT_DIR$/.gitignore" />
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="457" column="13" lean-forward="true" selection-start-line="457" selection-start-column="13" selection-end-line="457" selection-end-column="13" />
+        <state relative-caret-position="57">
+          <caret line="786" lean-forward="true" selection-start-line="786" selection-end-line="786" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>

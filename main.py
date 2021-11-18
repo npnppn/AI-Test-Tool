@@ -85,7 +85,7 @@ class MyApp(QWidget):
 
         space_widget = QLabel("\n")  # 빈 공간 만드는 위젯
         title = QLabel()
-        title_image = QPixmap('./img/samsung.jpg')
+        title_image = QPixmap()
         title_image = title_image.scaled(230,110)
         title.setPixmap(title_image)
         title.setAlignment(Qt.AlignCenter)
@@ -781,9 +781,9 @@ class MyApp(QWidget):
         self.lbl_img11.setAlignment(Qt.AlignCenter)
         self.lbl_img22.setAlignment(Qt.AlignCenter)
         self.lbl_img33.setAlignment(Qt.AlignCenter)
-        self.lbl_img11.setGeometry(324, 10, 700, 700)
-        self.lbl_img22.setGeometry(324, 10, 700, 700)
-        self.lbl_img33.setGeometry(324, 10, 700, 700)
+        #self.lbl_img11.setGeometry(324, 10, 700, 700)
+        #self.lbl_img22.setGeometry(324, 10, 700, 700)
+        #self.lbl_img33.setGeometry(324, 10, 700, 700)
 
         #겹칠 부분
         self.pixmap55 = self.pixmap22
@@ -801,7 +801,6 @@ class MyApp(QWidget):
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img66)
         opacity_effect.setOpacity(0.3)
         self.lbl_img66.setGraphicsEffect(opacity_effect)
-
 
     def chkItemClicked3(self):
         # print(self.listwidgetLearning.currentItem().text())
@@ -1308,25 +1307,25 @@ class MyApp(QWidget):
 
         self.testCompare = QDialog()
         # 맨 처음 이미지 불러오기
-        self.pixmap111 = QPixmap('./img/compare.jpg')
+        self.pixmap111 = QPixmap()
         self.lbl_img111 = QLabel()
         self.lbl_img111.setPixmap(self.pixmap111)
         self.pixmap111 = self.pixmap111.scaled(700, 700)
         self.lbl_img111.setPixmap(self.pixmap111)
 
-        self.pixmap222 = QPixmap('./img/compare.jpg')
+        self.pixmap222 = QPixmap()
         self.lbl_img222 = QLabel()
         self.lbl_img222.setPixmap(self.pixmap222)
         self.pixmap222 = self.pixmap222.scaled(700, 700)
         self.lbl_img222.setPixmap(self.pixmap222)
 
-        self.pixmap333 = QPixmap('./img/compare.jpg')
+        self.pixmap333 = QPixmap()
         self.lbl_img333 = QLabel()
         self.lbl_img333.setPixmap(self.pixmap333)
         self.pixmap333 = self.pixmap333.scaled(700, 700)
         self.lbl_img333.setPixmap(self.pixmap333)
 
-        self.pixmap444 = QPixmap('./img/compare.jpg')
+        self.pixmap444 = QPixmap()
         self.lbl_img444 = QLabel()
         self.lbl_img444.setPixmap(self.pixmap444)
         self.pixmap444 = self.pixmap444.scaled(700, 700)
