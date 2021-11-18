@@ -438,7 +438,7 @@ class MyApp(QWidget):
         self.lbl_img4.setPixmap(self.pixmap4)
         self.lbl_img4.setAlignment(Qt.AlignCenter)
         self.lbl_img4.setStyleSheet('background: transparent')
-        self.lbl_img4.setGeometry(360, 10, 450, 500)
+        self.lbl_img4.setGeometry(324, 10, 450, 500)
         # self.pixmap5 = QPixmap('./img/dark.png')
         # self.lbl_img5 = QLabel(self.learning)
         # self.lbl_img5.setPixmap(self.pixmap5)
@@ -693,7 +693,7 @@ class MyApp(QWidget):
         self.lbl_img55.setPixmap(self.pixmap55)
         self.lbl_img55.setAlignment(Qt.AlignCenter)
         self.lbl_img55.setStyleSheet('background: transparent')
-        self.lbl_img55.setGeometry(255, 48, 700, 700)
+        self.lbl_img55.setGeometry(200, 48, 700, 700)
 
         self.pixmap66 = QPixmap()
         self.lbl_img66 = QLabel(self.testOpen_Di)
@@ -705,7 +705,7 @@ class MyApp(QWidget):
         self.lbl_img66.setPixmap(self.pixmap66)
         self.lbl_img66.setAlignment(Qt.AlignCenter)
         self.lbl_img66.setStyleSheet('background: transparent')
-        self.lbl_img66.setGeometry(255, 48, 700, 700)
+        self.lbl_img66.setGeometry(200, 48, 700, 700)
 
         # 결과 겹칠 거
         self.testOpen_Di.setWindowTitle('Test')
@@ -1620,7 +1620,7 @@ class MyApp(QWidget):
         self.lbl_img555.setPixmap(self.pixmap555)
         self.lbl_img555.setAlignment(Qt.AlignCenter)
         self.lbl_img555.setStyleSheet('background: transparent')
-        self.lbl_img555.setGeometry(243, 14, 700, 700)
+        self.lbl_img555.setGeometry(203, 14, 700, 700)
 
         # 결과1
         self.pixmap666 = QPixmap()
@@ -1633,7 +1633,7 @@ class MyApp(QWidget):
         self.lbl_img666.setPixmap(self.pixmap666)
         self.lbl_img666.setAlignment(Qt.AlignCenter)
         self.lbl_img666.setStyleSheet('background: transparent')
-        self.lbl_img666.setGeometry(243, 14, 700, 700)
+        self.lbl_img666.setGeometry(203, 14, 700, 700)
 
         # 결과2
         self.pixmap777 = QPixmap()
@@ -1646,7 +1646,7 @@ class MyApp(QWidget):
         self.lbl_img777.setPixmap(self.pixmap777)
         self.lbl_img777.setAlignment(Qt.AlignCenter)
         self.lbl_img777.setStyleSheet('background: transparent')
-        self.lbl_img777.setGeometry(243, 14, 700, 700)
+        self.lbl_img777.setGeometry(203, 14, 700, 700)
 
         # QDialog 세팅
         self.testCompare.setWindowTitle('TestCompare')
