@@ -1,7 +1,9 @@
 
 # README
 
-제품불량 검사시 자동 Segmentation을 위한 Deep learning Tool
+제품불량 검사시 자동 Segmentation을 위한 Deep learning Tool  
+
+*Dataset관련해서는 깃랩 용량부족으로 올릴 수가 없습니다.  
 
 ### 주요기능 
 - 학습시 준비한 이미지의 크기 및 색상 등의 통일이 없어도 학습을 가능하게 해주는 이미지전처리 기능
@@ -51,28 +53,35 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 
 
 ### 전처리 
-![image](/uploads/d7f4d2c1803392297ddc8b594ef67fb1/image.png)  
+![image](/uploads/d7f4d2c1803392297ddc8b594ef67fb1/image.png)
 - 이미지 저장 경로에 학습을 원하는 이미지와 라벨을 넣어주고 전처리 버튼을 클릭
 - test/train/label 폴더가 생성되고 각각의 폴더 안에 .npy 파일 생성
 - 학습하기로 이동
 
 
+
 ### 학습하기  
-![image](/uploads/bd32c9c31aa426e2e71ccbf2a7932138/image.png)  
+![image](/uploads/bd32c9c31aa426e2e71ccbf2a7932138/image.png)
 - 전처리 후 학습모델에 이름 기재
 - Hyperparameter(learningrate/epoch/batchsize) 적절하게 설정
 - 학습시작 
 - 학습 완료 후 Test하기로 이동 
 
+
 ### Test
-![image](/uploads/e9f3678dd2514bc0cb6fb8dc1fb19024/image.png)  
+![image](/uploads/e9f3678dd2514bc0cb6fb8dc1fb19024/image.png)
 - 원하는 학습 모델을 선택한 뒤 Test 버튼 클릭
 - 해당 모델의 테스트 데이터셋 결과 확인
 - 원하는 학습 모델을 선택한 뒤 log 버튼 클릭하여 해당 모델의 tensorboard 확인
 
 
+
 ### Test비교하기
-![image](/uploads/05a9d216ecf6c00e1078660249b18e00/image.png)  
+![image](/uploads/05a9d216ecf6c00e1078660249b18e00/image.png)
 - 2개의 모델을 선택한 뒤 compare 버튼 클릭
 - 2개의 모델의 테스트 데이터셋 결과 확인
-    
+
+
+### TensorBoard를 통해 학습&테스트 진행내용 확인  
+![image](/uploads/542fe042a8780e2be19fe111c6bce5ae/image.png)  
+![image](/uploads/1dd7c6d86720697698e41ef75fd87e66/image.png)
