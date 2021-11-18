@@ -221,7 +221,6 @@ class MyApp(QWidget):
             learning_list.append(i)
         first_image_path = r"./datasets/Imgs/" + learning_list[0]
 
-
         # 중간에 큰 그림 나타내는 부분
         self.pixmap = QPixmap(first_image_path)
         self.lbl_img = QLabel()
@@ -231,8 +230,6 @@ class MyApp(QWidget):
 
         self.lbl_img2 = QLabel()
         self.lbl_img2.setPixmap(self.pixmap)
-
-        # 원본 이미지
         self.pixmap2 = self.pixmap.scaled(200, 200)
         self.lbl_img2.setPixmap(self.pixmap2)
 
@@ -242,7 +239,6 @@ class MyApp(QWidget):
         for i in mask_list:
             self.msk_list.append(i)
         first_msk_path = r"./datasets/labels/" + self.msk_list[0]
-
 
         # 마스킹 사진
         self.pixmap3 = QPixmap(first_msk_path)
@@ -429,7 +425,8 @@ class MyApp(QWidget):
 
         self.learning.setLayout(hbox)
 
-        self.pixmap4 = QPixmap('./datasets/labels/label_000.png')
+        # 맨 초기상태
+        self.pixmap4 = QPixmap(first_msk_path)
         self.lbl_img4 = QLabel(self.learning)
         self.lbl_img4.setPixmap(self.pixmap4)
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
@@ -439,15 +436,15 @@ class MyApp(QWidget):
         self.lbl_img4.setPixmap(self.pixmap4)
         self.lbl_img4.setAlignment(Qt.AlignCenter)
         self.lbl_img4.setGeometry(324, 10, 450, 500)
-        self.pixmap5 = QPixmap('./img/dark.png')
-        self.lbl_img5 = QLabel(self.learning)
-        self.lbl_img5.setPixmap(self.pixmap5)
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
-        opacity_effect.setOpacity(0.5)
-        self.lbl_img5.setGraphicsEffect(opacity_effect)
-        self.pixmap5 = self.pixmap5.scaled(1200, 800)
-        self.lbl_img5.setPixmap(self.pixmap5)
-        self.lbl_img5.setGeometry(0, 0, 0, 0)
+        # self.pixmap5 = QPixmap('./img/dark.png')
+        # self.lbl_img5 = QLabel(self.learning)
+        # self.lbl_img5.setPixmap(self.pixmap5)
+        # #opacity_effect = QGraphicsOpacityEffect(self.lbl_img5)
+        # #opacity_effect.setOpacity(0.5)
+        # #self.lbl_img5.setGraphicsEffect(opacity_effect)
+        # self.pixmap5 = self.pixmap5.scaled(1200, 800)
+        # self.lbl_img5.setPixmap(self.pixmap5)
+        # self.lbl_img5.setGeometry(0, 0, 0, 0)
 
         # self.loading = QDialog()
 
@@ -466,7 +463,6 @@ class MyApp(QWidget):
         self.lbl_img11 = QLabel()
         self.lbl_img11.setPixmap(self.pixmap11)
         self.pixmap11 = self.pixmap11.scaled(700, 700)
-        self.lbl_img11.setPixmap(self.pixmap11)
 
         self.pixmap22 = QPixmap('./img/test.png')
         self.lbl_img22 = QLabel()
@@ -532,6 +528,8 @@ class MyApp(QWidget):
         # 이미지 박스
         imgBox = QHBoxLayout()
         imgBox.addWidget(self.lbl_img11)
+        imgBox.addWidget(self.lbl_img22)
+        imgBox.addWidget(self.lbl_img33)
 
         # 중간
         vbox = QVBoxLayout()
@@ -724,10 +722,14 @@ class MyApp(QWidget):
         self.pixmap3 = self.pixmap3.scaled(200, 200)
         self.lbl_img3.setPixmap(self.pixmap3)
 
-        self.pixmap4 = QPixmap('./datasets/labels/' + self.msk_list[self.listwidgetLearning.currentRow()])
+        self.pixmap4 = self.pixmap3
         self.lbl_img4.setPixmap(self.pixmap4)
         self.pixmap4 = self.pixmap4.scaled(450, 500)
         self.lbl_img4.setPixmap(self.pixmap4)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
+        opacity_effect.setOpacity(0.5)
+        self.lbl_img4.setGraphicsEffect(opacity_effect)
+
         self.lbl_img4.setGeometry(324, 10, 450, 500)
 
     # 리스트 클릭시 이미지 변경 (테스트)
@@ -746,12 +748,18 @@ class MyApp(QWidget):
         self.pixmap11 = QPixmap(self.test_model_path + 'input/' + a)
         self.pixmap11 = self.pixmap11.scaled(700, 700)
         self.lbl_img11.setPixmap(self.pixmap11)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img11)
+        opacity_effect.setOpacity(0.9)
+        self.lbl_img11.setGraphicsEffect(opacity_effect)
+        self.lbl_img11.setPixmap(self.pixmap11)
 
         # 라벨
         # print(self.test_model_path + 'label/' + b)
         self.pixmap22 = QPixmap(self.test_model_path + 'label/' + b)
         self.pixmap22 = self.pixmap22.scaled(700, 700)
         self.lbl_img22.setPixmap(self.pixmap22)
+        self.lbl_img22.setStyleSheet('color: red; background: red')
+
 
         # 아웃풋
         # print(self.test_model_path + 'output/' + c)
