@@ -47,7 +47,7 @@
 <br>
 
 ## 📚 Tech Stack
-Python
+Python  
 AI
 
 
@@ -58,18 +58,18 @@ AI
 
 
 ## 💻 개발환경
-conda 4.10.3
-python = 3.8.0
-pytorch = 1.7.0
-cudatoolkit = 11.3.1
-numpy = 1.21.2 
-tensorboard = 2.7.0
-matplotlib = 3.1.1
-Pillow = 8.4.0
-PyQt5 = 5.15.6
-opencv-python = 4.5.4.58
-pip = 21.3.1
-pyinstaller = 4.7
+- conda 4.10.3  
+- python = 3.8.0  
+- pytorch = 1.7.0  
+- cudatoolkit = 11.3.1  
+- numpy = 1.21.2  
+- tensorboard = 2.7.0  
+- matplotlib = 3.1.1  
+- Pillow = 8.4.0  
+- PyQt5 = 5.15.6  
+- opencv-python = 4.5.4.58  
+- pip = 21.3.1  
+- pyinstaller = 4.7  
 
 
 ## 💻 사용설명서
@@ -104,9 +104,9 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 
 - 이미지 저장 경로에 학습을 원하는 이미지와 라벨을 넣어주고 전처리 버튼을 클릭
 - test/train/label 폴더가 생성되고 각각의 폴더 안에 .npy 파일 생성
-- 학습하기로 이동
+- 학습하기로 이동  
 
-
+ 
 
 
 ## 학습하기  
@@ -115,29 +115,29 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 - 전처리 후 학습모델에 이름 기재
 - Hyperparameter(learningrate/epoch/batchsize) 적절하게 설정
 - 학습시작 
-- 학습 완료 후 Test하기로 이동 
+- 학습 완료 후 Test하기로 이동  
 
 
-
+  
 
 ## Test
 ![image](/uploads/9294cacd3511599f637b75a397a6331a/image.png)
 
 - 원하는 학습 모델을 선택한 뒤 Test 버튼 클릭
 - 해당 모델의 테스트 데이터셋 결과 확인
-- 원하는 학습 모델을 선택한 뒤 log 버튼 클릭하여 해당 모델의 tensorboard 확인
+- 원하는 학습 모델을 선택한 뒤 log 버튼 클릭하여 해당 모델의 tensorboard 확인  
 
 
-
+  
 
 ## Test비교하기
 ![image](/uploads/6fe9780918ef8457a0aaf9e30ed4637c/image.png)
 
 - 2개의 모델을 선택한 뒤 compare 버튼 클릭
-- 2개의 모델의 테스트 데이터셋 결과 확인
+- 2개의 모델의 테스트 데이터셋 결과 확인  
 
 
-
+ 
 
 ## TensorBoard를 통해 학습&테스트 진행내용 확인  
 ![image](/uploads/3eede26f16a21b993b65de71e863b4b2/image.png)
