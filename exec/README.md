@@ -51,9 +51,12 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 1. conda activate AI_sem
 2. python main.py => main.py를 실행시켜 준다 
 
+## 메인화면
+![image](/uploads/d7f4d2c1803392297ddc8b594ef67fb1/image.png)  
+
 
 ## 전처리 
-![image](/uploads/d7f4d2c1803392297ddc8b594ef67fb1/image.png)
+![image](/uploads/5f8d676cb7d0fa6da5994a979a562287/image.png)
 - 이미지 저장 경로에 학습을 원하는 이미지와 라벨을 넣어주고 전처리 버튼을 클릭
 - test/train/label 폴더가 생성되고 각각의 폴더 안에 .npy 파일 생성
 - 학습하기로 이동
