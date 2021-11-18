@@ -1,8 +1,10 @@
 # 라이브러리 추가하기
 import argparse
 from iou import *
+
 import os
 import numpy as np
+import cv2
 
 import torch
 import torch.nn as nn
@@ -67,6 +69,7 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
     print("data dir: %s" % data_dir)
     print("ckpt dir: %s" % ckpt_dir)
     print("log dir: %s" % log_dir)
+
     print("mode: %s" % mode)
 
     # tensorboard 실행하기
@@ -203,8 +206,8 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                 iou_arr += [iou]
                 acc = np.mean(output == label) * 100
 
-                print("TRAIN: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
-                      (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou, acc))
+                print("TRAIN: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+                      (epoch, num_epoch, batch, num_batch_train, np.mean(loss_arr), iou))
 
                 writer_train.add_image(
                     'label', label, num_batch_train * (epoch - 1) + batch, dataformats='NHWC')
@@ -242,8 +245,8 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                     iou_arr += [iou]
                     acc = np.mean(output == label) * 100
 
-                    print("VALID: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
-                          (epoch, num_epoch, batch, num_batch_val, np.mean(loss_arr), iou, acc))
+                    print("VALID: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+                          (epoch, num_epoch, batch, num_batch_val, np.mean(loss_arr), iou))
                     # VALID에서 Best LOSS
                     if best_loss > np.mean(loss_arr):
                         best_loss = np.mean(loss_arr)
@@ -301,18 +304,47 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                 acc = np.mean(output == label) * 100
                 acc_arr += [acc]
 
-                print("TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
-                      (batch, num_batch_test, np.mean(loss_arr), iou, acc))
+                print("TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+                      (batch, num_batch_test, np.mean(loss_arr), iou))
 
                 for j in range(label.shape[0]):
                     id = batch
 
                     plt.imsave(os.path.join(result_dir, 'png/label', 'label_%04d.png' %
                                id), label[j].squeeze(), cmap='gray')
+                    src = cv2.imread(os.path.join(result_dir, 'png/label', 'label_%04d.png' %
+                                                  id), 1)
+                    tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+                    _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+                    b, g, r = cv2.split(src)
+                    rgba = [b, g, r, alpha]
+                    dst = cv2.merge(rgba, 4)
+                    cv2.imwrite(os.path.join(result_dir, 'png/label', 'label_%04d.png' %
+                                             id), dst)
+
                     plt.imsave(os.path.join(result_dir, 'png/input', 'input_%04d.png' %
                                id), input[j].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
                                id), output[j].squeeze(), cmap='gray')
+
+                    img = cv2.imread(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
+                                                  id))
+                    canvas = np.zeros(shape=img.shape, dtype=np.uint8)
+                    canvas.fill(0)
+                    canvas[np.where((img == [255, 255, 255]).all(axis=2))] = [
+                        0, 0, 255]
+                    cv2.imwrite(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
+                                             id), canvas)
+
+                    src = cv2.imread(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
+                                                  id), 1)
+                    tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+                    _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+                    b, g, r = cv2.split(src)
+                    rgba = [b, g, r, alpha]
+                    dst = cv2.merge(rgba, 4)
+                    cv2.imwrite(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
+                                             id), dst)
 
                     np.save(os.path.join(result_dir, 'numpy/label',
                             'label_%04d.npy' % id), label[j].squeeze())
@@ -321,8 +353,8 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                     np.save(os.path.join(result_dir, 'numpy/output',
                             'output_%04d.npy' % id), output[j].squeeze())
 
-        print("AVERAGE TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
-              (batch, num_batch_test, np.mean(loss_arr), np.mean(iou_arr), np.mean(acc_arr)))
+        print("AVERAGE TEST: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+              (batch, num_batch_test, np.mean(loss_arr), np.mean(iou_arr)))
 
     # COMPARE MODE
     else:
@@ -379,23 +411,71 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                 acc2 = np.mean(output2 == label) * 100
                 acc_arr2 += [acc2]
 
-                print("TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
-                      (batch, num_batch_test, np.mean(loss_arr1), iou1, acc1))
+                print("TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+                      (batch, num_batch_test, np.mean(loss_arr1), iou1))
 
-                print("TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
-                      (batch, num_batch_test, np.mean(loss_arr2), iou2, acc2))
+                print("TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+                      (batch, num_batch_test, np.mean(loss_arr2), iou2))
 
                 for j in range(label.shape[0]):
                     id = batch
 
                     plt.imsave(os.path.join(compare_dir, 'png/label', 'label_%04d.png' %
                                id), label[j].squeeze(), cmap='gray')
+                    src = cv2.imread(os.path.join(
+                        compare_dir, 'png/label', 'label_%04d.png' % id), 1)
+                    tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+                    _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+                    b, g, r = cv2.split(src)
+                    rgba = [b, g, r, alpha]
+                    dst = cv2.merge(rgba, 4)
+                    cv2.imwrite(os.path.join(
+                        compare_dir, 'png/label', 'label_%04d.png' % id), dst)
+
                     plt.imsave(os.path.join(compare_dir, 'png/input', 'input_%04d.png' %
                                id), input[j].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
                                id), output1[j].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
                                id), output2[j].squeeze(), cmap='gray')
+
+                    img = cv2.imread(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
+                                                  id))
+                    canvas = np.zeros(shape=img.shape, dtype=np.uint8)
+                    canvas.fill(0)
+                    canvas[np.where((img == [255, 255, 255]).all(axis=2))] = [
+                        0, 0, 255]
+                    cv2.imwrite(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
+                                             id), canvas)
+
+                    src = cv2.imread(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
+                                                  id), 1)
+                    tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+                    _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+                    b, g, r = cv2.split(src)
+                    rgba = [b, g, r, alpha]
+                    dst = cv2.merge(rgba, 4)
+                    cv2.imwrite(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
+                                             id), dst)
+
+                    img = cv2.imread(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
+                                                  id))
+                    canvas = np.zeros(shape=img.shape, dtype=np.uint8)
+                    canvas.fill(0)
+                    canvas[np.where((img == [255, 255, 255]).all(axis=2))] = [
+                        255, 0, 0]
+                    cv2.imwrite(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
+                                             id), canvas)
+
+                    src = cv2.imread(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
+                                                  id), 1)
+                    tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+                    _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+                    b, g, r = cv2.split(src)
+                    rgba = [b, g, r, alpha]
+                    dst = cv2.merge(rgba, 4)
+                    cv2.imwrite(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
+                                             id), dst)
 
                     np.save(os.path.join(compare_dir, 'numpy/label',
                             'label_%04d.npy' % id), label[j].squeeze())
@@ -406,7 +486,7 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                     np.save(os.path.join(compare_dir, 'numpy/output2',
                             'output2_%04d.npy' % id), output2[j].squeeze())
 
-        print("AVERAGE TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f | ACC %.4f" %
-              (batch, num_batch_test, np.mean(loss_arr1), np.mean(iou_arr1), np.mean(acc_arr1)))
-        print("AVERAGE TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f| ACC %.4f" %
-              (batch, num_batch_test, np.mean(loss_arr2), np.mean(iou_arr2), np.mean(acc_arr2)))
+        print("AVERAGE TEST1: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+              (batch, num_batch_test, np.mean(loss_arr1), np.mean(iou_arr1)))
+        print("AVERAGE TEST2: BATCH %04d / %04d | LOSS %.4f | IoU %.4f" %
+              (batch, num_batch_test, np.mean(loss_arr2), np.mean(iou_arr2)))
