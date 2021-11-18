@@ -684,6 +684,7 @@ class MyApp(QWidget):
         self.lbl_img55.setPixmap(self.pixmap55)
         self.lbl_img55.setAlignment(Qt.AlignCenter)
         self.lbl_img55.setGeometry(200, 48, 700, 700)
+        self.lbl_img55.setStyleSheet('background: transparent')
 
         self.pixmap66 = QPixmap()
         self.lbl_img66 = QLabel(self.testOpen_Di)
@@ -695,6 +696,7 @@ class MyApp(QWidget):
         self.lbl_img66.setPixmap(self.pixmap66)
         self.lbl_img66.setAlignment(Qt.AlignCenter)
         self.lbl_img66.setGeometry(200, 48, 700, 700)
+        self.lbl_img66.setStyleSheet('background: transparent')
 
         # 결과 겹칠 거
         self.testOpen_Di.setWindowTitle('Test')
@@ -744,7 +746,7 @@ class MyApp(QWidget):
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img4)
         opacity_effect.setOpacity(0.5)
         self.lbl_img4.setGraphicsEffect(opacity_effect)
-
+        self.lbl_img4.setStyleSheet('background: transparent')
         self.lbl_img4.setGeometry(324, 10, 450, 500)
 
     # 리스트 클릭시 이미지 변경 (테스트)
@@ -774,13 +776,15 @@ class MyApp(QWidget):
         self.pixmap22 = QPixmap(self.test_model_path + 'label/' + b)
         self.pixmap22 = self.pixmap22.scaled(700, 700)
         self.lbl_img22.setPixmap(self.pixmap22)
-        self.lbl_img22.setStyleSheet('color: red; background: red')
+        self.lbl_img22.setStyleSheet('background: transparent')
+
 
         # 아웃풋
         # print(self.test_model_path + 'output/' + c)
         self.pixmap33 = QPixmap(self.test_model_path + 'output/' + c)
         self.pixmap33 = self.pixmap33.scaled(700, 700)
         self.lbl_img33.setPixmap(self.pixmap33)
+        self.lbl_img33.setStyleSheet('background: transparent')
 
         self.lbl_img11.setAlignment(Qt.AlignCenter)
         self.lbl_img22.setAlignment(Qt.AlignCenter)
@@ -797,6 +801,7 @@ class MyApp(QWidget):
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img55)
         opacity_effect.setOpacity(0.6)
         self.lbl_img55.setGraphicsEffect(opacity_effect)
+        self.lbl_img55.setStyleSheet('background: transparent')
 
         self.pixmap66 = self.pixmap33
         self.lbl_img66.setPixmap(self.pixmap66)
@@ -805,6 +810,7 @@ class MyApp(QWidget):
         opacity_effect = QGraphicsOpacityEffect(self.lbl_img66)
         opacity_effect.setOpacity(0.6)
         self.lbl_img66.setGraphicsEffect(opacity_effect)
+        self.lbl_img66.setStyleSheet('background: transparent')
 
     def chkItemClicked3(self):
         # print(self.listwidgetLearning.currentItem().text())
