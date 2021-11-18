@@ -953,7 +953,7 @@ class MyApp(QWidget):
             self.listwidget.clear()
             self.notest = QDialog()
 
-            label0 = QLabel('테스트가 아직 진행되지 않았습니다.', self)
+            label0 = QLabel('테스트가 아직 \n 진행되지 않았습니다.', self)
             label0.setAlignment(Qt.AlignCenter)
             font0 = label0.font()
             font0.setPointSize(30)
@@ -1034,7 +1034,7 @@ class MyApp(QWidget):
             self.compare_listwidget.clear()
             self.notest = QDialog()
 
-            label0 = QLabel('테스트가 아직 진행되지 않았습니다.', self)
+            label0 = QLabel('테스트가 아직 \n 진행되지 않았습니다.', self)
             label0.setAlignment(Qt.AlignCenter)
             font0 = label0.font()
             font0.setPointSize(30)
@@ -1116,7 +1116,7 @@ class MyApp(QWidget):
             self.compare_listwidget.clear()
             self.notest = QDialog()
 
-            label0 = QLabel('테스트가 아직 진행되지 않았습니다.', self)
+            label0 = QLabel('테스트가 아직 \n 진행되지 않았습니다.', self)
             label0.setAlignment(Qt.AlignCenter)
             font0 = label0.font()
             font0.setPointSize(30)
@@ -1145,7 +1145,7 @@ class MyApp(QWidget):
     def dataset_alert(self):
         self.nodatasets = QDialog()
 
-        label0 = QLabel('전처리를 먼저 진행해 주세요.', self)
+        label0 = QLabel('전처리를 먼저 \n 진행해 주세요.', self)
         label0.setAlignment(Qt.AlignCenter)
         font0 = label0.font()
         font0.setPointSize(30)
