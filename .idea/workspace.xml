@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0bb2acd-d97c-4a8d-b6dc-e2a019fdd753" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -17,14 +16,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="17" />
-          <entry key="py" value="10764" />
+          <entry key="py" value="10826" />
           <entry key="txt" value="800" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="817" />
-          <entry key="Python" value="10764" />
+          <entry key="Python" value="10826" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -36,10 +35,10 @@
           <entry key="project.open.time.4" value="9" />
           <entry key="project.open.time.5" value="5" />
           <entry key="project.open.time.6" value="3" />
-          <entry key="project.open.time.7" value="5" />
+          <entry key="project.open.time.7" value="6" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="3" />
-          <entry key="project.opened" value="31" />
+          <entry key="project.opened" value="32" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -73,8 +72,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="701" column="47" lean-forward="true" selection-start-line="701" selection-start-column="47" selection-end-line="701" selection-end-column="47" />
+            <state relative-caret-position="178">
+              <caret line="479" column="47" lean-forward="true" selection-start-line="479" selection-start-column="47" selection-end-line="479" selection-end-column="47" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -268,9 +267,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="5" />
-    <option name="y" value="2" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="10" />
+    <option name="y" value="23" />
     <option name="width" value="1940" />
     <option name="height" value="1050" />
   </component>
@@ -663,7 +662,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637233182561</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="[merge] 기능들 합치기">
+      <created>1637233243483</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1637233243483</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TodoView">
@@ -676,21 +682,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="3" width="1552" height="840" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1650165" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16523464" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7214521" weight="0.25779036" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.7197621" visible="true" weight="0.25710228" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8697951" weight="0.3252841" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4976867" weight="0.32954547" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.47455385" weight="0.16193181" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.47326732" weight="0.2266289" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.47984138" weight="0.2840909" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.27854785" side_tool="true" visible="true" weight="0.12889518" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.28023794" side_tool="true" visible="true" weight="0.25710228" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4976867" weight="0.32954547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -838,8 +845,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="701" column="47" lean-forward="true" selection-start-line="701" selection-start-column="47" selection-end-line="701" selection-end-column="47" />
+        <state relative-caret-position="178">
+          <caret line="479" column="47" lean-forward="true" selection-start-line="479" selection-start-column="47" selection-end-line="479" selection-end-column="47" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
