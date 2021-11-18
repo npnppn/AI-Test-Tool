@@ -840,15 +840,35 @@ class MyApp(QWidget):
         self.lbl_img222.setAlignment(Qt.AlignCenter)
         self.lbl_img333.setAlignment(Qt.AlignCenter)
         self.lbl_img444.setAlignment(Qt.AlignCenter)
-        self.lbl_img111.setGeometry(324, 10, 700, 700)
-        self.lbl_img222.setGeometry(324, 10, 700, 700)
-        self.lbl_img333.setGeometry(324, 10, 700, 700)
-        self.lbl_img444.setGeometry(324, 10, 700, 700)
 
-        #검은색 부분
-        self.pixmap555 = QPixmap(self.compare_model_path + 'label/' + b)
+
+        #겹칠 부분 생성
+        #라벨
+        self.pixmap555 = self.pixmap222
+        self.lbl_img555.setPixmap(self.pixmap555)
         self.pixmap555 = self.pixmap555.scaled(700, 700)
         self.lbl_img555.setPixmap(self.pixmap555)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img555)
+        opacity_effect.setOpacity(0.6)
+        self.lbl_img555.setGraphicsEffect(opacity_effect)
+
+        #output1
+        self.pixmap666 = self.pixmap333
+        self.lbl_img666.setPixmap(self.pixmap666)
+        self.pixmap666 = self.pixmap666.scaled(700, 700)
+        self.lbl_img666.setPixmap(self.pixmap666)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img666)
+        opacity_effect.setOpacity(0.6)
+        self.lbl_img666.setGraphicsEffect(opacity_effect)
+
+        #output2
+        self.pixmap777 = self.pixmap333
+        self.lbl_img777.setPixmap(self.pixmap777)
+        self.pixmap777 = self.pixmap777.scaled(700, 700)
+        self.lbl_img777.setPixmap(self.pixmap777)
+        opacity_effect = QGraphicsOpacityEffect(self.lbl_img777)
+        opacity_effect.setOpacity(0.6)
+        self.lbl_img777.setGraphicsEffect(opacity_effect)
 
     def clickButton(self):
         QCoreApplication.instance().quit
@@ -940,23 +960,27 @@ class MyApp(QWidget):
         if self.compare_cb1.currentIndex() == 0:
             return
 
-        path1 = self.test_model_arr[self.compare_cb1.currentIndex()]
+        path1 = self.test_model_arr1[self.compare_cb1.currentIndex()]
         res = path1.split('\\')[-1]
         res1 = path1.split('\\')[2]
         path1 = './checkpoint/' + res1 + '/' + res
         test_model_path_res1 = os.path.basename(path1).replace(".pth", "")
+        self.compare_model_path = './compare/' + test_model_path_res1 + '/png/'
         epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value = info_load(path1)
         self.loss_widget1.setText(str(loss_value))
         self.iou_widget1.setText(str(iou_value))
 
-        if self.compare_cb2.currentIndex() == 0:
-            return
-        path2 = self.test_model_arr[self.compare_cb2.currentIndex()]
-        res = path2.split('\\')[-1]
-        res1 = path2.split('\\')[2]
-        path2 = './checkpoint/' + res1 + '/' + res
-        test_model_path_res2 = os.path.basename(path2).replace(".pth", "")
-        self.compare_model_path = './compare/' + test_model_path_res1 + '&' + test_model_path_res2 + '/png/'
+        # if self.compare_cb2.currentIndex() == 0:
+        #     return
+        # path2 = self.test_model_arr2[self.compare_cb2.currentIndex()]
+        # res = path2.split('\\')[-1]
+        # res1 = path2.split('\\')[2]
+        # path2 = './checkpoint/' + res1 + '/' + res
+        # test_model_path_res2 = os.path.basename(path2).replace(".pth", "")
+        # self.compare_model_path2 = './compare/' + test_model_path_res2 + '/png/'
+
+        # print(self.compare_model_path)
+        # print(self.compare_model_path2)
 
         self.compare_input_fileList = []
         self.compare_label_fileList = []
@@ -1015,56 +1039,60 @@ class MyApp(QWidget):
             self.notest.show()
             self.reset()
 
-
-
     def compare_selec_model2(self):
         if self.compare_cb2.currentIndex() == 0:
             return
 
-        path2 = self.test_model_arr[self.compare_cb2.currentIndex()]
+        path2 = self.test_model_arr2[self.compare_cb2.currentIndex()]
         res = path2.split('\\')[-1]
         res1 = path2.split('\\')[2]
         path2 = './checkpoint/' + res1 + '/' + res
         test_model_path_res2 = os.path.basename(path2).replace(".pth", "")
+        self.compare_model_path2 = './compare/' + test_model_path_res2 + '/png/'
         epoch_value, loss_value, acc_value, iou_value, model_value, batch_value, learn_value = info_load(path2)
         self.loss_widget2.setText(str(loss_value))
         self.iou_widget2.setText(str(iou_value))
 
-        if self.compare_cb2.currentIndex() == 0:
-            return
+        # if self.compare_cb2.currentIndex() == 0:
+        #     return
 
-        path1 = self.test_model_arr[self.compare_cb1.currentIndex()]
-        res = path1.split('\\')[-1]
-        res1 = path1.split('\\')[2]
-        path1 = './checkpoint/' + res1 + '/' + res
-        test_model_path_res1 = os.path.basename(path1).replace(".pth", "")
-        self.compare_model_path = './compare/' + test_model_path_res1 + '&' + test_model_path_res2 + '/png/'
-        print(self.compare_model_path)
+        # path1 = self.test_model_arr1[self.compare_cb1.currentIndex()]
+        # res = path1.split('\\')[-1]
+        # res1 = path1.split('\\')[2]
+        # path1 = './checkpoint/' + res1 + '/' + res
+        # test_model_path_res1 = os.path.basename(path1).replace(".pth", "")
+        # self.compare_model_path = './compare/' + test_model_path_res1 + '/png/'
+        #
+        # print(self.compare_model_path)
+        print(self.compare_model_path2)
 
         self.compare_input_fileList = []
         self.compare_label_fileList = []
         self.compare_output1_fileList = []
         self.compare_output2_fileList = []
 
-        if os.path.exists(self.compare_model_path + 'input'):
-            input_fileList = os.listdir(self.compare_model_path + 'input')
+        if os.path.exists(self.compare_model_path2 + 'input'):
+            input_fileList = os.listdir(self.compare_model_path2 + 'input')
             self.compare_listwidget.clear()
             for f in input_fileList:
                 self.compare_listwidget.addItem(f)
                 self.compare_input_fileList.append(f)
 
-        if os.path.exists(self.compare_model_path + 'label'):
-            label_fileList = os.listdir(self.compare_model_path + 'label')
+
+        if os.path.exists(self.compare_model_path2 + 'label'):
+            label_fileList = os.listdir(self.compare_model_path2 + 'label')
             for f in label_fileList:
                 self.compare_label_fileList.append(f)
 
-        if os.path.exists(self.compare_model_path + 'output1'):
-            output_fileList = os.listdir(self.compare_model_path + 'output1')
+
+        if os.path.exists(self.compare_model_path2 + 'output1'):
+            output_fileList = os.listdir(self.compare_model_path2 + 'output1')
             for f in output_fileList:
                 self.compare_output1_fileList.append(f)
 
-        if os.path.exists(self.compare_model_path + 'output2'):
-            output_fileList = os.listdir(self.compare_model_path + 'output2')
+
+        if os.path.exists(self.compare_model_path2 + 'output2'):
+            output_fileList = os.listdir(self.compare_model_path2 + 'output2')
             for f in output_fileList:
                 self.compare_output2_fileList.append(f)
 
@@ -1250,12 +1278,12 @@ class MyApp(QWidget):
 
     def loading3(self):
         self.compare_test = QDialog()
-        path1 = self.test_model_arr[self.compare_cb1.currentIndex()]
+        path1 = self.test_model_arr1[self.compare_cb1.currentIndex()]
         res = path1.split('\\')[-1]
         res1 = path1.split('\\')[2]
         path1 = './checkpoint/' + res1 + '/' + res
 
-        path2 = self.test_model_arr[self.compare_cb2.currentIndex()]
+        path2 = self.test_model_arr2[self.compare_cb2.currentIndex()]
         res = path2.split('\\')[-1]
         res1 = path2.split('\\')[2]
         path2 = './checkpoint/' + res1 + '/' + res
@@ -1331,10 +1359,10 @@ class MyApp(QWidget):
         self.pixmap444 = self.pixmap444.scaled(700, 700)
         self.lbl_img444.setPixmap(self.pixmap444)
 
-        self.lbl_img111.setGeometry(324, 10, 450, 500)
-        self.lbl_img222.setGeometry(324, 10, 450, 500)
-        self.lbl_img333.setGeometry(324, 10, 450, 500)
-        self.lbl_img444.setGeometry(324, 10, 450, 500)
+        # self.lbl_img111.setGeometry(324, 10, 450, 500)
+        # self.lbl_img222.setGeometry(324, 10, 450, 500)
+        # self.lbl_img333.setGeometry(324, 10, 450, 500)
+        # self.lbl_img444.setGeometry(324, 10, 450, 500)
 
         # QListWidget 추가
         self.compare_listwidget = QListWidget(self)
@@ -1345,6 +1373,7 @@ class MyApp(QWidget):
 
         # 아웃풋 이미지 주소
         self.compare_model_path = ''
+        self.compare_model_path2 = ''
 
         # 폰트 및 글자
         label0 = QLabel('이미지 선택', self)
@@ -1413,9 +1442,9 @@ class MyApp(QWidget):
         # 모델들 하위 경로 가져오기
         targetPattern = r"./" + "*/**/*.pth"
         cbList = glob.glob(targetPattern)
-        self.test_model_arr = ['a.a']
+        self.test_model_arr1 = ['a.a']
         for f in cbList:
-            self.test_model_arr.append(f)
+            self.test_model_arr1.append(f)
             file = os.path.basename(f)
             self.compare_cb1.addItem(file)
 
@@ -1549,15 +1578,41 @@ class MyApp(QWidget):
 
         self.testCompare.setLayout(hbox)
 
-        self.pixmap555 = QPixmap('./img/dark.png')
+        #라벨부분
+        self.pixmap555 = QPixmap()
         self.lbl_img555 = QLabel(self.testCompare)
         self.lbl_img555.setPixmap(self.pixmap555)
-        opacity_effect = QGraphicsOpacityEffect(self.lbl_img555)
-        opacity_effect.setOpacity(0.5)
-        self.lbl_img555.setGraphicsEffect(opacity_effect)
-        self.pixmap555 = self.pixmap555.scaled(1200, 800)
+        opacity_effect1 = QGraphicsOpacityEffect(self.lbl_img555)
+        opacity_effect1.setOpacity(0.6)
+        self.lbl_img555.setGraphicsEffect(opacity_effect1)
+        self.pixmap555 = self.pixmap555.scaled(700, 700)
         self.lbl_img555.setPixmap(self.pixmap555)
-        self.lbl_img555.setGeometry(0, 0, 0, 0)
+        self.lbl_img555.setAlignment(Qt.AlignCenter)
+        self.lbl_img555.setGeometry(200, 16, 700, 700)
+
+        #결과1
+        self.pixmap666 = QPixmap()
+        self.lbl_img666 = QLabel(self.testCompare)
+        self.lbl_img666.setPixmap(self.pixmap666)
+        opacity_effect2 = QGraphicsOpacityEffect(self.lbl_img666)
+        opacity_effect2.setOpacity(0.6)
+        self.lbl_img666.setGraphicsEffect(opacity_effect2)
+        self.pixmap666 = self.pixmap666.scaled(700, 700)
+        self.lbl_img666.setPixmap(self.pixmap666)
+        self.lbl_img666.setAlignment(Qt.AlignCenter)
+        self.lbl_img666.setGeometry(200, 16, 700, 700)
+
+        #결과2
+        self.pixmap777 = QPixmap()
+        self.lbl_img777 = QLabel(self.testCompare)
+        self.lbl_img777.setPixmap(self.pixmap777)
+        opacity_effect3 = QGraphicsOpacityEffect(self.lbl_img777)
+        opacity_effect3.setOpacity(0.6)
+        self.lbl_img777.setGraphicsEffect(opacity_effect3)
+        self.pixmap777 = self.pixmap777.scaled(700, 700)
+        self.lbl_img777.setPixmap(self.pixmap777)
+        self.lbl_img777.setAlignment(Qt.AlignCenter)
+        self.lbl_img777.setGeometry(200, 16, 700, 700)
 
         # QDialog 세팅
         self.testCompare.setWindowTitle('TestCompare')
