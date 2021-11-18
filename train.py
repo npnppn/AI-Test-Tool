@@ -312,6 +312,16 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
 
                     plt.imsave(os.path.join(result_dir, 'png/label', 'label_%04d.png' %
                                id), label[j].squeeze(), cmap='gray')
+                    src = cv2.imread(os.path.join(result_dir, 'png/label', 'label_%04d.png' %
+                                                  id), 1)
+                    tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+                    _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+                    b, g, r = cv2.split(src)
+                    rgba = [b, g, r, alpha]
+                    dst = cv2.merge(rgba, 4)
+                    cv2.imwrite(os.path.join(result_dir, 'png/label', 'label_%04d.png' %
+                                             id), dst)
+
                     plt.imsave(os.path.join(result_dir, 'png/input', 'input_%04d.png' %
                                id), input[j].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
@@ -325,6 +335,16 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                         0, 0, 255]
                     cv2.imwrite(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
                                              id), canvas)
+
+                    src = cv2.imread(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
+                                                  id), 1)
+                    tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+                    _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+                    b, g, r = cv2.split(src)
+                    rgba = [b, g, r, alpha]
+                    dst = cv2.merge(rgba, 4)
+                    cv2.imwrite(os.path.join(result_dir, 'png/output', 'output_%04d.png' %
+                                             id), dst)
 
                     np.save(os.path.join(result_dir, 'numpy/label',
                             'label_%04d.npy' % id), label[j].squeeze())
@@ -402,6 +422,16 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
 
                     plt.imsave(os.path.join(compare_dir, 'png/label', 'label_%04d.png' %
                                id), label[j].squeeze(), cmap='gray')
+                    src = cv2.imread(os.path.join(
+                        compare_dir, 'png/label', 'label_%04d.png' % id), 1)
+                    tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+                    _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+                    b, g, r = cv2.split(src)
+                    rgba = [b, g, r, alpha]
+                    dst = cv2.merge(rgba, 4)
+                    cv2.imwrite(os.path.join(
+                        compare_dir, 'png/label', 'label_%04d.png' % id), dst)
+
                     plt.imsave(os.path.join(compare_dir, 'png/input', 'input_%04d.png' %
                                id), input[j].squeeze(), cmap='gray')
                     plt.imsave(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
@@ -418,6 +448,16 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                     cv2.imwrite(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
                                              id), canvas)
 
+                    src = cv2.imread(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
+                                                  id), 1)
+                    tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+                    _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+                    b, g, r = cv2.split(src)
+                    rgba = [b, g, r, alpha]
+                    dst = cv2.merge(rgba, 4)
+                    cv2.imwrite(os.path.join(compare_dir, 'png/output1', 'output1_%04d.png' %
+                                             id), dst)
+
                     img = cv2.imread(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
                                                   id))
                     canvas = np.zeros(shape=img.shape, dtype=np.uint8)
@@ -426,6 +466,16 @@ def train(lr=0, batch_size=0, num_epoch=0, mode='test', name='', model1='train',
                         255, 0, 0]
                     cv2.imwrite(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
                                              id), canvas)
+
+                    src = cv2.imread(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
+                                                  id), 1)
+                    tmp = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+                    _, alpha = cv2.threshold(tmp, 0, 255, cv2.THRESH_BINARY)
+                    b, g, r = cv2.split(src)
+                    rgba = [b, g, r, alpha]
+                    dst = cv2.merge(rgba, 4)
+                    cv2.imwrite(os.path.join(compare_dir, 'png/output2', 'output2_%04d.png' %
+                                             id), dst)
 
                     np.save(os.path.join(compare_dir, 'numpy/label',
                             'label_%04d.npy' % id), label[j].squeeze())
