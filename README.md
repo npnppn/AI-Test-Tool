@@ -1,3 +1,4 @@
+
 # 🌎 PAI (Personal AI)
 
 
@@ -5,9 +6,9 @@
 
 
 ## 👨‍👩‍👧‍👦 팀원
- 💜 **김다윗**  
- 💛 **권도엽**  
- 💚 **박형민**  
+ 🧡 **김다윗**
+ 💛 **권도엽**
+ 💚 **박형민**
 
 ## 🎥 프로젝트 개요
 ### 진행 기간
@@ -29,9 +30,9 @@
 
 
 ### 와이어프레임
-![image](/uploads/9ff6eb77dbd8b9c033be747217a7222a/image.png)
+![](https://i.imgur.com/vmDp1b0.png)
 
-![image](/uploads/8b0aebff5deda29a780b96b284f7c6dc/image.png)
+![](https://i.imgur.com/zJcIK7E.png)
 
 
 
@@ -47,29 +48,29 @@
 <br>
 
 ## 📚 Tech Stack
-Python  
+Python
 AI
 
 
 ## 📊 서비스 구조도
-![image](/uploads/5dd7bf38d30a8242a5185e9d668ffd80/image.png)
+![](https://i.imgur.com/4bQimqm.png)
 
 
 
 
 ## 💻 개발환경
-- conda 4.10.3  
-- python = 3.8.0  
-- pytorch = 1.7.0  
-- cudatoolkit = 11.3.1  
-- numpy = 1.21.2  
-- tensorboard = 2.7.0  
-- matplotlib = 3.1.1  
-- Pillow = 8.4.0  
-- PyQt5 = 5.15.6  
-- opencv-python = 4.5.4.58  
-- pip = 21.3.1  
-- pyinstaller = 4.7  
+conda 4.10.3
+python = 3.8.0
+pytorch = 1.7.0
+cudatoolkit = 11.3.1
+numpy = 1.21.2 
+tensorboard = 2.7.0
+matplotlib = 3.1.1
+Pillow = 8.4.0
+PyQt5 = 5.15.6
+opencv-python = 4.5.4.58
+pip = 21.3.1
+pyinstaller = 4.7
 
 
 ## 💻 사용설명서
@@ -95,64 +96,53 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 2. python main.py => main.py를 실행시켜 준다 
 
 ### 메인화면
-![image](/uploads/30d85cc49d7b7a912a9274ba7d4cdb92/image.png)
+![](https://i.imgur.com/MYaWISC.png)
 
 
 
 ## 전처리 
-![image](/uploads/3d2bf4e9deefda1f1e67ff5c05935b0a/image.png)
+![](https://i.imgur.com/5aOaljw.png)
 
 - 이미지 저장 경로에 학습을 원하는 이미지와 라벨을 넣어주고 전처리 버튼을 클릭
 - test/train/label 폴더가 생성되고 각각의 폴더 안에 .npy 파일 생성
-- 학습하기로 이동  
+- 학습하기로 이동
 
- 
+
 
 
 ## 학습하기  
-![image](/uploads/76aa596a5fd21fff4e1a30081288a379/image.png)
+![](https://i.imgur.com/KbaB1on.png)
 
 - 전처리 후 학습모델에 이름 기재
 - Hyperparameter(learningrate/epoch/batchsize) 적절하게 설정
 - 학습시작 
-- 학습 완료 후 Test하기로 이동  
+- 학습 완료 후 Test하기로 이동 
 
 
-  
+
 
 ## Test
-![image](/uploads/9294cacd3511599f637b75a397a6331a/image.png)
+![](https://i.imgur.com/rbtVarZ.png)
 
 - 원하는 학습 모델을 선택한 뒤 Test 버튼 클릭
 - 해당 모델의 테스트 데이터셋 결과 확인
-- 원하는 학습 모델을 선택한 뒤 log 버튼 클릭하여 해당 모델의 tensorboard 확인  
+- 원하는 학습 모델을 선택한 뒤 log 버튼 클릭하여 해당 모델의 tensorboard 확인
 
 
-  
+
 
 ## Test비교하기
-![image](/uploads/6fe9780918ef8457a0aaf9e30ed4637c/image.png)
+![](https://i.imgur.com/PTe9P19.png)
 
 - 2개의 모델을 선택한 뒤 compare 버튼 클릭
-- 2개의 모델의 테스트 데이터셋 결과 확인  
+- 2개의 모델의 테스트 데이터셋 결과 확인
 
 
- 
+
 
 ## TensorBoard를 통해 학습&테스트 진행내용 확인  
-![image](/uploads/3eede26f16a21b993b65de71e863b4b2/image.png)
+![](https://i.imgur.com/8JSYtMt.png)
 
-![image](/uploads/aeb6aa890cfa8d2e549d1a7a2f28f403/image.png)
+![](https://i.imgur.com/OuonPwV.png)
 
-
-
-## 기타
-- 커밋 메세지 가이드  
-https://marred-aura-ac1.notion.site/Commit-Style-Guide-bd1ab80a24b748afa69982afe43e3e7f
-
-- 그라운드 룰  
-https://marred-aura-ac1.notion.site/Ground-Rules-15671bb4d0004eb483f9bc6604ad3a2d
-
-- 기능 명세서  
-https://marred-aura-ac1.notion.site/54e91de2a37a4f488067a57a367f5e0d
 
