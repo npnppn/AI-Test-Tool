@@ -6,9 +6,9 @@
 
 
 ## 👨‍👩‍👧‍👦 팀원
- 🧡 **김다윗**
- 💛 **권도엽**
- 💚 **박형민**
+ 🧡 **김다윗**  
+ 💛 **권도엽**  
+ 💚 **박형민**  
 
 ## 🎥 프로젝트 개요
 ### 진행 기간
@@ -48,7 +48,7 @@
 <br>
 
 ## 📚 Tech Stack
-Python
+Python  
 AI
 
 
@@ -59,18 +59,18 @@ AI
 
 
 ## 💻 개발환경
-conda 4.10.3
-python = 3.8.0
-pytorch = 1.7.0
-cudatoolkit = 11.3.1
-numpy = 1.21.2 
-tensorboard = 2.7.0
-matplotlib = 3.1.1
-Pillow = 8.4.0
-PyQt5 = 5.15.6
-opencv-python = 4.5.4.58
-pip = 21.3.1
-pyinstaller = 4.7
+conda 4.10.3  
+python = 3.8.0  
+pytorch = 1.7.0  
+cudatoolkit = 11.3.1  
+numpy = 1.21.2   
+tensorboard = 2.7.0  
+matplotlib = 3.1.1  
+Pillow = 8.4.0  
+PyQt5 = 5.15.6  
+opencv-python = 4.5.4.58  
+pip = 21.3.1  
+pyinstaller = 4.7  
 
 
 ## 💻 사용설명서
